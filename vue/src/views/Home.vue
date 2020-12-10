@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>Here's your deck list:</h1>
     <p>You must be authenticated to see this</p>
     <deck-list />
     <!-- <div class="button">

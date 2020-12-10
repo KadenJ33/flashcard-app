@@ -3,26 +3,36 @@
     <h1>Deck Name</h1>
     <form>
       <label for="answer">Name</label>
-      <input v-model="deck.name" type="text" id="answer" required />
-      <button type="submit">Create Deck</button>
+      <input type="text" id="answer"/>
+      <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
   </div>
 </template>
 
 <script>
-import AuthService from '../services/AuthService';
+import authService from '../services/AuthService';
 export default {
     data(){
         return{
             deck: {
                 userID: '1',
-                name: '',
+                name: 'HELPME',
         }
     };
     },
     methods: {
-        addDeck(){
-            AuthService.addDeck(this.deck)
+        newDeck(){
+            authService
+            .addDeck(this.deck)
+            // .then(response => {
+            //     console.log("HERE")
+            //     if (response.status == 201) {
+            //         this.$router.push("/")
+            //     }
+            // })
+            // .catch(error => {
+            //     console.error(error);
+            // });
         }
     }
 
