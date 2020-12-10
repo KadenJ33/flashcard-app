@@ -10,15 +10,23 @@ public interface deckDAO {
 	
 	void createDeck(int userID, String name);
 	
-	void updateName(int deckID);
+	void updateName(int deckID, String name);
 	
-	void updateCorrectness(int deckID);
+	void updateCorrectTrue(int deckID);
 	
-	boolean showCorrect(int userID, int deckID);
+	void updateCorrectFalse(int deckID);
 	
-	boolean showFalse(int userID, int deckID);
+	List<Deck> showTrueAndFalse(int userID);
 	
-	void deleteDeck(int userID, int deckID);
+	List<Deck> showAllFalse(int userID);
+	
+	List<Deck> showAllTrue(int userID);
+	
+	boolean showOneCorrectness(int deckID);
+	
+	void deleteDeck(int deckID);
+
+	
 	
 	
 
