@@ -5,32 +5,31 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Deck;
+import com.techelevator.model.NewDeckDTO;
 
-
+@Component
 public class deckSqlDAO implements deckDAO {
 	private JdbcTemplate jdbc;
 	
+	public deckSqlDAO(JdbcTemplate jdbc) {
+		this.jdbc = jdbc;
+	}
 	
+	
+
 	@Override
 	public void createDeck(int userID, String name) {
 		String sql = "INSERT INTO decks (user_id, deck_id, name, correct) VALUES (?, DEFAULT, ?, ?)";
 		jdbc.update(sql, userID, name, false);
 	}
-	
-	
-	
-	
-	
-
-
-
 
 	@Override
 	public List<Deck> findAllDecks(int userID) {
 		List<Deck> decks = new ArrayList<>();
-		String sql = "SELECT deck_id, user_id, name, correct WHERE user_id = ?";
+		String sql = "SELECT deck_id, user_id, name, correct FROM decks WHERE user_id = ?";
 		SqlRowSet results = jdbc.queryForRowSet(sql, userID);
 		while(results.next()) {
 			Deck deck = mapRowToDeckWithUser(results);
@@ -124,4 +123,7 @@ private Deck mapRowToDeckWithUser(SqlRowSet rs) {
         deck.setCorrect(rs.getBoolean("correct"));
         return deck;
     }
+
+
+
 }

@@ -7,7 +7,9 @@ import com.techelevator.model.Deck;
 
 public interface cardDAO {
 	
-List<Deck> findAllCards(int userID);
+	void createCard(int deckID, int userID, String question, String answer);
+	
+	List<Deck> findAllCards(int userID);
 	
 	String addQuestion(String question);
 	
