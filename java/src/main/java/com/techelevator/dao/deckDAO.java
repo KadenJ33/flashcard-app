@@ -8,11 +8,11 @@ public interface deckDAO {
 	
 	List<Deck> findAllDecks(int userID);
 	
-	Deck createDeck(int userID);
+	void createDeck(int userID, String name);
 	
-	Deck updateName(int deckID);
+	void updateName(int deckID);
 	
-	Deck updateCorrectness(int deckID);
+	void updateCorrectness(int deckID);
 	
 	boolean showCorrect(int userID, int deckID);
 	
