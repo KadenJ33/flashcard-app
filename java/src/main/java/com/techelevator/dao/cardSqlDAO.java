@@ -19,19 +19,19 @@ public class cardSqlDAO implements cardDAO {
 	}
 	
 	
-
+//controller done
 	@Override
 	public void createCard(int deckID, int userID, String question, String answer) {
 		String sql = "INSERT INTO cards (card_id, deck_id, user_id, question, answer, correct, rank) VALUES (DEFAULT, ?, ?, ?, ?, DEFAULT, DEFAULT)";
 		jdbc.update(sql, deckID, userID, question, answer);
 	}
 
-	
+//controller done
 	@Override
-	public List<Card> findAllCards(int userID) {
+	public List<Card> findAllCards(int userID, int deckID) {
 		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE user_id = ?";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID);
+		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
 		while(results.next()) {
 			Card card = mapRowToCardWithUser(results);
 			cards.add(card);
@@ -54,7 +54,8 @@ public class cardSqlDAO implements cardDAO {
 		String sql = "INSERT INTO cards (answer) VALUES (?)";
 		jdbc.update(sql, answer);
 	}
-
+	
+//controller done
 	@Override
 	public void updateCorrectTrue(int cardID) {
 		String sql = "UPDATE cards SET correct = true, rank = rank + 1 WHERE card_id = ?";
@@ -62,6 +63,7 @@ public class cardSqlDAO implements cardDAO {
 		
 	}
 	
+//controller done
 	@Override
 	public void updateCorrectFalse(int cardID) {
 		String sql = "UPDATE cards SET correct = false, rank = rank - 1 WHERE card_id = ?";
@@ -98,6 +100,23 @@ public class cardSqlDAO implements cardDAO {
 		List<Card> cards = new ArrayList<>();
 		String sql = "SELECT deck_id, card_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ? AND correct = false";
 		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
+		while(results.next()) {
+			Card card = mapRowToCardWithUser(results);
+			cards.add(card);
+		}
+		return cards;
+	}
+	
+	public int showRank(int cardID) {
+		String sql = "SELECT rank FROM cards WHERE card_id = ?";
+		int results = jdbc.queryForObject(sql, int.class, cardID);
+		return results;
+	}
+	
+	public List<Card> showAllRanks(int deckID) {
+		List<Card> cards = new ArrayList<>();
+		String sql = "SELECT deck_id, card_id, rank FROM cards WHERE deck_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(sql, deckID);
 		while(results.next()) {
 			Card card = mapRowToCardWithUser(results);
 			cards.add(card);
