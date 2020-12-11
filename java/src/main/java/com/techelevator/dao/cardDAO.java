@@ -9,23 +9,27 @@ public interface cardDAO {
 	
 	void createCard(int deckID, int userID, String question, String answer);
 	
-	List<Deck> findAllCards(int userID);
+	List<Card> findAllCards(int userID);
 	
-	String addQuestion(String question);
+	void addQuestion(String question);
 	
-	String addAnswer(String answer);
+	void addAnswer(String answer);
 	
-	Card updateCorrectness(int cardID);
+	void updateCorrectTrue(int cardID);
 	
-	boolean showCorrect(int userID, int deckID);
+	void updateCorrectFalse(int cardID);
 	
-	boolean showFalse(int userID, int deckID);
+	List<Card> showTrueAndFalse(int userID, int deckID);
 	
-	String updateQuestion(String question);
+	List<Card> showTrue(int userID, int deckID);
 	
-	String updateAnswer(String answer);
+	List<Card> showFalse(int userID, int deckID);
 	
-	void deleteCard(int userID, int deckID);
+	void updateQuestion(String question, int cardID);
+	
+	void updateAnswer(String answer, int cardID);
+	
+	void deleteCard(int userID, int deckID, int cardID);
 	
 
 }
