@@ -10,16 +10,28 @@ public class cardDTO {
 	private String question;
 	private String answer;
 	private boolean correct;
+	private int rank;
 	
 	public cardDTO() { }
 	
-	public cardDTO(int deckID, int userID, String question, String answer) {
+	public cardDTO(int deckID, int userID, String question, String answer, int rank) {
 		this.deckID = deckID;
 		this.userID = userID;
 		this.question = question;
 		this.answer = answer;
+		this.rank = rank;
 	}
 
+
+	//getters and setter
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
 	public int getCardID() {
 		return cardID;
 	}

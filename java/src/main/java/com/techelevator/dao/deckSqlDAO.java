@@ -6,9 +6,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-
 import com.techelevator.model.Deck;
-import com.techelevator.model.NewDeckDTO;
 
 @Component
 public class deckSqlDAO implements deckDAO {
@@ -21,15 +19,15 @@ public class deckSqlDAO implements deckDAO {
 	
 
 	@Override
-	public void createDeck(int userID, String name) {
-		String sql = "INSERT INTO decks (user_id, deck_id, name, correct) VALUES (?, DEFAULT, ?, ?)";
-		jdbc.update(sql, userID, name, false);
+	public void createDeck(int userID, String name, String description) {
+		String sql = "INSERT INTO decks (user_id, deck_id, name, correct, description, rank) VALUES (?, DEFAULT, ?, DEFAULT, ?, DEFAULT)";
+		jdbc.update(sql, userID, name, description);
 	}
 
 	@Override
 	public List<Deck> findAllDecks(int userID) {
 		List<Deck> decks = new ArrayList<>();
-		String sql = "SELECT deck_id, user_id, name, correct FROM decks WHERE user_id = ?";
+		String sql = "SELECT deck_id, user_id, name, correct, description, rank FROM decks WHERE user_id = ?";
 		SqlRowSet results = jdbc.queryForRowSet(sql, userID);
 		while(results.next()) {
 			Deck deck = mapRowToDeckWithUser(results);
@@ -114,6 +112,7 @@ private Deck mapRowToDeckWithUser(SqlRowSet rs) {
         deck.setName(rs.getString("name"));
         deck.setDeckID(rs.getInt("deck_id"));
         deck.setCorrect(rs.getBoolean("correct"));
+        deck.setRank(rs.getInt("rank"));
         return deck;
     }
 	private Deck mapRowToDeck(SqlRowSet rs) {
@@ -121,6 +120,7 @@ private Deck mapRowToDeckWithUser(SqlRowSet rs) {
         deck.setName(rs.getString("name"));
         deck.setDeckID(rs.getInt("deck_id"));
         deck.setCorrect(rs.getBoolean("correct"));
+        deck.setRank(rs.getInt("rank"));
         return deck;
     }
 

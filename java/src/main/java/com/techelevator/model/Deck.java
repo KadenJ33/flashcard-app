@@ -6,16 +6,27 @@ public class Deck {
 	private int userId;
 	private String name;
 	private boolean correct;
+	private int rank;
 	
 	public Deck() { }
 	
-	public Deck(int deckID, int userId, String name, boolean correct) {
+	public Deck(int deckID, int userId, String name, boolean correct, int rank) {
 		this.deckID = deckID;
 		this.userId = userId;
 		this.name = name;
 		this.correct = correct;
+		this.rank = rank;
 	}
 
+	//getters and setters
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
 	public int getDeckID() {
 		return deckID;
 	}
