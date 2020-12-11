@@ -12,13 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.dao.cardDAO;
-import com.techelevator.dao.deckDAO;
-<<<<<<< HEAD
-import com.techelevator.model.DeckDTO;
-=======
 import com.techelevator.model.Card;
-import com.techelevator.model.NewDeckDTO;
->>>>>>> b52959af26a26bfb29a558897fc46505d3ee3e3f
 import com.techelevator.model.cardDTO;
 
 
@@ -63,7 +57,7 @@ public class cardController {
    //update question
     
     @RequestMapping(path = "/update-question", method = RequestMethod.PUT)
-    public void updateQuestion(@Valid @requestBody cardDTO card) {
+    public void updateQuestion(@Valid @RequestBody cardDTO card) {
     	myCardDAO.updateQuestion(card.getQuestion(), card.getCardID());
     }
    //update answer

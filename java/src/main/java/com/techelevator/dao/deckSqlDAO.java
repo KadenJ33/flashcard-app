@@ -6,9 +6,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-
 import com.techelevator.model.Deck;
-import com.techelevator.model.DeckDTO;
 
 @Component
 public class deckSqlDAO implements deckDAO {

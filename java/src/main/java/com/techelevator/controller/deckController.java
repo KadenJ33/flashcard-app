@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.techelevator.dao.deckDAO;
 import com.techelevator.model.Deck;
-import com.techelevator.model.DeckDTO;
+import com.techelevator.model.NewDeckDTO;
 
 
 
@@ -36,7 +36,7 @@ public class deckController {
 	
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/create-deck", method = RequestMethod.POST)
-    public void makeNewDeck(@Valid @RequestBody DeckDTO newDeck) {
+    public void makeNewDeck(@Valid @RequestBody NewDeckDTO newDeck) {
     	
     	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName(), newDeck.getDescription());
     }

@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class DeckDTO {
+public class NewDeckDTO {
 
 	//instance variables
 	//@NotEmpty
@@ -15,13 +15,11 @@ public class DeckDTO {
 	
 	
 	//constructors
-	public DeckDTO() { }
+	public NewDeckDTO() { }
 	
-<<<<<<< HEAD:java/src/main/java/com/techelevator/model/DeckDTO.java
-	public DeckDTO( int deckId, int userId, String name, boolean correct) {
-=======
+
 	public NewDeckDTO( int deckId, int userId, String name, boolean correct, String description, int rank) {
->>>>>>> b52959af26a26bfb29a558897fc46505d3ee3e3f:java/src/main/java/com/techelevator/model/NewDeckDTO.java
+
 		this.deckID = deckID;
 		this.userId = userId;
 		this.name = name;
