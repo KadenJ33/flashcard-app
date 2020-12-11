@@ -44,6 +44,26 @@ public class cardController {
     	
     }
     
+    @RequestMapping(path = "/update-card", method = RequestMethod.PUT)
+    public void updateCard(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.updateCard(card.getUserID(), card.getDeckID(), card.getCardID(), card.getQuestion(), card.getAnswer(), card.isCorrect());
+    }
+    
+    
+    @RequestMapping(path = "/delete-card", method = RequestMethod.DELETE)
+    public void deleteCard(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.deleteCard(card.getUserID(), card.getDeckID(), card.getCardID());
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //probably not needed
     @RequestMapping(path = "/card/mark-right", method = RequestMethod.PUT)
     public void markRight(@Valid @RequestBody cardDTO card) {
     	myCardDAO.updateCorrectTrue(card.getCardID());
@@ -61,6 +81,11 @@ public class cardController {
     	myCardDAO.updateQuestion(card.getQuestion(), card.getCardID());
     }
    //update answer
-   //delete card 
     
+    @RequestMapping(path = "/update-answer", method = RequestMethod.PUT)
+    public void updateAnswer(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.updateAnswer(card.getAnswer(), card.getCardID());
+    }
+   //delete card 
+   
 }

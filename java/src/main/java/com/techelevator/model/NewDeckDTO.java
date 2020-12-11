@@ -7,7 +7,7 @@ public class NewDeckDTO {
 	//instance variables
 	//@NotEmpty
 	private int deckID;
-	private int userId;
+	private int userID;
 	private String name;
 	private boolean correct;
 	private String description;
@@ -21,7 +21,7 @@ public class NewDeckDTO {
 	public NewDeckDTO( int deckId, int userId, String name, boolean correct, String description, int rank) {
 
 		this.deckID = deckID;
-		this.userId = userId;
+		this.userID = userId;
 		this.name = name;
 		this.correct = correct;
 		this.description = description;
@@ -53,12 +53,12 @@ public class NewDeckDTO {
 		this.deckID = deckID;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserID(int userId) {
+		this.userID = userId;
 	}
 
 	public String getName() {
