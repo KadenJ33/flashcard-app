@@ -3,7 +3,7 @@
     <h1>Deck Name</h1>
     <form>
       <label for="answer">Name</label>
-      <input type="text" id="answer"/>
+      <input type="text" id="answer" required />
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
   </div>
@@ -15,7 +15,7 @@ export default {
     data(){
         return{
             deck: {
-                userID: '1',
+                userId: '1',
                 name: 'HELPME',
         }
     };
@@ -24,15 +24,15 @@ export default {
         newDeck(){
             authService
             .addDeck(this.deck)
-            // .then(response => {
-            //     console.log("HERE")
-            //     if (response.status == 201) {
-            //         this.$router.push("/")
-            //     }
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // });
+            .then(response => {
+                console.log("HERE")
+                if (response.status == 201) {
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
         }
     }
 
