@@ -8,18 +8,29 @@ public class Card {
 	private String question;
 	private String answer;
 	private boolean correct;
+	private int rank;
 	
 	public Card() { }
 	
-	public Card(int cardID, int deckID, int userID, String question, String answer, boolean correct) {
+	public Card(int cardID, int deckID, int userID, String question, String answer, boolean correct, int rank) {
 		this.cardID = cardID;
 		this.deckID = deckID;
 		this.userID = userID;
 		this.question = question;
 		this.answer = answer;
 		this.correct = correct;
+		this.rank = rank;
 	}
 
+	//getters and setters
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
 	public int getCardID() {
 		return cardID;
 	}
