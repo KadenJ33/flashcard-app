@@ -38,22 +38,41 @@ public class cardSqlDAO implements cardDAO {
 		}
 		return cards;
 	}
-
-
-//should not need but just incase
+	
 	@Override
-	public void addQuestion(String question) {
-		String sql = "INSERT INTO cards (question) VALUES (?)";
-		jdbc.update(sql, question);
+	public void updateCard(int userID, int deckID, int cardID, String question, String answer, Boolean correct) {
+		String sql = "UPDATE cards SET deck_id = ?, question = ?, answer = ?, correct = ? WHERE user_id = ? AND card_id = ?";
+		jdbc.update(sql, deckID, question, answer, correct, userID, cardID);
 		
+		String checkCorrect = "SELECT correct FROM cards WHERE card_id = ?";
+		boolean results = jdbc.queryForObject(checkCorrect, boolean.class, cardID);
+		
+		if(results == true) {
+			String updateRank = "UPDATE cards SET rank = rank + 1 WHERE card_id = ?";
+			jdbc.update(updateRank, cardID);
+			
+		} else if (results == false) {
+			String checkRank = "SELECT rank FROM cards WHERE card_id = ?";
+			int rankResults = jdbc.queryForObject(checkRank, int.class, cardID);
+			
+			if(rankResults > 0) {
+				String updateRank = "UPDATE cards SET rank = rank - 1 WHERE card_id = ?";
+				jdbc.update(updateRank, cardID);
+				
+			} else {
+				String updateRank = "UPDATE card SET rank = 0 WHERE card_id = ?";
+				jdbc.update(updateRank, cardID);
+			}
+		}
 	}
-
-//should not need but just incase
+	
 	@Override
-	public void addAnswer(String answer) {
-		String sql = "INSERT INTO cards (answer) VALUES (?)";
-		jdbc.update(sql, answer);
+	public void deleteCard(int userID, int deckID, int cardID) {
+		String sql = "DELETE FROM cards WHERE user_id = ? AND deck_id =? AND card_id = ?";
+		jdbc.update(sql, userID, deckID, cardID);
 	}
+//===================ANYTHING BELOW THIS LINE WILL PROBABLY BE DELETED=============================
+	
 	
 //controller done
 	@Override
@@ -66,8 +85,15 @@ public class cardSqlDAO implements cardDAO {
 //controller done
 	@Override
 	public void updateCorrectFalse(int cardID) {
-		String sql = "UPDATE cards SET correct = false, rank = rank - 1 WHERE card_id = ?";
-		jdbc.update(sql, cardID);
+		String rankCheck = "SELECT rank FROM cards WHERE card_id = ?";
+		int result = jdbc.queryForObject(rankCheck, int.class, cardID);
+		if(result > 0) {
+			String sql = "UPDATE cards SET correct = false, rank = rank - 1 WHERE card_id = ?";
+			jdbc.update(sql, cardID);
+		} else {
+			String noNegs = "UPDATE cards SET correct = false, rank = 0 WHERE card_id = ?";
+			jdbc.update(noNegs, cardID);
+		}
 	}
 
 	@Override
@@ -124,8 +150,6 @@ public class cardSqlDAO implements cardDAO {
 		return cards;
 	}
 
-
-
 	@Override
 	public void updateQuestion(String question, int cardID) {
 		String sql = "UPDATE cards SET question = ? WHERE card_id = ?";
@@ -142,12 +166,8 @@ public class cardSqlDAO implements cardDAO {
 
 
 
-	@Override
-	public void deleteCard(int userID, int deckID, int cardID) {
-		String sql = "DELETE FROM cards WHERE user_id = ? AND deck_id =? AND card_id = ?";
-		jdbc.update(sql, userID, deckID, cardID);
-	}
-	
+
+//this stays -- helper method to get data into object --
 	private Card mapRowToCardWithUser(SqlRowSet rs) {
         Card card = new Card();
         card.setCardID(rs.getInt("card_id"));
@@ -159,6 +179,6 @@ public class cardSqlDAO implements cardDAO {
         card.setRank(rs.getInt("rank"));
         return card;
     }
-	
-	
+
+//end brace
 }

@@ -53,11 +53,11 @@ public class DeckDTO {
 		this.deckID = deckID;
 	}
 
-	public int getUserId() {
+	public int getUserID() {
 		return userID;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserID(int userId) {
 		this.userID = userId;
 	}
 

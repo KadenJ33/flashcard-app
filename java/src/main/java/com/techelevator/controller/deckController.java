@@ -38,7 +38,7 @@ public class deckController {
     @RequestMapping(path = "/create-deck", method = RequestMethod.POST)
     public void makeNewDeck(@Valid @RequestBody DeckDTO newDeck) {
     	
-    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName(), newDeck.getDescription());
+    	myDeckDAO.createDeck(newDeck.getUserID(), newDeck.getName(), newDeck.getDescription());
     }
     
     @ResponseStatus(HttpStatus.OK)
@@ -46,6 +46,11 @@ public class deckController {
     public List<Deck> findDecks(@Valid @PathVariable("id") int userID) {
     	
     	return myDeckDAO.findAllDecks(userID);
+    }
+    
+    @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
+    public void updateDeck(@Valid @RequestBody NewDeckDTO newDeck) {
+    	myDeckDAO.updateDeck(newDeck.getUserID(), newDeck.getDeckID(), newDeck.getName(), newDeck.getDescription());
     }
 
 }
