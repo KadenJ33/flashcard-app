@@ -10,6 +10,8 @@ public interface deckDAO {
 	
 	void createDeck(int userID, String name, String description);
 	
+	void updateDeck(int userID, int deckID, String name, String description);
+	
 	void updateName(int deckID, String name);
 	
 	void updateCorrectTrue(int deckID);
