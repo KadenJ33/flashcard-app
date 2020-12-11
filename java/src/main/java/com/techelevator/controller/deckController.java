@@ -20,6 +20,7 @@ import com.techelevator.model.NewDeckDTO;
 
 
 
+
 @RestController
 @CrossOrigin
 @PreAuthorize("isAuthenticated()")
@@ -37,7 +38,7 @@ public class deckController {
     @RequestMapping(path = "/create-deck", method = RequestMethod.POST)
     public void makeNewDeck(@Valid @RequestBody NewDeckDTO newDeck) {
     	
-    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName());
+    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName(), newDeck.getDescription());
     }
     
     @ResponseStatus(HttpStatus.OK)

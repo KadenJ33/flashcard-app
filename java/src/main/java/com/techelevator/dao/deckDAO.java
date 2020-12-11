@@ -8,7 +8,7 @@ public interface deckDAO {
 	
 	List<Deck> findAllDecks(int userID);
 	
-	void createDeck(int userID, String name);
+	void createDeck(int userID, String name, String description);
 	
 	void updateName(int deckID, String name);
 	
