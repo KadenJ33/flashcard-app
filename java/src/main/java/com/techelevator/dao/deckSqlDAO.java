@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+
+import com.techelevator.model.Card;
 import com.techelevator.model.Deck;
 
 @Component
@@ -34,6 +36,43 @@ public class deckSqlDAO implements deckDAO {
             decks.add(deck);
 		}
 		return decks;
+	}
+	
+	@Override
+	public void updateDeck(int userID, int deckID, String name, String description) {
+		String sql = "UPDATE decks SET name = ?, description = ? WHERE user_id = ? AND deck_id = ?";
+		jdbc.update(sql, name, description, userID, deckID);
+		
+		//calculate percentage
+		String rankPercent = "SELECT rank FROM cards WHERE deck_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(rankPercent, deckID);
+		int rankCount = 0;
+		int numOfCard = 0;
+			while(results.next()) {
+				Card card = new Card();
+				card.setRank(results.getInt("rank"));
+				rankCount += card.getRank();
+				numOfCard++;
+			}
+		int totalCardsRankPossible = numOfCard * 5;
+		double calculatedPercentage = (double)rankCount / (double)totalCardsRankPossible;
+		double tempPercent = calculatedPercentage * 100;
+		int finalPercent = (int)tempPercent;
+		
+		String updateRank = "UPDATE decks SET rank = ? WHERE user_id = ? AND deck_id = ?";
+		jdbc.update(updateRank, finalPercent, userID, deckID);
+		
+		//changes correct status based on rank average
+		String percentage = "SELECT rank FROM decks WHERE user_id = ? AND deck_id = ?";
+		int result = jdbc.queryForObject(percentage, int.class, userID, deckID);
+			if(result < 100) {
+				String updateToFalse = "UPDATE decks SET correct = false WHERE user_id = ? AND deck_id = ?";
+				jdbc.update(updateToFalse, userID, deckID);
+			} else {
+				String updateToTrue = "UPDATE decks SET correct = true WHERE user_id = ? AND deck_id = ?";
+				jdbc.update(updateToTrue, userID, deckID);
+			}
+		
 	}
 
 
