@@ -10,20 +10,43 @@ public class DeckDTO {
 	private int userId;
 	private String name;
 	private boolean correct;
+	private String description;
+	private int rank;
 	
 	
 	//constructors
 	public DeckDTO() { }
 	
+<<<<<<< HEAD:java/src/main/java/com/techelevator/model/DeckDTO.java
 	public DeckDTO( int deckId, int userId, String name, boolean correct) {
+=======
+	public NewDeckDTO( int deckId, int userId, String name, boolean correct, String description, int rank) {
+>>>>>>> b52959af26a26bfb29a558897fc46505d3ee3e3f:java/src/main/java/com/techelevator/model/NewDeckDTO.java
 		this.deckID = deckID;
 		this.userId = userId;
 		this.name = name;
 		this.correct = correct;
+		this.description = description;
+		this.rank = rank;
 	}
 
-
 	//getters and setters
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public int getDeckID() {
 		return deckID;
 	}

@@ -38,7 +38,7 @@ public class deckController {
     @RequestMapping(path = "/create-deck", method = RequestMethod.POST)
     public void makeNewDeck(@Valid @RequestBody DeckDTO newDeck) {
     	
-    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName());
+    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName(), newDeck.getDescription());
     }
     
     @ResponseStatus(HttpStatus.OK)
