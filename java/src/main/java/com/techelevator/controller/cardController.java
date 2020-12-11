@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.dao.cardDAO;
 import com.techelevator.dao.deckDAO;
-import com.techelevator.model.NewDeckDTO;
+import com.techelevator.model.DeckDTO;
 import com.techelevator.model.cardDTO;
 
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Deck Name</h1>
-    <form>
+    <form v-on:submit.prevent>
       <label for="answer">Name</label>
       <input type="text" id="answer"/>
       <button type="submit" @click="newDeck()">Create Deck</button>
@@ -15,7 +15,7 @@ export default {
     data(){
         return{
             deck: {
-                userID: '1',
+                userId: '1',
                 name: 'HELPME',
         }
     };
@@ -24,15 +24,15 @@ export default {
         newDeck(){
             authService
             .addDeck(this.deck)
-            // .then(response => {
-            //     console.log("HERE")
-            //     if (response.status == 201) {
-            //         this.$router.push("/")
-            //     }
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // });
+            .then(response => {
+                console.log("HERE")
+                if (response.status == 201) {
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
         }
     }
 
