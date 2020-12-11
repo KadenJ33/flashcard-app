@@ -2,12 +2,12 @@ package com.techelevator.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class NewDeckDTO {
+public class DeckDTO {
 
 	//instance variables
 	//@NotEmpty
 	private int deckID;
-	private int userId;
+	private int userID;
 	private String name;
 	private boolean correct;
 	private String description;
@@ -15,13 +15,13 @@ public class NewDeckDTO {
 	
 	
 	//constructors
-	public NewDeckDTO() { }
+	public DeckDTO() { }
 	
 
-	public NewDeckDTO( int deckId, int userId, String name, boolean correct, String description, int rank) {
+	public DeckDTO( int deckID, int userID, String name, boolean correct, String description, int rank) {
 
 		this.deckID = deckID;
-		this.userId = userId;
+		this.userID = userID;
 		this.name = name;
 		this.correct = correct;
 		this.description = description;
@@ -54,11 +54,11 @@ public class NewDeckDTO {
 	}
 
 	public int getUserId() {
-		return userId;
+		return userID;
 	}
 
 	public void setUserId(int userId) {
-		this.userId = userId;
+		this.userID = userId;
 	}
 
 	public String getName() {

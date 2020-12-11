@@ -15,15 +15,15 @@ export default {
   },
 
   getDeck() {
-    return axios.get('/deck-list');
+    return axios.get('/view-decks');
   },
 
   deleteDeck(deckID) {
-    return axios.delete(`/deck-list/${deckID}`);
+    return axios.delete(`/view-decks/${deckID}`);
   },
 
   getCards(deckID) {
-    return axios.get(`/deck-list/${deckID}`)
+    return axios.get(`/view-decks/${deckID}`)
   },
 
   getCard(cardID) {

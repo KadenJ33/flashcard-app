@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Deck Name</h1>
-    <form v-on:submit.prevent>
+    <form>
       <label for="answer">Name</label>
       <input type="text" id="answer" required />
       <button type="submit" @click="newDeck()">Create Deck</button>
