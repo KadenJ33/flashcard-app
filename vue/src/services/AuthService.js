@@ -14,16 +14,16 @@ export default {
     return axios.post('/create-deck', deck);
   },
 
-  getDeck() {
-    return axios.get('/deck-list');
+  getDeck(userID) {
+    return axios.get(`/view-decks/${userID}`);
   },
 
   deleteDeck(deckID) {
-    return axios.delete(`/deck-list/${deckID}`);
+    return axios.delete(`/view-decks/${deckID}`);
   },
 
   getCards(deckID) {
-    return axios.get(`/deck-list/${deckID}`)
+    return axios.get(`/deck-with-cards/${deckID}`)
   },
 
   getCard(cardID) {
@@ -31,7 +31,7 @@ export default {
   },
 
   addCard(card) {
-    return axios.post('/cards', card);
+    return axios.post('/create-card', card);
   },
 
   updateCard(card) {

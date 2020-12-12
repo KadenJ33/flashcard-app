@@ -6,7 +6,8 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import CreateDeck from '../views/CreateDeck.vue'
-
+import  DeckWithCards from '../views/DeckWithCards.vue'
+import CreateCard from '../views/CreateCard.vue'
 Vue.use(Router)
 
 /**
@@ -62,6 +63,23 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/deck-with-cards",
+      name: "deck-with-cards",
+      component: DeckWithCards,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/create-card",
+      name: "create-card",
+      component: CreateCard,
+      meta: {
+        requiresAuth: false
+      }
+    },
+  
   ]
 })
 

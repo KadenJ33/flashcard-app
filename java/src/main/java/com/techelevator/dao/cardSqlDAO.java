@@ -51,20 +51,9 @@ public class cardSqlDAO implements cardDAO {
 			String updateRank = "UPDATE cards SET rank = rank + 1 WHERE card_id = ?";
 			jdbc.update(updateRank, cardID);
 			
-		} else if (results == false) {
-			String checkRank = "SELECT rank FROM cards WHERE card_id = ?";
-			int rankResults = jdbc.queryForObject(checkRank, int.class, cardID);
-			
-			if(rankResults > 0) {
-				String updateRank = "UPDATE cards SET rank = rank - 1 WHERE card_id = ?";
-				jdbc.update(updateRank, cardID);
-				
-			} else {
-				String updateRank = "UPDATE card SET rank = 0 WHERE card_id = ?";
-				jdbc.update(updateRank, cardID);
-			}
-		}
+		} 
 	}
+		
 	
 	@Override
 	public void deleteCard(int userID, int deckID, int cardID) {
