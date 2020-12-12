@@ -8,7 +8,7 @@
       <input type="text" id="name" v-model="deck.description"/>
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
-  </div>
+    </div>
 </template>
 <script>
 import authService from '../services/AuthService';
@@ -23,6 +23,7 @@ export default {
     };
     },
     methods: {
+        
         newDeck(){
             authService
             .addDeck(this.deck)
