@@ -44,7 +44,7 @@ export default new Vuex.Store({
       state.decks = data;
     },
     DELETE_DECKS(state, deckIdToDelete) {
-      state.decks = state.deck.filter((deck) => {
+      state.decks = state.decks.filter((deck) => {
         return deck.deckID !== deckIdToDelete;
       });
     },

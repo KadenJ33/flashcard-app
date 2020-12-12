@@ -11,7 +11,7 @@
         {{ deck.name }}
         {{ deck.description }}
 
-      <button type="button" class="delete-icon" @click="removeDecks(deckID)"/>
+      <button type="button" class="delete-icon" @click="removeDecks()">DELETE</button>
     </div>
     <h2>View Deck</h2>
     
@@ -46,11 +46,12 @@ export default {
         this.$store.commit("SET_DECKS", response.data);
       });
     },
-    removeDecks(deckID) {
-      authService.deleteDeck(deckID).then(response => {
+    removeDecks() {
+      authService.deleteDeck(this.$store.state.decks.id).then(response => {
         if (response.status === 200) {
           alert("Deck deleted!");
-          this.$store.commit("DELETE_DECKS", deckID);
+          this.$store.commit("DELETE_DECKS", this.deckID);
+         // this.$router.push("/");
         }
       });
     },
