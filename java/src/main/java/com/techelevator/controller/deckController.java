@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import com.techelevator.dao.deckDAO;
 import com.techelevator.model.Deck;
 import com.techelevator.model.DeckDTO;
+import com.techelevator.model.cardDTO;
 
 
 
@@ -46,6 +47,16 @@ public class deckController {
     public List<Deck> findDecks(@Valid @PathVariable("userID") int userID) {
     	
     	return myDeckDAO.findAllDecks(userID);
+    }
+    
+    @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
+    public void updateCard(@Valid @RequestBody DeckDTO newdeck) {
+    	myDeckDAO.updateDeck(newdeck.getUserID(), newdeck.getDeckID(), newdeck.getName(), newdeck.getDescription());
+    }
+    
+    @RequestMapping(path = "/view-decks/{deckID}", method = RequestMethod.DELETE)
+    public void deleteDeck(@Valid @RequestBody DeckDTO newdeck) {
+    	myDeckDAO.deleteDeck(newdeck.getDeckID());
     }
 
 }
