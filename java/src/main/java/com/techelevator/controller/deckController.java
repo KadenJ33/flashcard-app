@@ -49,11 +49,13 @@ public class deckController {
     	return myDeckDAO.findAllDecks(userID);
     }
     
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
     public void updateCard(@Valid @RequestBody DeckDTO newdeck) {
     	myDeckDAO.updateDeck(newdeck.getUserID(), newdeck.getDeckID(), newdeck.getName(), newdeck.getDescription());
     }
     
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/view-decks/{deckID}", method = RequestMethod.DELETE)
     public void deleteDeck(@Valid @RequestBody DeckDTO newdeck) {
     	myDeckDAO.deleteDeck(newdeck.getDeckID());
