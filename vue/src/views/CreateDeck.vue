@@ -2,10 +2,10 @@
   <div>
     <h1>Add a name and description!</h1>
     <form v-on:submit.prevent>
-      <label for="name">Name</label>
-      <input v-model="deck.name" type="text" id="name"/>
+      <label for="answer">Name</label>
+      <input type="text" id="answer" v-model="deck.name"/>
       <label for="description">Description</label>
-      <input v-model="deck.description" type="text" id="description"/>
+      <input type="text" id="name" v-model="deck.description"/>
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
   </div>
@@ -16,9 +16,9 @@ export default {
     data(){
         return{
             deck: {
-                userID: '1',
-                name: '',
-                description: ''
+                userID: this.$store.state.user.id,
+                name: "",
+                description: ""
         }
     };
     },
