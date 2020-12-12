@@ -93,6 +93,13 @@ public class AuthenticationController {
 		public void setUser(User user) {
 			this.user = user;
 		}
+		
+		@JsonProperty("userID")
+		public User getUserID() {
+			return user;
+		}
+
+	
     }
 }
 

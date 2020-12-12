@@ -2,7 +2,7 @@
   <div>
     <h1>Your Deck List</h1>
     <button class="createDeck" @click="$router.push('create-deck')">Add Deck</button>
-  
+    
     <div class="decks" 
         
         v-for="deck in this.$store.state.decks"
@@ -10,9 +10,10 @@
 
         {{ deck.name }}
         {{ deck.description }}
-        
-    </div>
 
+      <button type="button" class="delete-icon" @click="removeDecks(deckID)"/>
+    </div>
+    
   </div>
 </template>
 
@@ -42,7 +43,8 @@ export default {
     removeDecks(deckID) {
       authService.deleteDeck(deckID).then(response => {
         if (response.status === 200) {
-          this.getDeck();
+          alert("Deck deleted!");
+          this.$store.commit("DELETE_DECKS", deckID);
         }
       });
     },
