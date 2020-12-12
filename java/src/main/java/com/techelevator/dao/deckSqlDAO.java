@@ -152,6 +152,7 @@ private Deck mapRowToDeckWithUser(SqlRowSet rs) {
         deck.setDeckID(rs.getInt("deck_id"));
         deck.setCorrect(rs.getBoolean("correct"));
         deck.setRank(rs.getInt("rank"));
+        deck.setDescription(rs.getString("description"));
         return deck;
     }
 	private Deck mapRowToDeck(SqlRowSet rs) {
@@ -160,6 +161,7 @@ private Deck mapRowToDeckWithUser(SqlRowSet rs) {
         deck.setDeckID(rs.getInt("deck_id"));
         deck.setCorrect(rs.getBoolean("correct"));
         deck.setRank(rs.getInt("rank"));
+        deck.setDescription(rs.getString("description"));
         return deck;
     }
 

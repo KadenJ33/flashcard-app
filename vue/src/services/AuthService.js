@@ -14,8 +14,8 @@ export default {
     return axios.post('/create-deck', deck);
   },
 
-  getDeck() {
-    return axios.get('/view-decks');
+  getDeck(userID) {
+    return axios.get(`/view-decks/${userID}`);
   },
 
   deleteDeck(deckID) {

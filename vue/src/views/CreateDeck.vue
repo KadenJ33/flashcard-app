@@ -1,22 +1,24 @@
 <template>
   <div>
     <h1>Deck Name</h1>
-    <form>
+    <form v-on:submit.prevent>
       <label for="answer">Name</label>
-      <input type="text" id="answer" required />
+      <input type="text" id="answer" v-model="deck.name"/>
+      <label for="description">Description</label>
+      <input type="text" id="name" v-model="deck.description"/>
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
   </div>
 </template>
-
 <script>
 import authService from '../services/AuthService';
 export default {
     data(){
         return{
             deck: {
-                userId: '1',
-                name: 'HELPME',
+                userID: this.$store.state.user.id,
+                name: "",
+                description: ""
         }
     };
     },
@@ -35,9 +37,7 @@ export default {
             });
         }
     }
-
 };
 </script>
-
 <style>
 </style>

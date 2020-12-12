@@ -42,15 +42,10 @@ public class deckController {
     }
     
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/view-decks/", method = RequestMethod.GET)
-    public List<Deck> findDecks(@Valid @PathVariable("id") int userID) {
+    @RequestMapping(value = "/view-decks/{userID}", method = RequestMethod.GET)
+    public List<Deck> findDecks(@Valid @PathVariable("userID") int userID) {
     	
     	return myDeckDAO.findAllDecks(userID);
-    }
-    
-    @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
-    public void updateDeck(@Valid @RequestBody NewDeckDTO newDeck) {
-    	myDeckDAO.updateDeck(newDeck.getUserID(), newDeck.getDeckID(), newDeck.getName(), newDeck.getDescription());
     }
 
 }

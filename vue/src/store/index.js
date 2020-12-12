@@ -40,7 +40,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
     SET_DECKS(state, data) {
-      state.decks =data;
+      state.decks = data;
     },
     DELETE_DECKS(state, deckIdToDelete) {
       state.decks = state.deck.filter((deck) => {

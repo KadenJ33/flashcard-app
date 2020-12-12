@@ -7,15 +7,25 @@ public class Deck {
 	private String name;
 	private boolean correct;
 	private int rank;
+	private String description;
 	
 	public Deck() { }
 	
-	public Deck(int deckID, int userId, String name, boolean correct, int rank) {
+	public Deck(int deckID, int userId, String name, boolean correct, int rank, String description) {
 		this.deckID = deckID;
 		this.userId = userId;
 		this.name = name;
 		this.correct = correct;
 		this.rank = rank;
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	//getters and setters
