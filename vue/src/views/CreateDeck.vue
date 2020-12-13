@@ -1,44 +1,164 @@
 <template>
-  <div>
-    <h1>Add a name and description!</h1>
+  <div class="page">
+    <div class="wrapper">
+      <div class="clip-text clip-text_thirteen clip-text--cover">
+        Create Deck
+      </div>
+    </div>
     <form v-on:submit.prevent>
-      <label for="answer">Name</label>
-      <input type="text" id="answer" v-model="deck.name"/>
-      <label for="description">Description</label>
-      <input type="text" id="name" v-model="deck.description"/>
+      <input type="text" id="answer" placeholder="Name" v-model="deck.name" />
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Description"
+        v-model="deck.description"
+      />
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
-    </div>
+  </div>
 </template>
 <script>
-import authService from '../services/AuthService';
+import authService from "../services/AuthService";
 export default {
-    data(){
-        return{
-            deck: {
-                userID: this.$store.state.user.id,
-                name: "",
-                description: ""
-        }
+  data() {
+    return {
+      deck: {
+        userID: this.$store.state.user.id,
+        name: "",
+        description: "",
+      },
     };
+  },
+  methods: {
+    newDeck() {
+      authService
+        .addDeck(this.deck)
+        .then((response) => {
+          console.log("HERE");
+          if (response.status == 201) {
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    methods: {
-        
-        newDeck(){
-            authService
-            .addDeck(this.deck)
-            .then(response => {
-                console.log("HERE")
-                if (response.status == 201) {
-                    this.$router.push("/")
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-    }
+  },
 };
 </script>
-<style>
+
+<style scoped>
+form {
+  text-align: center;
+  padding-top: 20px;
+  padding-left: 40px;
+}
+label {
+  padding-right: 16px;
+}
+input {
+  font-family: "Roboto", sans-serif;
+  width: 200px;
+  margin: 20px auto;
+  background: linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
+  border-radius: 10px;
+}
+input:hover {
+  border: 1px solid #aaa;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+#answer {
+  margin-right: 30px;
+}
+
+#name {
+  margin-right: 30px;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+  margin-right: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+button:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.page {
+  position: fixed;
+  z-index: -3;
+
+  background-image: linear-gradient(
+    0deg,
+    rgb(252, 220, 226) 9%,
+    rgba(255, 255, 255, 1) 64%
+  );
+  min-height: 100%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: auto;
+
+  top: 0;
+  left: 0;
+}
+.wrapper {
+  text-align: center;
+  padding-top: 150px;
+}
+
+/* Clip text element */
+.clip-text {
+  font-size: 6em;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0.25em;
+  padding: 0.5em 0.75em;
+  text-align: center;
+  color: #fff;
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.clip-text:before,
+.clip-text:after {
+  position: absolute;
+  content: "";
+}
+
+.clip-text:before {
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: inherit;
+}
+
+.clip-text:after {
+  position: absolute;
+  z-index: -1;
+  top: 0.125em;
+  right: 0.125em;
+  bottom: 0.125em;
+  left: 0.125em;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+.clip-text--cover,
+.clip-text--cover:before {
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.clip-text_thirteen {
+  background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
+}
 </style>
