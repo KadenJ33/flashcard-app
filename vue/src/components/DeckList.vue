@@ -22,6 +22,8 @@
             <td>
               <button type="button" class="delete-icon" @click="removeDecks(this.deckID)">DELETE</button>
             </td>
+            <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: deck.deckID }})">View Cards</button>
           </tr>
         </tbody>
       </table>

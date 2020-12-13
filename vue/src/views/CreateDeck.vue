@@ -2,38 +2,27 @@
   <div>
     <h1>Add a name and description!</h1>
     <form v-on:submit.prevent>
-      <input type="text" id="answer" placeholder="Name" />
-      <button type="submit" @click="newDeck()">Submit</button>
+      <label for="answer">Name</label>
+      <input type="text" id="answer" v-model="deck.name"/>
+      <label for="description">Description</label>
+      <input type="text" id="name" v-model="deck.description"/>
+      <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
     </div>
 </template>
 <script>
-import authService from "../services/AuthService";
+import authService from '../services/AuthService';
 export default {
-  data() {
-    return {
-      deck: {
-        userId: "1",
-        name: "HELPME",
-      },
+    data(){
+        return{
+            deck: {
+                userID: this.$store.state.user.id,
+                name: "",
+                description: ""
+        }
     };
-  },
-  methods: {
-    newDeck() {
-      authService
-        .addDeck(this.deck)
-        .then((response) => {
-          console.log("HERE");
-          if (response.status == 201) {
-            this.$router.push("/");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
     methods: {
-        
         newDeck(){
             authService
             .addDeck(this.deck)
