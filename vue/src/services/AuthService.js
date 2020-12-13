@@ -19,7 +19,7 @@ export default {
   },
 
   deleteDeck(deckID) {
-    return axios.delete(`/view-decks/${deckID}`);
+    return axios.delete(`/${deckID}`);
   },
 
   getCards(deckID) {

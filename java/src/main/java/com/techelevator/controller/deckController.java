@@ -55,10 +55,10 @@ public class deckController {
     	myDeckDAO.updateDeck(newdeck.getUserID(), newdeck.getDeckID(), newdeck.getName(), newdeck.getDescription());
     }
     
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "/view-decks/{deckID}", method = RequestMethod.DELETE)
-    public void deleteDeck(@Valid @RequestBody DeckDTO newdeck) {
-    	myDeckDAO.deleteDeck(newdeck.getDeckID());
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/{deckID}", method = RequestMethod.DELETE)
+    public void deleteDeck(@Valid @PathVariable("deckID") int deckID) {
+    	myDeckDAO.deleteDeck(deckID);
     }
 
 }
