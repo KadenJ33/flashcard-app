@@ -56,6 +56,10 @@ input {
   background: linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
   border-radius: 10px;
 }
+input:hover {
+  border: 1px solid #aaa;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
 
 button {
   font-family: "Roboto", sans-serif;
@@ -64,6 +68,10 @@ button {
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }
+button:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
 .page {
   position: fixed;
   z-index: -3;
@@ -136,6 +144,6 @@ button {
 }
 
 .clip-text_thirteen {
-  background-image: url(https://img.freepik.com/free-photo/colorful-notebooks-felt-tip-pens-with-cellphone-laptop-cream-background_23-2147880646.jpg?size=626&ext=jpg);
+  background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
 }
 </style>
