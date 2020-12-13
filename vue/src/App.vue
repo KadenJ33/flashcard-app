@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<style scoped>
+<style >
 ul {
   margin: 0;
   padding: 5px;
