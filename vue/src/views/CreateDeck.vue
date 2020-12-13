@@ -1,42 +1,50 @@
 <template>
-  <div>
-    <h1>Add a name and description!</h1>
+  <div class="page">
+    <div class="wrapper">
+      <div class="clip-text clip-text_thirteen clip-text--cover">
+        Create Deck
+      </div>
+    </div>
     <form v-on:submit.prevent>
-      <label for="answer">Name</label>
-      <input type="text" id="answer" v-model="deck.name"/>
-      <label for="description">Description</label>
-      <input type="text" id="name" v-model="deck.description"/>
+      <input type="text" id="answer" placeholder="Name" v-model="deck.name" />
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Description"
+        v-model="deck.description"
+      />
       <button type="submit" @click="newDeck()">Create Deck</button>
     </form>
-    </div>
+  </div>
 </template>
 <script>
-import authService from '../services/AuthService';
+import authService from "../services/AuthService";
 export default {
-    data(){
-        return{
-            deck: {
-                userID: this.$store.state.user.id,
-                name: "",
-                description: ""
-        }
+  data() {
+    return {
+      deck: {
+        userID: this.$store.state.user.id,
+        name: "",
+        description: "",
+      },
     };
+  },
+  methods: {
+    newDeck() {
+      authService
+        .addDeck(this.deck)
+        .then((response) => {
+          console.log("HERE");
+          if (response.status == 201) {
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    methods: {
-        newDeck(){
-            authService
-            .addDeck(this.deck)
-            .then(response => {
-                console.log("HERE")
-                if (response.status == 201) {
-                    this.$router.push("/")
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-    }
+  },
 };
 </script>
 
@@ -44,6 +52,7 @@ export default {
 form {
   text-align: center;
   padding-top: 20px;
+  padding-left: 40px;
 }
 label {
   padding-right: 16px;
@@ -59,10 +68,17 @@ input:hover {
   border: 1px solid #aaa;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+#answer {
+  margin-right: 30px;
+}
+
+#name {
+  margin-right: 30px;
+}
 
 button {
   font-family: "Roboto", sans-serif;
-  width: 100px;
+  width: 150px;
   margin-right: 10px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
