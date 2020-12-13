@@ -20,7 +20,7 @@
             <td>{{ deck.description }}</td>
             <td>{{ deck.deckID }}
             <td>
-              <button type="button" class="delete-icon" @click="removeDecks(this.deckID)">DELETE</button>
+              <button type="button" class="delete-icon" @click="removeDecks(deck.deckID)">DELETE</button>
             </td>
             <button id="view-deck" type="button" @click="$router.push({
    name: 'deck-with-cards', params: {deckID: deck.deckID }})">View Cards</button>
@@ -40,7 +40,7 @@ export default {
     deck: {
       name:'',
       description: '',
-      deckID: 0,
+      deckID: this.$route.params.deckID,
     }
     }
   },
@@ -54,11 +54,11 @@ export default {
         this.$store.commit("SET_DECKS", response.data);
       });
     },
-    removeDecks() {
-      authService.deleteDeck(this.deckID).then(response => {
+    removeDecks(removedDeckID) {
+      authService.deleteDeck(removedDeckID).then(response => {
         if (response.status === 200) {
           alert("Deck deleted!");
-          this.$store.commit(this.deckID);
+          this.$store.commit(removedDeckID);
           this.$router.push("/");
         }
       });

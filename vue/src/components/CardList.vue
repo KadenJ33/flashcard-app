@@ -36,7 +36,7 @@ export default {
   methods: {
    
     retrieveCards() {
-      authService.getCards(this.$store.state.decks.deckID).then((response) => {
+      authService.getCards(this.$route.params.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
