@@ -1,15 +1,11 @@
 <template>
-  <div class="page">
-    <div class="wrapper">
-      <div class="clip-text clip-text_thirteen clip-text--cover">
-        Create Deck
-      </div>
-    </div>
+  <div>
+    <h1>Add a name and description!</h1>
     <form v-on:submit.prevent>
       <input type="text" id="answer" placeholder="Name" />
       <button type="submit" @click="newDeck()">Submit</button>
     </form>
-  </div>
+    </div>
 </template>
 <script>
 import authService from "../services/AuthService";
@@ -36,7 +32,22 @@ export default {
           console.error(error);
         });
     },
-  },
+    methods: {
+        
+        newDeck(){
+            authService
+            .addDeck(this.deck)
+            .then(response => {
+                console.log("HERE")
+                if (response.status == 201) {
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+    }
 };
 </script>
 

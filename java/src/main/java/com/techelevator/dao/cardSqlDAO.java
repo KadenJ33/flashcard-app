@@ -28,10 +28,10 @@ public class cardSqlDAO implements cardDAO {
 
 //controller done
 	@Override
-	public List<Card> findAllCards(int userID, int deckID) {
+	public List<Card> findAllCards(int deckID) {
 		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ?";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
+		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE deck_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(sql, deckID);
 		while(results.next()) {
 			Card card = mapRowToCardWithUser(results);
 			cards.add(card);
@@ -51,20 +51,9 @@ public class cardSqlDAO implements cardDAO {
 			String updateRank = "UPDATE cards SET rank = rank + 1 WHERE card_id = ?";
 			jdbc.update(updateRank, cardID);
 			
-		} else if (results == false) {
-			String checkRank = "SELECT rank FROM cards WHERE card_id = ?";
-			int rankResults = jdbc.queryForObject(checkRank, int.class, cardID);
-			
-			if(rankResults > 0) {
-				String updateRank = "UPDATE cards SET rank = rank - 1 WHERE card_id = ?";
-				jdbc.update(updateRank, cardID);
-				
-			} else {
-				String updateRank = "UPDATE card SET rank = 0 WHERE card_id = ?";
-				jdbc.update(updateRank, cardID);
-			}
-		}
+		} 
 	}
+		
 	
 	@Override
 	public void deleteCard(int userID, int deckID, int cardID) {

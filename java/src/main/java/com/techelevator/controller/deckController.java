@@ -48,8 +48,12 @@ public class deckController {
     	
     	return myDeckDAO.findAllDecks(userID);
     }
+<<<<<<< HEAD
     
     @ResponseStatus(HttpStatus.OK)
+=======
+     
+>>>>>>> 878f1e6818b436e8b73eb056000903c884af373c
     @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
     public void updateCard(@Valid @RequestBody DeckDTO newdeck) {
     	myDeckDAO.updateDeck(newdeck.getUserID(), newdeck.getDeckID(), newdeck.getName(), newdeck.getDescription());
