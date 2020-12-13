@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,12 +39,32 @@ public class cardController {
     }
     
     
-    @RequestMapping(path = "/card-list", method = RequestMethod.GET)
-    public List<Card> viewAllCards(@Valid @RequestBody cardDTO card) {
-    	return myCardDAO.findAllCards(card.getUserID(), card.getDeckID());
+    @RequestMapping(path = "/deck-with-cards/{deckID}", method = RequestMethod.GET)
+    public List<Card> viewAllCards(@Valid @PathVariable("deckID") int deckID) {
+    	return myCardDAO.findAllCards(deckID);
     	
     }
     
+    @RequestMapping(path = "/update-card", method = RequestMethod.PUT)
+    public void updateCard(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.updateCard(card.getUserID(), card.getDeckID(), card.getCardID(), card.getQuestion(), card.getAnswer(), card.isCorrect());
+    }
+    
+    
+    @RequestMapping(path = "/delete-card", method = RequestMethod.DELETE)
+    public void deleteCard(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.deleteCard(card.getUserID(), card.getDeckID(), card.getCardID());
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //probably not needed
     @RequestMapping(path = "/card/mark-right", method = RequestMethod.PUT)
     public void markRight(@Valid @RequestBody cardDTO card) {
     	myCardDAO.updateCorrectTrue(card.getCardID());
@@ -61,6 +82,11 @@ public class cardController {
     	myCardDAO.updateQuestion(card.getQuestion(), card.getCardID());
     }
    //update answer
-   //delete card 
     
+    @RequestMapping(path = "/update-answer", method = RequestMethod.PUT)
+    public void updateAnswer(@Valid @RequestBody cardDTO card) {
+    	myCardDAO.updateAnswer(card.getAnswer(), card.getCardID());
+    }
+   //delete card 
+   
 }

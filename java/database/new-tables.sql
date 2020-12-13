@@ -18,17 +18,13 @@ CREATE TABLE cards (
         CONSTRAINT FK_deck FOREIGN KEY(deck_id) REFERENCES decks(deck_id),
         CONSTRAINT FK_user FOREIGN KEY(user_id) REFERENCES users(user_id)
 ); 
-//run these in order one by one
-ALTER TABLE decks ADD COLUMN rank int CONSTRAINT max_rank CHECK (rank <= 100);//max 100
-ALTER TABLE ONLY decks ALTER COLUMN rank SET DEFAULT 0;//default zero
 
-ALTER TABLE cards ADD COLUMN rank int CONSTRAINT max_rank CHECK (rank <= 5);//max is 5
-ALTER TABLE ONLY cards ALTER COLUMN rank SET DEFAULT 0;//default is zero
-
+ALTER TABLE decks ADD COLUMN rank int CONSTRAINT max_rank CHECK (rank <= 100);
+ALTER TABLE ONLY decks ALTER COLUMN rank SET DEFAULT 0;
+ALTER TABLE cards ADD COLUMN rank int CONSTRAINT max_rank CHECK (rank <= 5);
+ALTER TABLE ONLY cards ALTER COLUMN rank SET DEFAULT 0;
 ALTER TABLE decks ADD COLUMN description varchar;
-//sets correct to null instead of hardcoded false
 ALTER TABLE ONLY decks ALTER COLUMN correct SET DEFAULT null;
-//fixes spelling error
 ALTER TABLE cards RENAME COLUMN answwer TO answer; 
 
 

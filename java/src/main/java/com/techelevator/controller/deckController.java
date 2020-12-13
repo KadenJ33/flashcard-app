@@ -16,7 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.techelevator.dao.deckDAO;
 import com.techelevator.model.Deck;
-import com.techelevator.model.NewDeckDTO;
+import com.techelevator.model.DeckDTO;
+import com.techelevator.model.cardDTO;
 
 
 
@@ -36,16 +37,28 @@ public class deckController {
 	
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/create-deck", method = RequestMethod.POST)
-    public void makeNewDeck(@Valid @RequestBody NewDeckDTO newDeck) {
+    public void makeNewDeck(@Valid @RequestBody DeckDTO newDeck) {
     	
-    	myDeckDAO.createDeck(newDeck.getUserId(), newDeck.getName(), newDeck.getDescription());
+    	myDeckDAO.createDeck(newDeck.getUserID(), newDeck.getName(), newDeck.getDescription());
     }
     
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/view-decks/{id}", method = RequestMethod.GET)
-    public List<Deck> findDecks(@Valid @PathVariable("id") int userID) {
+    @RequestMapping(value = "/view-decks/{userID}", method = RequestMethod.GET)
+    public List<Deck> findDecks(@Valid @PathVariable("userID") int userID) {
     	
     	return myDeckDAO.findAllDecks(userID);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/update-deck", method = RequestMethod.PUT)
+    public void updateCard(@Valid @RequestBody DeckDTO newdeck) {
+    	myDeckDAO.updateDeck(newdeck.getUserID(), newdeck.getDeckID(), newdeck.getName(), newdeck.getDescription());
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/{deckID}", method = RequestMethod.DELETE)
+    public void deleteDeck(@Valid @PathVariable("deckID") int deckID) {
+    	myDeckDAO.deleteDeck(deckID);
     }
 
 }

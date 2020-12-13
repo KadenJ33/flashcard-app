@@ -19,7 +19,9 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    decks: [],
+    cards: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -37,6 +39,22 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+    SET_DECKS(state, data) {
+      state.decks = data;
+    },
+    DELETE_DECKS(state, deckIdToDelete) {
+      state.decks = state.decks.filter((deck) => {
+        return deck.deckID !== deckIdToDelete;
+      });
+    },
+    SET_CARDS(state, data) {
+      state.cards = data;
+    },
+    DELETE_CARDS(state, cardID) {
+      state.cards = state.card.filter((card) => {
+        return card.cardID !== cardID;
+      });
+    },
   }
 })

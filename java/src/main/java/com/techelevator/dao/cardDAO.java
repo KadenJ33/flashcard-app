@@ -9,12 +9,14 @@ public interface cardDAO {
 	
 	void createCard(int deckID, int userID, String question, String answer);
 	
-	List<Card> findAllCards(int userID, int deckID);
+	List<Card> findAllCards(int userID);
 	
-	void addQuestion(String question);
+	void updateCard(int userID, int deckID, int cardID, String question, String answer, Boolean correct);
 	
-	void addAnswer(String answer);
+	void deleteCard(int userID, int deckID, int cardID);
 	
+	
+	//probably deleting
 	void updateCorrectTrue(int cardID);
 	
 	void updateCorrectFalse(int cardID);
@@ -29,7 +31,7 @@ public interface cardDAO {
 	
 	void updateAnswer(String answer, int cardID);
 	
-	void deleteCard(int userID, int deckID, int cardID);
+	
 	
 
 }
