@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <p>You must be authenticated to see this</p>
-    <deck-list />
+    <view-decks />
+    <search />
+    <!-- <router-view :key="$route.fullPath" class="routerView" /> -->
     <!-- <div class="button">
       
       <button class="edit" @click="$router.push('edit')">Edit Deck</button>
@@ -11,12 +13,14 @@
 </template>
 
 <script>
-import DeckList from '@/components/DeckList.vue';
+import ViewDecks from '@/views/ViewDecks.vue';
+// import Search from '@/components/Search.vue';
 
 export default {
   name: "home",
   components: {
-    DeckList
+    ViewDecks,
+    // Search
  }
 };
 </script>

@@ -21,6 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     decks: [],
+    cards: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -43,10 +44,17 @@ export default new Vuex.Store({
       state.decks = data;
     },
     DELETE_DECKS(state, deckIdToDelete) {
-      state.decks = state.deck.filter((deck) => {
+      state.decks = state.decks.filter((deck) => {
         return deck.deckID !== deckIdToDelete;
       });
-
-    }
+    },
+    SET_CARDS(state, data) {
+      state.cards = data;
+    },
+    DELETE_CARDS(state, cardID) {
+      state.cards = state.card.filter((card) => {
+        return card.cardID !== cardID;
+      });
+    },
   }
 })
