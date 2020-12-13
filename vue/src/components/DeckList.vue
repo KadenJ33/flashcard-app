@@ -1,22 +1,33 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Your Deck List</h1>
     <button class="createDeck" @click="$router.push('create-deck')">Add Deck</button>
-    
-    <div class="decks" 
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Deck Name</th>
+            <th>Description</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="decks" 
         
-        v-for="deck in this.$store.state.decks"
-        v-bind:key="deck.userID">
-
-        {{ deck.name }}
-        {{ deck.description }}
-
-      <button type="button" class="delete-icon" @click="removeDecks()">DELETE</button>
+            v-for="deck in this.$store.state.decks"
+            v-bind:key="deck.userID">
+            <td>{{ deck.name }}</td>
+            <td>{{ deck.description }}</td>
+            <td>{{ deck.deckID }}
+            <td>
+              <button type="button" class="delete-icon" @click="removeDecks(this.deckID)">DELETE</button>
+            </td>
+            <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: deck.deckID }})">View Cards</button>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <h2>View Deck</h2>
-    
-    <button id="view-deck" type="submit" @click="veiwDeck()"> </button>
-  
   </div>
 </template>
 
@@ -29,7 +40,7 @@ export default {
     deck: {
       name:'',
       description: '',
-      backgroundColor: this.randomBackgroundColor()
+      deckID: 0,
     }
     }
   },
@@ -38,20 +49,17 @@ export default {
   },
   name: "deck-list",
   methods: {
-    viewDeck() {
-            this.$router.push("/deck-with-cards")
-        },
     retrieveDecks() {
       authService.getDeck(this.$store.state.user.id).then(response => {
         this.$store.commit("SET_DECKS", response.data);
       });
     },
     removeDecks() {
-      authService.deleteDeck(this.$store.state.decks.id).then(response => {
+      authService.deleteDeck(this.deckID).then(response => {
         if (response.status === 200) {
           alert("Deck deleted!");
-          this.$store.commit("DELETE_DECKS", this.deckID);
-         // this.$router.push("/");
+          this.$store.commit(this.deckID);
+          this.$router.push("/");
         }
       });
     },
@@ -69,5 +77,12 @@ export default {
 </script>
 
 <style>
+/* .decks {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+.delete-icon{
 
+} */
 </style>

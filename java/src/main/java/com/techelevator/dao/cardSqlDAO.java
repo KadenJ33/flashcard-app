@@ -28,10 +28,10 @@ public class cardSqlDAO implements cardDAO {
 
 //controller done
 	@Override
-	public List<Card> findAllCards(int userID, int deckID) {
+	public List<Card> findAllCards(int deckID) {
 		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ?";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
+		String sql = "SELECT card_id, deck_id, user_id, question, answer, correct, rank FROM cards WHERE deck_id = ?";
+		SqlRowSet results = jdbc.queryForRowSet(sql, deckID);
 		while(results.next()) {
 			Card card = mapRowToCardWithUser(results);
 			cards.add(card);

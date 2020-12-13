@@ -1,17 +1,16 @@
 <template>
   <div>
       <h1>Your card list</h1>
-      <button class="createCard" @click="$router.push('/create-card')">Add Card</button>
+      <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
   
         <div class="cards"
-            v-for="card in this.$store.state.cards"
-        v-bind:key="card.userID">
-
+        v-for="card in this.$store.state.cards" 
+        v-bind:key="card.cardID">
+        {{ card.cardID }}
         {{ card.question }}
-        {{ card.answer }
+        {{ card.answer }}
+        {{ card.rank }}
         
-
-       <button type="button" class="delete-icon" @click="removeCards(cardID)"/>
         </div>
   </div>
 </template>
@@ -21,20 +20,23 @@ import authService from '../services/AuthService';
 export default {
  data(){
     return {
-    card: {
-      question:'',
-      answer: '',
-      backgroundColor: this.randomBackgroundColor()
-    }
-    }
-  },
-  created() {
-    this.retrieveCards();
-  },
+        card: {
+            
+            deckID: 0,
+            question: '',
+            answer: '',
+            
+        },
+    }  
+  }, 
+   created(){
+        this.retrieveCards();
+   },
   name: "card-list",
   methods: {
+   
     retrieveCards() {
-      authService.getCard(this.$store.state.cards.cardID).then(response => {
+      authService.getCards(this.$store.state.decks.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);
       });
     },

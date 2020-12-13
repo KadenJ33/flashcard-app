@@ -9,7 +9,7 @@ public interface cardDAO {
 	
 	void createCard(int deckID, int userID, String question, String answer);
 	
-	List<Card> findAllCards(int userID, int deckID);
+	List<Card> findAllCards(int userID);
 	
 	void updateCard(int userID, int deckID, int cardID, String question, String answer, Boolean correct);
 	
