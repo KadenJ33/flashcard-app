@@ -7,16 +7,18 @@
         
         v-for="deck in this.$store.state.decks"
         v-bind:key="deck.userID">
-
+        {{ deck.deckID }}
         {{ deck.name }}
         {{ deck.description }}
 
       <button type="button" class="delete-icon" @click="removeDecks(deckID)"/>
+   <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: deck.deckID }})"> </button>
     </div>
     <h2>View Deck</h2>
     
-    <button id="view-deck" type="submit" @click="veiwDeck()"> </button>
-  
+    
+ 
   </div>
 </template>
 
@@ -38,9 +40,7 @@ export default {
   },
   name: "deck-list",
   methods: {
-    viewDeck() {
-            this.$router.push("/deck-with-cards")
-        },
+  
     retrieveDecks() {
       authService.getDeck(this.$store.state.user.id).then(response => {
         this.$store.commit("SET_DECKS", response.data);

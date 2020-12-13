@@ -3,9 +3,9 @@
       <h1>Create a card!</h1>  
       <form v-on:submit.prevent> 
        <label for="question">Add a front!(question, prompt, word, etc...)</label>
-       <input type="text" id="question"/>
+       <input v-model="card.question" type="text" id="question"/>
        <label for="answer">Add a back!(answer, response, definition, etc...)</label>
-       <input type="text" id="answer"/>
+       <input v-model="card.answer" type="text" id="answer"/>
        <button type="submit" @click="newCard()">Create Card</button>
       </form>
   </div>
@@ -20,6 +20,7 @@ export default {
             card: {
                 userID: this.$store.state.user.id,
                 deckID: this.$store.state.decks.deckID,
+                cardID: this.$store.state.cards.cardID,
                 question: "",
                 answer: ""
         }
