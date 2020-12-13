@@ -83,7 +83,16 @@ export default {
 <style scoped>
 .page {
   background-image: url("https://www.herzing.edu/sites/default/files/styles/fp_960_480/public/images/blog/study_space_desk.png?h=6eb229a4&itok=2z-Rm9ka");
-  height: 700px;
+  min-height: 100%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+
+  position: fixed;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 h1 {

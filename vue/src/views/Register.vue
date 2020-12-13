@@ -93,7 +93,14 @@ export default {
 <style scoped>
 div {
   background-image: url("https://i.kym-cdn.com/entries/icons/facebook/000/032/965/making-of-a-2d-animation-for-chilledcow-20180706052709.jpg");
-  height: 800px;
+  min-height: 100%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 h1 {
