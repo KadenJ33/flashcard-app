@@ -19,9 +19,12 @@
             <td> {{ card.answer }}</td>
             <td> {{ card.rank }}</td>
             <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">DELETE</button></td>
+            <td> <button type="button" class="delete-icon" @click="updateQuestion(card.cardID)">EDIT QUESTION</button></td>
+            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">EDIT ANSWER</button></td>
           </tr>
         </tbody>
       </table>
+      <input type="text">
   </div>
 </template>
 
@@ -38,6 +41,14 @@ export default {
             rank: 0
             
         },
+                updatedCard: {
+            
+            deckID: this.$store.state.currentDeckID,
+            question: '',
+            answer: '',
+            rank: 0
+            
+        }
     }  
   }, 
    created(){
@@ -60,6 +71,14 @@ export default {
         if (response.status === 200) {
           alert("Card deleted!");
           this.$store.commit("DELETE_CARDS", givenCardID);
+        }
+      });
+    },
+        updateQuestion(givenCard) {
+      authService.deleteCard(givenCard).then(response => {
+        if (response.status === 200) {
+          alert("Card changed!");
+          this.$store.commit("DELETE_CARDS", givenCard);
         }
       });
     },
