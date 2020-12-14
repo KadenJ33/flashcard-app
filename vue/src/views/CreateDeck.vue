@@ -38,6 +38,7 @@ export default {
           console.log("HERE");
           if (response.status == 201) {
             this.$router.push("/");
+            location.reload();
           }
         })
         .catch((error) => {

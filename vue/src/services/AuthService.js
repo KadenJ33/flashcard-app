@@ -39,7 +39,7 @@ export default {
   },
 
   deleteCard(cardID) {
-    return axios.delete(`/cards/${cardID}`);
+    return axios.delete(`/card/${cardID}`);
   }
 
 }

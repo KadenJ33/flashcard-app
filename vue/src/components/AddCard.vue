@@ -33,7 +33,8 @@ export default {
             .addCard(this.card)
             .then(response => {
                 if (response.status == 201) {
-                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}})
+                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}});
+                    location.reload();
                 }
             })
              .catch(error => {

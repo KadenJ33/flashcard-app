@@ -17,7 +17,7 @@
         {{ card.question }}
         {{ card.answer }}
         {{ card.rank }}
-        
+        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
         
         </div>
   </div>
@@ -54,8 +54,8 @@ export default {
     removeCards(cardID) {
       authService.deleteCard(cardID).then(response => {
         if (response.status === 204) {
-          alert("Card deleted!");
-          this.$store.commit("DELETE_CARDS", cardID);
+          // this.$store.commit("DELETE_CARDS", cardID);
+          location.reload();
         }
       });
     },
