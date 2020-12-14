@@ -4,13 +4,11 @@
       <div class="clip-text clip-text_thirteen clip-text--cover">
         Your Deck List
       </div>
-      </div>
-      <br>
       <div class="add">
     <button class="createDeck" @click="$router.push('create-deck')">Add Deck</button>
     </div>
-    <br>
-    <br>
+      </div>
+   
     <div class="container">
       <table class="table">
         <thead>
@@ -156,6 +154,7 @@ export default {
 
 .wrapper {
   text-align:center;
+  position: relative;
   padding-top: 50px;
 }
 .createDeck {
@@ -170,18 +169,16 @@ export default {
   transform: translate(-50%, -50%);
 }
 .add {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin: 0;
+  white-space: nowrap;
   position: absolute;
-  top: 30%;
+  top: 110%;
   right: 45%;
-  left: 45%;
-  bottom: 40%;
+  left: 50%;
    -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
- 
+}
+.container {
+  margin-top: 6%;
 }
 /* .decks {
   display: grid;
