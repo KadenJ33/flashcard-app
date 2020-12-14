@@ -8,6 +8,7 @@ import store from '../store/index'
 import CreateDeck from '../views/CreateDeck.vue'
 import  DeckWithCards from '../views/DeckWithCards.vue'
 import CreateCard from '../views/CreateCard.vue'
+import UpdateCard from '../views/UpdateCard.vue'
 Vue.use(Router)
 
 /**
@@ -78,8 +79,7 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    },
-  
+    }, 
   ]
 })
 

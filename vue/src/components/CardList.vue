@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div v-for="deck in this.$store.state.decks" v-bind:key="deck.userID">
+      <!-- <div v-if="deck.deckID === currentDeckID">  -->
+      {{ deck.name }}
+      {{ deck.description }}
+      </div>
+      <!-- </div> -->
       <h1>Your card list</h1>
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
     
@@ -10,7 +16,7 @@
         QUESTION: {{ card.question }}
         ANSWER: {{ card.answer }}
         RANK: {{ card.rank }}
-        
+        <button type="button" class="editBtn" @click="$router.push('/update-card')">Edit Card</button>
         </div>
   </div>
 </template>
@@ -21,12 +27,10 @@ export default {
  data(){
     return {
         card: {
-            
             deckID: this.$store.state.currentDeckID,
             question: '',
             answer: '',
             rank: 0
-            
         },
     }  
   }, 
@@ -34,12 +38,12 @@ export default {
         this.retrieveCards();
         this.getDeckID();
    },
+  
   name: "card-list",
   methods: {
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
-   
     retrieveCards() {
       authService.getCards(this.$route.params.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);

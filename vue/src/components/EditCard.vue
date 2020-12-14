@@ -1,36 +1,40 @@
 <template>
   <div>
-      <h3>Create a card!</h3>  
-      <form v-on:submit.prevent> 
-       <label for="question">Add a front!(question, prompt, word, etc...)</label>
-       <input v-model="card.question" type="text" id="question"/>
-       <label for="answer">Add a back!(answer, response, definition, etc...)</label>
-       <input v-model="card.answer" type="text" id="answer"/>
-       <button type="submit" @click="newCard()">Create Card</button>
-      </form>
+      <h1>UPDATE</h1> 
+
+  <form>
+      <input type="text" id="question" name="question">
+  </form>
+  
+  
+  
+  
+  
+  
   </div>
 </template>
 
 <script>
-import authService from '../services/AuthService';
+import authService from '../services/AuthService.vue'
 export default {
-    name: 'add-card',
-    data(){
-        return{
+    data() {
+        return {
             card: {
                 userID: this.$store.state.user.id,
                 deckID: this.$store.state.currentDeckID,
+            
                 question: '',
                 answer: '',
                 rank: 0
-                
-        }
-    };
+            },
+
+        };
     },
     methods: {
-        newCard() {
+       
+        editCard() {
             authService
-            .addCard(this.card)
+            .updateCard(this.card)
             .then(response => {
                 if (response.status == 201) {
                     this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}})
@@ -40,11 +44,8 @@ export default {
                 console.error(error);
             });
         }
-    }
-
-
-
-
+    },
+name: 'edit-card',
 }
 </script>
 
