@@ -2,16 +2,26 @@
   <div>
       <h1>Your card list</h1>
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
-  
-        <div class="cards"
-        v-for="card in this.$store.state.cards" 
-        v-bind:key="card.cardID">
-        {{ card.cardID }}
-        {{ card.question }}
-        {{ card.answer }}
-        {{ card.rank }}
-        
-        </div>
+      <table class="table">
+               <thead>
+          <tr>
+            <th>Card ID</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cards" v-for="card in this.$store.state.cards" 
+            v-bind:key="card.cardID">
+            <td> {{ card.cardID }} </td>
+            <td> {{ card.question }}</td>
+            <td> {{ card.answer }}</td>
+            <td> {{ card.rank }}</td>
+            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">DELETE</button></td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </template>
 
@@ -40,11 +50,11 @@ export default {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
-    removeCards(cardID) {
-      authService.deleteCard(cardID).then(response => {
+    removeCards(givenCardID) {
+      authService.deleteCard(givenCardID).then(response => {
         if (response.status === 200) {
           alert("Card deleted!");
-          this.$store.commit("DELETE_CARDS", cardID);
+          this.$store.commit("DELETE_CARDS", givenCardID);
         }
       });
     },

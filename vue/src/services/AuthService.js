@@ -19,7 +19,7 @@ export default {
   },
 
   deleteDeck(deckID) {
-    return axios.delete(`/${deckID}`);
+    return axios.delete(`/view-decks/${deckID}`);
   },
 
   getCards(deckID) {
@@ -39,7 +39,7 @@ export default {
   },
 
   deleteCard(cardID) {
-    return axios.delete(`/cards/${cardID}`);
+    return axios.delete(`/delete-card/${cardID}`);
   }
 
 }

@@ -20,7 +20,6 @@ export default {
             card: {
                 userID: this.$store.state.user.id,
                 deckID: this.$store.state.decks.deckID,
-                cardID: this.$store.state.cards.cardID,
                 question: "",
                 answer: ""
         }
