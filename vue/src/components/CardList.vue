@@ -8,15 +8,17 @@
       <!-- </div> -->
       <h1>Your card list</h1>
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
-    
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
+
         <div class="cards"
         v-for="card in this.$store.state.cards" 
         v-bind:key="card.cardID">
-        ID: {{ card.cardID }}
-        QUESTION: {{ card.question }}
-        ANSWER: {{ card.answer }}
-        RANK: {{ card.rank }}
-        <button type="button" class="editBtn" @click="$router.push('/update-card')">Edit Card</button>
+        {{ card.cardID }}
+        {{ card.question }}
+        {{ card.answer }}
+        {{ card.rank }}
+        
+        
         </div>
   </div>
 </template>
@@ -51,7 +53,7 @@ export default {
     },
     removeCards(cardID) {
       authService.deleteCard(cardID).then(response => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           alert("Card deleted!");
           this.$store.commit("DELETE_CARDS", cardID);
         }

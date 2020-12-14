@@ -1,7 +1,14 @@
 <template>
-  <div class="container">
-    <h1>Your Deck List</h1>
+  <div class="page">
+    <div class="wrapper">
+      <div class="clip-text clip-text_thirteen clip-text--cover">
+        Your Deck List
+      </div>
+      <div class="add">
     <button class="createDeck" @click="$router.push('create-deck')">Add Deck</button>
+    </div>
+      </div>
+   
     <div class="container">
       <table class="table">
         <thead>
@@ -13,7 +20,6 @@
         </thead>
         <tbody>
           <tr class="decks" 
-        
             v-for="deck in this.$store.state.decks"
             v-bind:key="deck.userID">
             <td>{{ deck.name }}</td>
@@ -29,6 +35,7 @@
       </table>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -56,9 +63,9 @@ export default {
     },
     removeDecks(removedDeckID) {
       authService.deleteDeck(removedDeckID).then(response => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           alert("Deck deleted!");
-          this.$store.commit(removedDeckID);
+          // this.$store.commit(removedDeckID);
           this.$router.push("/");
         }
       });
@@ -76,7 +83,103 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.page {
+  position: fixed;
+  z-index: -3;
+
+  background-image: linear-gradient(
+    0deg,
+    rgb(252, 220, 226) 9%,
+    rgba(255, 255, 255, 1) 64%
+  );
+  min-height: 100%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: auto;
+
+  top: 0;
+  left: 0;
+}
+
+/* Clip text element */
+.clip-text {
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0.45em;
+  padding: 0.5em 0.75em;
+  text-align: center;
+  color: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.clip-text:before,
+.clip-text:after {
+  position: absolute;
+  content: "";
+}
+
+.clip-text:before {
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: inherit;
+}
+
+.clip-text:after {
+  position: absolute;
+  z-index: -1;
+  top: 0.125em;
+  right: 0.125em;
+  bottom: 0.125em;
+  left: 0.125em;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+.clip-text--cover,
+.clip-text--cover:before {
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.clip-text_thirteen {
+  background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
+}
+
+.wrapper {
+  text-align:center;
+  position: relative;
+  padding-top: 50px;
+}
+.createDeck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.add {
+  white-space: nowrap;
+  position: absolute;
+  top: 110%;
+  right: 45%;
+  left: 50%;
+   -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.container {
+  margin-top: 6%;
+}
 /* .decks {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -85,4 +188,10 @@ export default {
 .delete-icon{
 
 } */
+
 </style>
+
+
+
+
+

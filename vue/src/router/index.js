@@ -8,7 +8,8 @@ import store from '../store/index'
 import CreateDeck from '../views/CreateDeck.vue'
 import  DeckWithCards from '../views/DeckWithCards.vue'
 import CreateCard from '../views/CreateCard.vue'
-import UpdateCard from '../views/UpdateCard.vue'
+import Session from '../views/ViewSession.vue'
+
 Vue.use(Router)
 
 /**
@@ -79,7 +80,16 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }, 
+    },
+    {
+      path: "/view-session/",
+      name: "view-session",
+      component: Session,
+      meta: {
+        requiresAuth: false
+      }
+    },
+  
   ]
 })
 
