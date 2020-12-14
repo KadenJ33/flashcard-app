@@ -66,7 +66,6 @@ export default {
         if (response.status === 204) {
           alert("Deck deleted!");
           this.retrieveDecks();
-          this.$router.push("/");
           location.reload();
         }
       });
