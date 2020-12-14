@@ -2,7 +2,7 @@
   <div class="home">
     <p>You must be authenticated to see this</p>
     <view-decks />
-    <search />
+    <!-- <search /> -->
     <!-- <router-view :key="$route.fullPath" class="routerView" /> -->
     <!-- <div class="button">
       
