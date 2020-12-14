@@ -1,6 +1,7 @@
 <template>
+
   <div class="home">
-    <p>You must be authenticated to see this</p>
+  
     <view-decks />
     <search />
     <!-- <router-view :key="$route.fullPath" class="routerView" /> -->
@@ -10,6 +11,7 @@
       <button class="delete" @click="$router.push('delete')">Delete Deck</button>
       </div> -->
   </div>
+
 </template>
 
 <script>
@@ -24,4 +26,5 @@ export default {
  }
 };
 </script>
+
 
