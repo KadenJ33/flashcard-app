@@ -36,5 +36,5 @@ ALTER TABLE cards RENAME COLUMN answwer TO answer;
  
 
 INSERT INTO cards (card_id, deck_id, user_id, question, answer, correct, rank) VALUES (DEFAULT, 3, 4, 'whats up?', 'chillin', default, default);
-SELECT deck_id, card_id, question, answwer, correct FROM cards WHERE user_id = 4 AND deck_id = 3 AND correct = false;
-DELETE FROM cards WHERE user_id = 4 AND deck_id = 3 AND card_id = 1;
+SELECT deck_id, card_id, question, answer, correct FROM cards WHERE user_id = 4 AND deck_id = 3 AND correct = false;
+DELETE FROM cards WHERE user_id = 1 AND deck_id = 3 AND card_id = 1;
