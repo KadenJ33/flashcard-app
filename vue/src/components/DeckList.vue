@@ -64,9 +64,10 @@ export default {
     removeDecks(removedDeckID) {
       authService.deleteDeck(removedDeckID).then(response => {
         if (response.status === 204) {
-          alert("Deck deleted!");
+         // alert("Deck deleted!");
           // this.$store.commit(removedDeckID);
           this.$router.push("/");
+          location.reload();
         }
       });
     },

@@ -56,9 +56,9 @@ public class cardSqlDAO implements cardDAO {
 		
 	
 	@Override
-	public void deleteCard(int userID, int deckID, int cardID) {
-		String sql = "DELETE FROM cards WHERE user_id = ? AND deck_id =? AND card_id = ?";
-		jdbc.update(sql, userID, deckID, cardID);
+	public void deleteCard(int cardID) {
+		String sql = "DELETE FROM cards WHERE card_id = ?";
+		jdbc.update(sql, cardID);
 	}
 //===================ANYTHING BELOW THIS LINE WILL PROBABLY BE DELETED=============================
 	

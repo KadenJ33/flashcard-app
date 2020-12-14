@@ -35,11 +35,11 @@ export default {
   },
 
   updateCard(card) {
-    return axios.put(`/cards/${card.id}`, card);
+    return axios.put(`/update-card`, card);
   },
 
   deleteCard(cardID) {
-    return axios.delete(`/cards/${cardID}`);
+    return axios.delete(`/card/${cardID}`);
   }
 
 }

@@ -13,7 +13,7 @@ public interface cardDAO {
 	
 	void updateCard(int userID, int deckID, int cardID, String question, String answer, Boolean correct);
 	
-	void deleteCard(int userID, int deckID, int cardID);
+	void deleteCard(int cardID);
 	
 	
 	//probably deleting
