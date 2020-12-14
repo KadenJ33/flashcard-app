@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Create a card!</h1>  
+      <h3>Create a card!</h3>  
       <form v-on:submit.prevent> 
        <label for="question">Add a front!(question, prompt, word, etc...)</label>
        <input v-model="card.question" type="text" id="question"/>
@@ -19,10 +19,10 @@ export default {
         return{
             card: {
                 userID: this.$store.state.user.id,
-                deckID: this.$store.state.decks.deckID,
-                cardID: this.$store.state.cards.cardID,
-                question: "",
-                answer: ""
+                deckID: this.$store.state.currentDeckID,
+                question: '',
+                answer: '',
+                
         }
     };
     },
@@ -32,7 +32,7 @@ export default {
             .addCard(this.card)
             .then(response => {
                 if (response.status == 201) {
-                    this.$router.push("/deck-with-cards")
+                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}})
                 }
             })
              .catch(error => {

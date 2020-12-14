@@ -2,14 +2,14 @@
   <div>
       <h1>Your card list</h1>
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
-  
+    
         <div class="cards"
         v-for="card in this.$store.state.cards" 
         v-bind:key="card.cardID">
-        {{ card.cardID }}
-        {{ card.question }}
-        {{ card.answer }}
-        {{ card.rank }}
+        ID: {{ card.cardID }}
+        QUESTION: {{ card.question }}
+        ANSWER: {{ card.answer }}
+        RANK: {{ card.rank }}
         
         </div>
   </div>
@@ -22,18 +22,23 @@ export default {
     return {
         card: {
             
-            deckID: 0,
+            deckID: this.$store.state.currentDeckID,
             question: '',
             answer: '',
+            rank: 0
             
         },
     }  
   }, 
    created(){
         this.retrieveCards();
+        this.getDeckID();
    },
   name: "card-list",
   methods: {
+    getDeckID() {
+      this.$store.commit("SET_ID", this.$route.params.deckID);
+    },
    
     retrieveCards() {
       authService.getCards(this.$route.params.deckID).then((response) => {
