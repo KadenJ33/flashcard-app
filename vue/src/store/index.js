@@ -21,9 +21,14 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     decks: [],
-    cards: []
+    cards: [],
+    currentDeckID: {}
   },
   mutations: {
+    SET_ID(state, id) {
+      state.currentDeckID = id;
+    },
+
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
