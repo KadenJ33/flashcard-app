@@ -38,21 +38,21 @@ public class cardController {
     	myCardDAO.createCard(newCard.getDeckID(), newCard.getUserID(), newCard.getQuestion(), newCard.getAnswer());
     }
     
-    
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/deck-with-cards/{deckID}", method = RequestMethod.GET)
     public List<Card> viewAllCards(@Valid @PathVariable("deckID") int deckID) {
     	return myCardDAO.findAllCards(deckID);
     	
     }
     
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/update-card", method = RequestMethod.PUT)
     public void updateCard(@Valid @RequestBody cardDTO card) {
     	myCardDAO.updateCard(card.getUserID(), card.getDeckID(), card.getCardID(), card.getQuestion(), card.getAnswer(), card.isCorrect());
     }
     
-   
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "/card/{cardID}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/delete-card/{cardID}", method = RequestMethod.DELETE)
     public void deleteCard(@Valid @PathVariable("cardID") int cardID) {
     	myCardDAO.deleteCard(cardID);
     }

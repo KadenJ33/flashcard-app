@@ -1,50 +1,33 @@
 <template>
-  <div>
-    <div class="session">
-  <h1>SESSION COMPONENT</h1>
+    <div id="flashcard-app" class="container">
 
+    <h1>Flashcard App!</h1>
 
+    <div class="flashcard-form">
+      <label for="front">Front
+        <input v-model="newFront" type="text" id="front">
+      </label>
+      <label for="back">Back
+        <input v-on:keypress.enter="addNew" v-model="newBack" type="text" id="back">
+      </label>
+      <button v-on:click="addNew">Add a New Card</button>
+      <span v-show="error" class="error">Oops! Flashcards need a front and a back.</span>
+    </div>
 
-
-  <!-- <div class="container">
-
-      <p v-on:click="toggleCard(card)" v-for="(card) in this.$store.state.cards">
+    <ul class="flashcard-list">
+      <li v-on:click="toggleCard(card)" v-for="(card, index) in cards" v-bind:key="card.cardID">
         <transition name="flip">
           <p v-bind:key="card.flipped" class="card">
               {{ card.flipped ? card.back : card.front }}
               <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
           </p>
         </transition>
-      </p>
-
-  </div> -->
-
-  <div class="container">
-
-      <p v-on:click="toggleCard(this.$store.state.cards[0])" >
-        <transition name="flip">
-          <!-- <p v-bind:key="card.flipped" class="card"> -->
-            <p class="card">
-              {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].answer : this.$store.state.cards[0].question }}
-              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
-          </p>
-        </transition>
-      </p>
-
-  </div>
-
-
-
-
-
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-
-
-
 const cards = [
     {
       front: 'The "First Computer Programmer"',
@@ -68,39 +51,37 @@ const cards = [
       flipped: false,
     },
 ]; 
-import authService from '../services/AuthService';
-export default ({
-  data: function() {
-return {
+
+new Vue ({
+  el: '#flashcard-app',
+  data: {
     cards: cards,
     newFront: '',
     newBack: '',
     error: false
-  };
-},
-   created(){
-        this.retrieveCards();
-        
-   },
+  },
   methods: {
     toggleCard: function(card) {
       card.flipped = !card.flipped;
     },
-          retrieveCards() {
-      authService.getCards(1).then((response) => {
-        this.$store.commit("SET_CARDS", response.data);
-        // this.$store.commit("ADD_FLIP_PROPERTY", false);
-      });
-    },
-        getDeckID() {
-      this.$store.commit("SET_ID", 1);
+    addNew: function() {
+      if(!this.newFront || !this.newBack) {
+        this.error = true;
+      } else {
+        this.cards.push({
+          front: this.newFront,
+          back: this.newBack,
+          flipped: false
+        });
+        // set the field empty
+        this.newFront = '';
+        this.newBack = '';
+        // Make the warning go away
+        this.error= false;
+      }
     }
-  },
-
+  }
 });
-
-
-
 
 </script>
 
@@ -110,8 +91,13 @@ body {
     text-align: center;
   }
   
-  p {
-    align-content: center;
+  ul {
+    padding-left: 0;
+    display: flex;
+    flex-flow: row wrap;
+  }
+  
+  li {
     list-style-type: none;
     padding: 10px 10px;
     transition: all 0.3s ease;
@@ -119,13 +105,13 @@ body {
   
   .container {
     max-width: 100%;
-    padding: 5em;
+    padding: 2em;
   }
   
   .card {
     display: block;
-    width: 650px;
-    height: 350px;
+    width: 150px;
+    height: 175px;
     padding: 80px 50px;
     background-color: #51aae5;
     border-radius: 7px;
@@ -143,31 +129,31 @@ body {
     will-change: transform;
   }
   
-  p:hover{
+  li:hover{
     transform: scale(1.1);
   }
   
-  p:nth-child(-n+3) .card{
+  li:nth-child(-n+3) .card{
     background-color: #e65f51;
     }
   
-  p:nth-child(2n+1) .card{
+  li:nth-child(2n+1) .card{
     background-color: #a17de9;
     }
   
-  p:nth-child(4n) .card{
+  li:nth-child(4n) .card{
     background-color: #feca34;
     }
   
-  p:nth-child(5n-2) .card{
+  li:nth-child(5n-2) .card{
     background-color: #51aae5;
     }
   
-  p:nth-child(4n+4) .card{
+  li:nth-child(4n+4) .card{
     background-color: #feca34;
     }
   
-  p:nth-child(-7n+7) .card{
+  li:nth-child(-7n+7) .card{
     background-color: #e46055;
     }
   
@@ -180,7 +166,7 @@ body {
     transition: all 0.5s ease;
   }
   
-  .delete-card:hover{
+  .delete-card:hover, .error {
     opacity: 1;
     transform: rotate(360deg);
   }
@@ -199,4 +185,48 @@ body {
   
   }
   
+  /* Form */
+  .flashcard-form{
+    position: relative;
+  }
+  
+  
+  label{
+    font-weight: 400;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  input{
+    border-radius: 5px;
+    border: 2px solid #eaeaea;
+    padding: 10px;
+    outline: none;
+  }
+  
+  button{
+    border-radius: 5px;
+    border: 1px solid #87cb84;
+    background-color: #87cb84;
+    padding: 8px 15px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover{
+    background-color: #70a66f;
+  }
+  
+  .error{
+    margin-top: 10px;
+    display: block;
+    color: #e44e42;
+    font-weight: 600;
+  }
+
+
 </style>

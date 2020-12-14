@@ -9,17 +9,29 @@
       <h1>Your card list</h1>
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
       <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
-
-        <div class="cards"
-        v-for="card in this.$store.state.cards" 
-        v-bind:key="card.cardID">
-        {{ card.cardID }}
-        {{ card.question }}
-        {{ card.answer }}
-        {{ card.rank }}
-        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
-        
-        </div>
+      <table class="table">
+               <thead>
+          <tr>
+            <th>Card ID</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cards" v-for="card in this.$store.state.cards" 
+            v-bind:key="card.cardID">
+            <td> {{ card.cardID }} </td>
+            <td> {{ card.question }}</td>
+            <td> {{ card.answer }}</td>
+            <td> {{ card.rank }}</td>
+            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">DELETE</button></td>
+            <td> <button type="button" class="delete-icon" @click="updateQuestion(card.cardID)">EDIT QUESTION</button></td>
+            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">EDIT ANSWER</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <input type="text">
   </div>
 </template>
 
@@ -34,6 +46,14 @@ export default {
             answer: '',
             rank: 0
         },
+                updatedCard: {
+            
+            deckID: this.$store.state.currentDeckID,
+            question: '',
+            answer: '',
+            rank: 0
+            
+        }
     }  
   }, 
    created(){
@@ -51,11 +71,20 @@ export default {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
-    removeCards(cardID) {
-      authService.deleteCard(cardID).then(response => {
+    removeCards(givenCardID) {
+      authService.deleteCard(givenCardID).then(response => {
         if (response.status === 204) {
-          // this.$store.commit("DELETE_CARDS", cardID);
+          alert("Card deleted!");
+          this.$store.commit("DELETE_CARDS", givenCardID);
           location.reload();
+        }
+      });
+    },
+        updateQuestion(givenCard) {
+      authService.deleteCard(givenCard).then(response => {
+        if (response.status === 200) {
+          alert("Card changed!");
+          this.$store.commit("DELETE_CARDS", givenCard);
         }
       });
     },

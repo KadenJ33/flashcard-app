@@ -55,10 +55,14 @@ export default new Vuex.Store({
       });
     },
     SET_CARDS(state, data) {
-      data.forEach(card => {
+    data.forEach(card => {
         card.flipped = false
       });
       state.cards = data;
+
+    },
+    ADD_FLIP_PROPERTY(state, data) {
+      Vue.$set(state.cards, 'flipped', data)
     },
     DELETE_CARDS(state, cardID) {
       state.cards = state.card.filter((card) => {
