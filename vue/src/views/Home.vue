@@ -3,7 +3,7 @@
   <div class="home">
   
     <view-decks />
-    <search />
+    <!-- <search /> -->
     <!-- <router-view :key="$route.fullPath" class="routerView" /> -->
     <!-- <div class="button">
       
