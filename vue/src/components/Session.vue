@@ -8,11 +8,12 @@
 
   <div class="container">
 
-      <p v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+      <p v-on:click="toggleCard(this.$store.state.cards[0])" >
         <transition name="flip">
-          <p v-bind:key="card.flipped" class="card">
-              {{ card.flipped ? card.back : card.front }}
-              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
+          <!-- <p v-bind:key="card.flipped" class="card"> -->
+            <p class="card">
+              {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].answer : this.$store.state.cards[0].question }}
+              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
           </p>
         </transition>
       </p>
@@ -33,23 +34,23 @@
 
 
 
-const cards = [
-    {
-      front: 'FRONT',
-      back: 'BACK',
-      flipped: false,
-    },
-]; 
+// const cards = [
+//     {
+//       front: 'FRONT',
+//       back: 'BACK',
+//       flipped: false,
+//     },
+// ]; 
 
 export default ({
-  data: function() {
-return {
-    cards: cards,
-    newFront: '',
-    newBack: '',
-    error: false
-  };
-},
+//   data: function() {
+// return {
+//     cards: cards,
+//     newFront: '',
+//     newBack: '',
+//     error: false
+//   };
+// },
   methods: {
     toggleCard: function(card) {
       card.flipped = !card.flipped;

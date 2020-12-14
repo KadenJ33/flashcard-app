@@ -55,6 +55,9 @@ export default new Vuex.Store({
       });
     },
     SET_CARDS(state, data) {
+      data.forEach(card => {
+        card.flipped = false
+      });
       state.cards = data;
     },
     DELETE_CARDS(state, cardID) {
