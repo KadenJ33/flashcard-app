@@ -6,6 +6,19 @@
 
 
 
+  <!-- <div class="container">
+
+      <p v-on:click="toggleCard(card)" v-for="(card) in this.$store.state.cards">
+        <transition name="flip">
+          <p v-bind:key="card.flipped" class="card">
+              {{ card.flipped ? card.back : card.front }}
+              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
+          </p>
+        </transition>
+      </p>
+
+  </div> -->
+
   <div class="container">
 
       <p v-on:click="toggleCard(card)" v-for="(card, index) in cards">
@@ -23,8 +36,6 @@
 
 
 
-
-
     </div>
   </div>
 </template>
@@ -35,12 +46,28 @@
 
 const cards = [
     {
-      front: 'FRONT',
-      back: 'BACK',
+      front: 'The "First Computer Programmer"',
+      back: 'Ada Lovelace',
+      flipped: false,
+    },
+    {
+      front: 'Invented the "Clarke Calculator"',
+      back: 'Edith Clarke',
+      flipped: false,
+  
+    },
+    {
+      front: 'Famous World War II Enigma code breaker',
+      back: 'Alan Turing',
+      flipped: false,
+    },
+    {
+      front: 'Created satellite orbit analyzation software for NASA',
+      back: 'Dr. Evelyn Boyd Granville',
       flipped: false,
     },
 ]; 
-
+import authService from '../services/AuthService';
 export default ({
   data: function() {
 return {
@@ -50,11 +77,25 @@ return {
     error: false
   };
 },
+   created(){
+        this.retrieveCards();
+        
+   },
   methods: {
     toggleCard: function(card) {
       card.flipped = !card.flipped;
     },
-  }
+          retrieveCards() {
+      authService.getCards(1).then((response) => {
+        this.$store.commit("SET_CARDS", response.data);
+        // this.$store.commit("ADD_FLIP_PROPERTY", false);
+      });
+    },
+        getDeckID() {
+      this.$store.commit("SET_ID", 1);
+    }
+  },
+
 });
 
 
