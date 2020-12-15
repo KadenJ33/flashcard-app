@@ -1,23 +1,25 @@
 <template>
-  <div class="container">
-    <div class="wrapper">
-      <div
-        class="clip-text clip-text_thirteen clip-text--cover"
-        v-for="deck in this.$store.state.decks"
-        v-bind:key="deck.userID"
-      >
-        {{ deck.name }}
-      </div>
+  <div>
+    <div v-for="deck in this.$store.state.decks" v-bind:key="deck.userID">
+      <!-- <div v-if="deck.deckID === currentDeckID">  -->
+      {{ deck.name }}
+      {{ deck.description }}
     </div>
-    <div class="searchBar">
-      <search></search>
-    </div>
+    <!-- </div> -->
+    <h1>Your card list</h1>
     <button
       type="button"
       class="createCard"
       @click="$router.push('/create-card')"
     >
-      Add a Card
+      Add Card
+    </button>
+    <button
+      type="button"
+      class="viewSession"
+      @click="$router.push('/view-session')"
+    >
+      Start Session
     </button>
 
     <div
@@ -29,6 +31,7 @@
       {{ card.question }}
       {{ card.answer }}
       {{ card.rank }}
+      <button type="button" @click="removeCards(card.cardID)">DELETE</button>
     </div>
   </div>
 </template>
@@ -43,28 +46,33 @@ export default {
   data() {
     return {
       card: {
-        deckID: 0,
+        deckID: this.$store.state.currentDeckID,
         question: "",
         answer: "",
+        rank: 0,
       },
     };
   },
-
   created() {
     this.retrieveCards();
+    this.getDeckID();
   },
+
   name: "card-list",
   methods: {
+    getDeckID() {
+      this.$store.commit("SET_ID", this.$route.params.deckID);
+    },
     retrieveCards() {
-      authService.getCards(this.$store.state.decks.deckID).then((response) => {
+      authService.getCards(this.$route.params.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
     removeCards(cardID) {
       authService.deleteCard(cardID).then((response) => {
-        if (response.status === 200) {
-          alert("Card deleted!");
-          this.$store.commit("DELETE_CARDS", cardID);
+        if (response.status === 204) {
+          // this.$store.commit("DELETE_CARDS", cardID);
+          location.reload();
         }
       });
     },

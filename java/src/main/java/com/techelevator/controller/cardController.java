@@ -50,10 +50,11 @@ public class cardController {
     	myCardDAO.updateCard(card.getUserID(), card.getDeckID(), card.getCardID(), card.getQuestion(), card.getAnswer(), card.isCorrect());
     }
     
-    
-    @RequestMapping(path = "/delete-card", method = RequestMethod.DELETE)
-    public void deleteCard(@Valid @RequestBody cardDTO card) {
-    	myCardDAO.deleteCard(card.getUserID(), card.getDeckID(), card.getCardID());
+   
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/card/{cardID}", method = RequestMethod.DELETE)
+    public void deleteCard(@Valid @PathVariable("cardID") int cardID) {
+    	myCardDAO.deleteCard(cardID);
     }
     
     

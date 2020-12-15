@@ -141,6 +141,8 @@ public class deckSqlDAO implements deckDAO {
 
 	@Override
 	public void deleteDeck(int deckID) {
+		String sql2 = "DELETE FROM cards WHERE deck_id = ?";
+		jdbc.update(sql2, deckID);
 		String sql = "DELETE FROM decks WHERE deck_id = ?";
 		jdbc.update(sql, deckID);
 	}
