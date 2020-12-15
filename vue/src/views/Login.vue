@@ -114,16 +114,6 @@ button {
   margin: 10px auto;
 }
 
-/* .header-img {
-  width: 50%;
-  height: 150px;
-  background: url("https://2aih25gkk2pi65s8wfa8kzvi-wpengine.netdna-ssl.com/hs/files/2017/05/shutterstock_154743968-e1495071427403.jpg");
-  background-size: cover;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-} */
-
 a {
   border-radius: 10px;
   background: white;
@@ -131,12 +121,5 @@ a {
   width: 200px;
   height: 100px;
 }
-/* a:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.1), 0 6px 8px rgba(0, 0, 0, 0.05),
-    0 24px 24px rgba(0, 0, 0, 0.05), 0 36px 36px rgba(0, 0, 0, 0.05),
-    0 64px 64px rgba(0, 0, 0, 0.15), 0 64px 128px rgba(0, 0, 0, 0.15),
-    0 86px 8px 6px, 0 83px 4px 0px;
-} */
 </style>
 

@@ -1,18 +1,23 @@
 <template>
-  <div>
-    <div v-for="deck in this.$store.state.decks" v-bind:key="deck.userID">
-      <!-- <div v-if="deck.deckID === currentDeckID">  -->
-      {{ deck.name }}
-      {{ deck.description }}
+  <div class="container">
+    <div class="wrapper">
+      <div
+        class="clip-text clip-text_thirteen clip-text--cover"
+        v-for="deck in this.$store.state.decks"
+        v-bind:key="deck.userID"
+      >
+        {{ deck.name }}
+      </div>
     </div>
-    <!-- </div> -->
-    <h1>Your card list</h1>
+    <div class="searchBar">
+      <search></search>
+    </div>
     <button
       type="button"
       class="createCard"
       @click="$router.push('/create-card')"
     >
-      Add Card
+      Add a Card
     </button>
     <button
       type="button"
@@ -180,5 +185,20 @@ export default {
 
 .createCard {
   margin-top: 10px;
+}
+
+.viewSession {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.viewSession:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>
