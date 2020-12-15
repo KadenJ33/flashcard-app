@@ -1,8 +1,8 @@
 <template>
   <div>
     
-     <h2> {{ $store.state.decks[findIndex].name }} </h2>
-      <h3> {{ $store.state.decks[findIndex].description }} </h3>
+     <!-- <h2> {{ $store.state.decks[findIndex].name }} </h2>
+      <h3> {{ $store.state.decks[findIndex].description }} </h3> -->
      
       <h1>Your card list</h1>
       
@@ -10,17 +10,16 @@
       <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
       <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
        <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
-        <div class="cards"
+        <tr class="cards"
         v-for="card in this.$store.state.cards" 
         v-bind:key="card.cardID">
-        {{ card.cardID }}
-        {{ card.question }}
-        {{ card.answer }}
-        {{ card.rank }}
+       <td> {{ card.question }} </td>
+       <td> {{ card.answer }} </td>
+       <td> Rank: {{ card.rank }} </td>
         <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
         <button type="button" @click="removeCards(card.cardID)">DELETE</button>
         <!-- </tr> -->
-        </div>
+        </tr>
   </div>
 </template>
 
@@ -36,11 +35,9 @@ export default {
       // },
         card: {
             deckID: this.$store.state.currentDeckID,
-            
             question: '',
             answer: '',
             rank: 0
-            
         },
     }  
   }, 
@@ -86,7 +83,7 @@ export default {
     removeCards(cardID) {
       authService.deleteCard(cardID).then(response => {
         if (response.status === 204) {
-          // this.$store.commit("DELETE_CARDS", cardID);
+        //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
           location.reload();
         }
       });

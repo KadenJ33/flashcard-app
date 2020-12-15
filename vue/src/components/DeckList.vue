@@ -19,6 +19,7 @@
           </tr>
         </thead>
         <tbody>
+          
           <tr class="decks" 
             v-for="deck in this.$store.state.decks"
             v-bind:key="deck.userID">
@@ -67,8 +68,8 @@ export default {
         if (response.status === 204) {
          // alert("Deck deleted!");
           // this.$store.commit(removedDeckID);
-          this.$router.push("/");
-          location.reload();
+          //this.$router.push("/");
+        location.reload();
         }
       });
     },

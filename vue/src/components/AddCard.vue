@@ -1,12 +1,12 @@
 <template>
   <div>
       <h3>Create a card!</h3>  
-      <form v-on:submit.prevent> 
+      <form @submit.prevent="newCard()"> 
        <label for="question">Add a front!(question, prompt, word, etc...)</label>
-       <input v-model="card.question" type="text" id="question"/>
+       <input v-model="card.question" type="text" id="question" required/>
        <label for="answer">Add a back!(answer, response, definition, etc...)</label>
-       <input v-model="card.answer" type="text" id="answer"/>
-       <button type="submit" @click="newCard()">Create Card</button>
+       <input v-model="card.answer" type="text" id="answer" required/>
+       <button type="submit">Create Card</button>
       </form>
   </div>
 </template>
@@ -33,8 +33,8 @@ export default {
             .addCard(this.card)
             .then(response => {
                 if (response.status == 201) {
-                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}});
-                    location.reload();
+                    this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
+                    //location.reload();
                 }
             })
              .catch(error => {
