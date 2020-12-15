@@ -5,12 +5,14 @@
 
 <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
 
-<!-- <div v-show="!isToggle">
+<div class="checked">Score: {{ score }} </div>
+<!-- <div v-if="this.$store.state.cards[0].answer">
+  <button @click="correct">Correct</button> -->
+<!-- </div> -->
 
 
 
 
-</div> -->
 <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
 
   <!-- <div class="container">
@@ -31,9 +33,11 @@
 
       <p v-on:click="toggleCard($store.state.cards[0])">
         <transition name="flip">
-          <p  class="card">
+          <p class="card" >
               {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].question : this.$store.state.cards[0].answer }}
-              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
+              
+               <button class="correct" @click="isCorrect()">V</button>
+          
           </p>
         </transition>
       </p>
@@ -52,6 +56,11 @@
 
 import authService from '../services/AuthService';
 export default ({
+  data () {
+    return {
+      score: 0,
+    }
+  },
 
    created(){
         this.retrieveCards();
@@ -69,7 +78,10 @@ export default ({
     },
         getDeckID() {
       this.$store.commit("SET_ID", 1);
-    }
+    },
+    isCorrect(){
+      this.score++;
+    },
   },
 
 });
@@ -82,7 +94,6 @@ export default ({
 <style>
 body {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
   }
   
   p {
@@ -146,7 +157,7 @@ body {
     background-color: #e46055;
     }
   
-  .delete-card {
+  .correct {
     position: absolute;
     right: 0;
     top: 0;
@@ -155,9 +166,9 @@ body {
     transition: all 0.5s ease;
   }
   
-  .delete-card:hover{
+  .correct:hover{
     opacity: 1;
-    transform: rotate(360deg);
+    /* transform: rotate(360deg); */
   }
   
   .flip-enter-active {
