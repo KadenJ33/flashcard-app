@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="session">
+    <!-- <div class="session" @click=flipCard> -->
   <h1>SESSION COMPONENT</h1>
 
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+<!-- <div v-show="!isToggle">
 
 
+
+
+</div> -->
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
 
   <!-- <div class="container">
 
@@ -19,13 +26,13 @@
 
   </div> -->
 
+
   <div class="container">
 
-      <p v-on:click="toggleCard(this.$store.state.cards[0])" >
+      <p v-on:click="toggleCard($store.state.cards[0])">
         <transition name="flip">
-          <!-- <p v-bind:key="card.flipped" class="card"> -->
-            <p class="card">
-              {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].answer : this.$store.state.cards[0].question }}
+          <p  class="card">
+              {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].question : this.$store.state.cards[0].answer }}
               <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
           </p>
         </transition>
@@ -38,46 +45,14 @@
 
 
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
 
-
-
-const cards = [
-    {
-      front: 'The "First Computer Programmer"',
-      back: 'Ada Lovelace',
-      flipped: false,
-    },
-    {
-      front: 'Invented the "Clarke Calculator"',
-      back: 'Edith Clarke',
-      flipped: false,
-  
-    },
-    {
-      front: 'Famous World War II Enigma code breaker',
-      back: 'Alan Turing',
-      flipped: false,
-    },
-    {
-      front: 'Created satellite orbit analyzation software for NASA',
-      back: 'Dr. Evelyn Boyd Granville',
-      flipped: false,
-    },
-]; 
 import authService from '../services/AuthService';
 export default ({
-  data: function() {
-return {
-    cards: cards,
-    newFront: '',
-    newBack: '',
-    error: false
-  };
-},
+
    created(){
         this.retrieveCards();
         
