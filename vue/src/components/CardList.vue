@@ -1,52 +1,43 @@
 <template>
   <div>
-
-
-      <div> {{ $store.state.decks[findIndex].name }} </div>
-      <div> {{ $store.state.decks[findIndex].description }} </div>
-
-
-
+    
+     <!-- <h2> {{ $store.state.decks[findIndex].name }} </h2>
+      <h3> {{ $store.state.decks[findIndex].description }} </h3> -->
+     
+      <h1>Your card list</h1>
+      
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
       <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
-      <table class="table">
-               <thead>
-          <tr>
-            <th>Card ID</th>
-            <th>Question</th>
-            <th>Answer</th>
-            <th>Rank</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="cards" v-for="card in this.$store.state.cards" 
-            v-bind:key="card.cardID">
-            <td> {{ card.cardID }} </td>
-            <td> {{ card.question }}</td>
-            <td> {{ card.answer }}</td>
-            <td> {{ card.rank }}</td>
-            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">DELETE</button></td>
-            <td> <button type="button" class="delete-icon" @click="updateQuestion(card.cardID)">EDIT QUESTION</button></td>
-            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">EDIT ANSWER</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <input type="text">
+      <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
+       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
+        <tr class="cards"
+        v-for="card in this.$store.state.cards" 
+        v-bind:key="card.cardID">
+       <td> {{ card.question }} </td>
+       <td> {{ card.answer }} </td>
+       <td> Rank: {{ card.rank }} </td>
+        <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
+        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+        <!-- </tr> -->
+        </tr>
   </div>
 </template>
 
 <script>
 import authService from '../services/AuthService';
+// import Search from '../components/Search.vue'
 export default {
  data(){
     return {
+      // filter: {
+      //   question: '',
+      //   answer: ''
+      // },
         card: {
-            
             deckID: this.$store.state.currentDeckID,
             question: '',
             answer: '',
             rank: 0
-            
         },
                 updatedCard: {
             
@@ -63,17 +54,42 @@ export default {
         this.getDeckID();
         this.findIndex;
    },
+  //  components: {
+  //    Search
+  //  },
+   computed: {
+    //  filteredList() {
+    //   let filteredCards = this.$store.state.cards;
+    //   if( this.filter.question != "" ) {
+    //     filteredCards = filteredCards.filter(card => card.question.toLowerCase().includes(this.filter.question.toLowerCase()))
+    //   } 
+    //   if( this.filter.answer != "" ) {
+    //     filteredCards = filteredCards.filter(card => card.answer.toLowerCase().includes(this.filter.answer.toLowerCase()))
+    //   }
+    //   return filteredCards;
+    // },
+      findIndex() {
+      let ID = ''
+      this.$store.state.decks.forEach(deck => {
+       if(deck.deckID == this.$store.state.currentDeckID) {
+            ID = this.$store.state.decks.indexOf(deck)
+        }
+      });
+      return ID;
+    },
+   },
   name: "card-list",
   methods: {
+    
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
-   
     retrieveCards() {
       authService.getCards(this.$route.params.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
+<<<<<<< HEAD
     removeCards(givenCardID) {
       authService.deleteCard(givenCardID).then(response => {
         if (response.status === 200) {
@@ -87,6 +103,13 @@ export default {
         if (response.status === 200) {
           alert("Card changed!");
           this.$store.commit("DELETE_CARDS", givenCard);
+=======
+    removeCards(cardID) {
+      authService.deleteCard(cardID).then(response => {
+        if (response.status === 204) {
+        //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
+          location.reload();
+>>>>>>> 85dd65b96ff64d5c629ac172f5fb28cdc17d2487
         }
       });
     },
