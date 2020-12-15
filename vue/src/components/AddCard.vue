@@ -16,7 +16,7 @@ import authService from '../services/AuthService';
 export default {
     name: 'add-card',
     data(){
-        return{
+    return{
             card: {
                 userID: this.$store.state.user.id,
                 deckID: this.$store.state.currentDeckID,

@@ -1,7 +1,14 @@
 <template>
   <div>
-      <h1>Your card list</h1>
+
+
+      <div> {{ $store.state.decks[findIndex].name }} </div>
+      <div> {{ $store.state.decks[findIndex].description }} </div>
+
+
+
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
       <table class="table">
                <thead>
           <tr>
@@ -48,12 +55,13 @@ export default {
             answer: '',
             rank: 0
             
-        }
+        },
     }  
   }, 
    created(){
         this.retrieveCards();
         this.getDeckID();
+        this.findIndex;
    },
   name: "card-list",
   methods: {
@@ -91,6 +99,17 @@ export default {
       return bg;
     }
   },
+  computed: {
+    findIndex() {
+      let ID = ''
+      this.$store.state.decks.forEach(deck => {
+       if(deck.deckID == this.$store.state.currentDeckID) {
+            ID = this.$store.state.decks.indexOf(deck)
+        }
+      });
+      return ID;
+    },
+  }
   
 }
 

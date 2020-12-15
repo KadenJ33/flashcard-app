@@ -21,81 +21,80 @@
 
   <div class="container">
 
-      <p v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+      <p v-on:click="toggleCard($store.state.cards[currentCardIndex])">
         <transition name="flip">
-          <p v-bind:key="card.flipped" class="card">
-              {{ card.flipped ? card.back : card.front }}
-              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
+          <p  class="card">
+              {{ this.$store.state.cards[currentCardIndex].flipped ? this.$store.state.cards[currentCardIndex].question : this.$store.state.cards[currentCardIndex].answer }}
+              
+              
+              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
           </p>
         </transition>
+
       </p>
 
   </div>
 
 
-
-
+<button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
+<br/>
+<button v-on:click="isCorrect()">Mark Correct</button>
 
     </div>
   </div>
 </template>
 
 <script>
-
-
-
-const cards = [
-    {
-      front: 'The "First Computer Programmer"',
-      back: 'Ada Lovelace',
-      flipped: false,
-    },
-    {
-      front: 'Invented the "Clarke Calculator"',
-      back: 'Edith Clarke',
-      flipped: false,
-  
-    },
-    {
-      front: 'Famous World War II Enigma code breaker',
-      back: 'Alan Turing',
-      flipped: false,
-    },
-    {
-      front: 'Created satellite orbit analyzation software for NASA',
-      back: 'Dr. Evelyn Boyd Granville',
-      flipped: false,
-    },
-]; 
 import authService from '../services/AuthService';
 export default ({
-  data: function() {
-return {
-    cards: cards,
-    newFront: '',
-    newBack: '',
-    error: false
+
+  data(){
+  return {  
+      currentCardIndex : 0
   };
-},
-   created(){
-        this.retrieveCards();
-        
-   },
-  methods: {
-    toggleCard: function(card) {
-      card.flipped = !card.flipped;
-    },
-          retrieveCards() {
-      authService.getCards(1).then((response) => {
-        this.$store.commit("SET_CARDS", response.data);
-        // this.$store.commit("ADD_FLIP_PROPERTY", false);
-      });
-    },
-        getDeckID() {
-      this.$store.commit("SET_ID", 1);
-    }
   },
 
+  methods: {
+        findCurrentCardIndex() {
+          if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
+            this.currentCardIndex += 1
+          } else {
+            this.currentCardIndex = 0;
+          }
+
+    },
+      toggleCard(card) {
+      card.flipped = !card.flipped;
+    },
+    isCorrect() {
+
+    },
+    getNextCard() {
+                if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
+            this.currentCardIndex += 1
+          } else {
+            this.currentCardIndex = 0;
+          }
+          
+    },
+    newCard() {
+            authService
+            .addCard(this.card)
+            .then(response => {
+                if (response.status == 201) {
+                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}})
+                }
+            })
+             .catch(error => {
+                console.error(error);
+            });
+        },
+
+
+  },
+  computed: {
+
+  }
 });
 
 
@@ -170,7 +169,7 @@ body {
     background-color: #e46055;
     }
   
-  .delete-card {
+  .correct {
     position: absolute;
     right: 0;
     top: 0;
@@ -179,9 +178,8 @@ body {
     transition: all 0.5s ease;
   }
   
-  .delete-card:hover{
+  .correct:hover{
     opacity: 1;
-    transform: rotate(360deg);
   }
   
   .flip-enter-active {
