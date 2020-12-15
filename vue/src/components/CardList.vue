@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="container">
     <div class="wrapper">
       <div
@@ -38,18 +39,48 @@
       {{ card.rank }}
       <button type="button" @click="removeCards(card.cardID)">DELETE</button>
     </div>
+=======
+  <div>
+    
+     <h2> {{ $store.state.decks[findIndex].name }} </h2>
+      <h3> {{ $store.state.decks[findIndex].description }} </h3>
+     
+      <h1>Your card list</h1>
+      
+      <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
+      <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
+       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
+        <div class="cards"
+        v-for="card in this.$store.state.cards" 
+        v-bind:key="card.cardID">
+        {{ card.cardID }}
+        {{ card.question }}
+        {{ card.answer }}
+        {{ card.rank }}
+        <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
+        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+        <!-- </tr> -->
+        </div>
+>>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import authService from "../services/AuthService";
 import Search from "../components/Search.vue";
+=======
+import authService from '../services/AuthService';
+// import Search from '../components/Search.vue'
+>>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
 export default {
   components: {
     search: Search,
   },
   data() {
     return {
+<<<<<<< HEAD
       card: {
         deckID: this.$store.state.currentDeckID,
         question: "",
@@ -63,8 +94,53 @@ export default {
     this.getDeckID();
   },
 
+=======
+      // filter: {
+      //   question: '',
+      //   answer: ''
+      // },
+        card: {
+            deckID: this.$store.state.currentDeckID,
+            
+            question: '',
+            answer: '',
+            rank: 0
+            
+        },
+    }  
+  }, 
+   created(){
+        this.retrieveCards();
+        this.getDeckID();
+   },
+  //  components: {
+  //    Search
+  //  },
+   computed: {
+    //  filteredList() {
+    //   let filteredCards = this.$store.state.cards;
+    //   if( this.filter.question != "" ) {
+    //     filteredCards = filteredCards.filter(card => card.question.toLowerCase().includes(this.filter.question.toLowerCase()))
+    //   } 
+    //   if( this.filter.answer != "" ) {
+    //     filteredCards = filteredCards.filter(card => card.answer.toLowerCase().includes(this.filter.answer.toLowerCase()))
+    //   }
+    //   return filteredCards;
+    // },
+      findIndex() {
+      let ID = ''
+      this.$store.state.decks.forEach(deck => {
+       if(deck.deckID == this.$store.state.currentDeckID) {
+            ID = this.$store.state.decks.indexOf(deck)
+        }
+      });
+      return ID;
+    },
+   },
+>>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
   name: "card-list",
   methods: {
+    
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },

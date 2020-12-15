@@ -30,6 +30,7 @@
             <td>{{ deck.description }}</td>
             <td>{{ deck.deckID }}</td>
             <td>
+<<<<<<< HEAD
               <button
                 type="button"
                 class="delete-icon"
@@ -50,6 +51,13 @@
             >
               View Cards
             </button>
+=======
+              <button type="button" class="updateDeck" @click="$router.push({name: 'update-deck', params:{deckID: deck.deckID}})">EDIT</button>
+              <button type="button" class="delete-icon" @click="removeDecks(deck.deckID)">DELETE</button>
+            <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: deck.deckID }})">View Cards</button>
+            </td>
+>>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
           </tr>
         </tbody>
       </table>
