@@ -1,24 +1,18 @@
 <template>
-<<<<<<< HEAD
   <div class="container">
     <div class="wrapper">
-      <div
-        class="clip-text clip-text_thirteen clip-text--cover"
-        v-for="deck in this.$store.state.decks"
-        v-bind:key="deck.userID"
-      >
-        {{ deck.name }}
+      <div class="clip-text clip-text_thirteen clip-text--cover">
+        {{ $store.state.decks[findIndex].name }}
+        <!-- <h3>{{ $store.state.decks[findIndex].description }}</h3> -->
       </div>
     </div>
-    <div class="searchBar">
-      <search></search>
-    </div>
+
     <button
       type="button"
       class="createCard"
       @click="$router.push('/create-card')"
     >
-      Add a Card
+      Add Card
     </button>
     <button
       type="button"
@@ -27,8 +21,27 @@
     >
       Start Session
     </button>
+    <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
+       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
 
     <div
+      class="cards"
+      v-for="card in this.$store.state.cards"
+      v-bind:key="card.cardID"
+    >
+      <div
+        class="flip-box-inner"
+        ontouchstart="this.classList.toggle('hover');"
+      >
+        <div class="flip-box-front">
+          {{ card.question }}
+        </div>
+        <div class="flip-box-back">
+          {{ card.answer }}
+        </div>
+      </div>
+    </div>
+    <!-- <div
       class="cards"
       v-for="card in this.$store.state.cards"
       v-bind:key="card.cardID"
@@ -36,53 +49,35 @@
       {{ card.cardID }}
       {{ card.question }}
       {{ card.answer }}
-      {{ card.rank }}
-      <button type="button" @click="removeCards(card.cardID)">DELETE</button>
-    </div>
-=======
-  <div>
-    
-     <h2> {{ $store.state.decks[findIndex].name }} </h2>
-      <h3> {{ $store.state.decks[findIndex].description }} </h3>
-     
-      <h1>Your card list</h1>
-      
-      <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
-      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
-      <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
-       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
-        <div class="cards"
-        v-for="card in this.$store.state.cards" 
-        v-bind:key="card.cardID">
-        {{ card.cardID }}
-        {{ card.question }}
-        {{ card.answer }}
-        {{ card.rank }}
-        <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
-        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
-        <!-- </tr> -->
-        </div>
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
+      {{ card.rank }} -->
+    <button
+      type="button"
+      class="updateCard"
+      @click="
+        $router.push({ name: 'update-card', params: { cardID: card.cardID } })
+      "
+    >
+      EDIT
+    </button>
+    <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+    <!-- </tr> -->
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
 import authService from "../services/AuthService";
-import Search from "../components/Search.vue";
-=======
-import authService from '../services/AuthService';
 // import Search from '../components/Search.vue'
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
 export default {
-  components: {
-    search: Search,
-  },
+  components: {},
   data() {
     return {
-<<<<<<< HEAD
+      // filter: {
+      //   question: '',
+      //   answer: ''
+      // },
       card: {
         deckID: this.$store.state.currentDeckID,
+
         question: "",
         answer: "",
         rank: 0,
@@ -93,54 +88,35 @@ export default {
     this.retrieveCards();
     this.getDeckID();
   },
-
-=======
-      // filter: {
-      //   question: '',
-      //   answer: ''
-      // },
-        card: {
-            deckID: this.$store.state.currentDeckID,
-            
-            question: '',
-            answer: '',
-            rank: 0
-            
-        },
-    }  
-  }, 
-   created(){
-        this.retrieveCards();
-        this.getDeckID();
-   },
   //  components: {
   //    Search
   //  },
-   computed: {
+  computed: {
     //  filteredList() {
     //   let filteredCards = this.$store.state.cards;
     //   if( this.filter.question != "" ) {
     //     filteredCards = filteredCards.filter(card => card.question.toLowerCase().includes(this.filter.question.toLowerCase()))
-    //   } 
+    //   }
     //   if( this.filter.answer != "" ) {
     //     filteredCards = filteredCards.filter(card => card.answer.toLowerCase().includes(this.filter.answer.toLowerCase()))
     //   }
     //   return filteredCards;
     // },
-      findIndex() {
-      let ID = ''
-      this.$store.state.decks.forEach(deck => {
-       if(deck.deckID == this.$store.state.currentDeckID) {
-            ID = this.$store.state.decks.indexOf(deck)
+    findIndex() {
+      let ID = "";
+      this.$store.state.decks.forEach((deck) => {
+        if (deck.deckID == this.$store.state.currentDeckID) {
+          ID = this.$store.state.decks.indexOf(deck);
         }
       });
       return ID;
     },
-   },
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
+  },
   name: "card-list",
   methods: {
-    
+    toggleCard: function (card) {
+      card.flipped = !card.flipped;
+    },
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
@@ -171,7 +147,7 @@ export default {
 
 <style scoped>
 .container {
-  position: fixed;
+  position: absolute;
   z-index: -3;
 
   background-image: linear-gradient(
@@ -190,7 +166,6 @@ export default {
 }
 .wrapper {
   text-align: center;
-  padding-top: 40px;
 }
 
 .clip-text {
@@ -276,5 +251,50 @@ export default {
 
 .viewSession:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.cards {
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.cards:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-box-front,
+.flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  backface-visibility: hidden;
+}
+
+/* Style the front side */
+.flip-box-front {
+  background-color: #bbb;
+}
+
+/* Style the back side */
+.flip-box-back {
+  background-color: dodgerblue;
+
+  transform: rotateY(180deg);
 }
 </style>

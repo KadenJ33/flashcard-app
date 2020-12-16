@@ -12,7 +12,7 @@
     </div>
 
     <div class="container">
-      <table class="table">
+      <!-- <table class="table">
         <thead>
           <tr>
             <th>Deck Name</th>
@@ -20,47 +20,52 @@
             <th>Delete</th>
           </tr>
         </thead>
-        <tbody>
-          <tr
-            class="decks"
-            v-for="deck in this.$store.state.decks"
-            v-bind:key="deck.userID"
+        <tbody> -->
+      <div
+        class="decks"
+        v-for="deck in this.$store.state.decks"
+        v-bind:key="deck.userID"
+      >
+        <div class="deckCard">
+          {{ deck.name }} <br />
+          <br />
+          {{ deck.description }}
+        </div>
+        <!-- <td>{{ deck.deckID }}</td> -->
+        <div class="buttonWrapper">
+          <button
+            type="button"
+            class="updateDeck"
+            @click="
+              $router.push({
+                name: 'update-deck',
+                params: { deckID: deck.deckID },
+              })
+            "
           >
-            <td>{{ deck.name }}</td>
-            <td>{{ deck.description }}</td>
-            <td>{{ deck.deckID }}</td>
-            <td>
-<<<<<<< HEAD
-              <button
-                type="button"
-                class="delete-icon"
-                @click="removeDecks(deck.deckID)"
-              >
-                DELETE
-              </button>
-            </td>
-            <button
-              id="view-deck"
-              type="button"
-              @click="
-                $router.push({
-                  name: 'deck-with-cards',
-                  params: { deckID: deck.deckID },
-                })
-              "
-            >
-              View Cards
-            </button>
-=======
-              <button type="button" class="updateDeck" @click="$router.push({name: 'update-deck', params:{deckID: deck.deckID}})">EDIT</button>
-              <button type="button" class="delete-icon" @click="removeDecks(deck.deckID)">DELETE</button>
-            <button id="view-deck" type="button" @click="$router.push({
-   name: 'deck-with-cards', params: {deckID: deck.deckID }})">View Cards</button>
-            </td>
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
-          </tr>
-        </tbody>
-      </table>
+            EDIT
+          </button>
+          <button
+            type="button"
+            class="delete-icon"
+            @click="removeDecks(deck.deckID)"
+          >
+            DELETE
+          </button>
+          <button
+            id="view-deck"
+            type="button"
+            @click="
+              $router.push({
+                name: 'deck-with-cards',
+                params: { deckID: deck.deckID },
+              })
+            "
+          >
+            View Cards
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -111,8 +116,57 @@ export default {
 </script>
 
 <style scoped>
+.updateDeck {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.delete-icon {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+#view-deck {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.buttonWrapper {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 6px;
+  margin-bottom: 80px;
+}
+.deckCard {
+  text-align: center;
+  font-size: 24px;
+  border: 1px solid black;
+  background: #ffffff;
+  margin-bottom: 30px;
+  width: 400px;
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -10px white,
+    0 10px 1px -4px rgba(0, 0, 0, 0.15), 12px 20px 0 -10px white,
+    13px 29px 1px -12px rgba(0, 0, 0, 0.15), 15px 25px 0 -10px white,
+    14px 39px 1px -14px rgba(0, 0, 0, 0.15);
+}
+
 .page {
-  position: fixed;
+  position: absolute;
   z-index: -3;
 
   background-image: linear-gradient(
@@ -132,7 +186,7 @@ export default {
 
 /* Clip text element */
 .clip-text {
-  font-size: 3em;
+  font-size: 5em;
   font-weight: bold;
   line-height: 1;
   position: relative;
@@ -194,23 +248,28 @@ export default {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
 }
 .add {
   white-space: nowrap;
   position: absolute;
-  top: 110%;
+
   right: 45%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .container {
-  margin-top: 6%;
+  margin-top: 0px;
 }
-html {
-  height: 100%;
-  margin: auto;
-  width: 960px;
+
+.add:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>
 
