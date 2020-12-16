@@ -16,26 +16,5 @@ public interface cardDAO {
 	void markCardCorrect(int cardID);
 	
 	void deleteCard(int cardID);
-	
-	void updateQuestion(String question, int cardID);
-	
-	void updateAnswer(String answer, int cardID);
-	
-	//probably deleting
-	void updateCorrectTrue(int cardID);
-	
-	void updateCorrectFalse(int cardID);
-	
-	List<Card> showTrueAndFalse(int userID, int deckID);
-	
-	List<Card> showTrue(int userID, int deckID);
-	
-	List<Card> showFalse(int userID, int deckID);
-	
-	
-	
-	
-	
-	
 
 }

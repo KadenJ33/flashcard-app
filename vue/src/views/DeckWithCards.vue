@@ -1,22 +1,19 @@
 <template>
   <div class="cards">
-   <!-- <search /> -->
-      <card-list />
+    <card-list />
   </div>
 </template>
 
 <script>
-import CardList from '../components/CardList.vue'
-//import Search from '@/components/Search.vue';
+import CardList from "../components/CardList.vue";
+
 export default {
-    name: "deck-with-cards",
-    components: {
-      //'search': Search,
-    'card-list': CardList
- },
-}
+  name: "deck-with-cards",
+  components: {
+    "card-list": CardList,
+  },
+};
 </script>
 
 <style>
-
 </style>
