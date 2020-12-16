@@ -34,7 +34,6 @@ public class cardController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/create-card", method = RequestMethod.POST)
     public void makeNewCard(@Valid @RequestBody cardDTO newCard) {
-    	
     	myCardDAO.createCard(newCard.getDeckID(), newCard.getUserID(), newCard.getQuestion(), newCard.getAnswer());
     }
     
@@ -42,7 +41,6 @@ public class cardController {
     @RequestMapping(path = "/deck-with-cards/{deckID}", method = RequestMethod.GET)
     public List<Card> viewAllCards(@Valid @PathVariable("deckID") int deckID) {
     	return myCardDAO.findAllCards(deckID);
-    	
     }
     
     @RequestMapping(path = "/update-card/{cardID}", method = RequestMethod.PUT)
@@ -50,6 +48,10 @@ public class cardController {
     	myCardDAO.updateCard(cardID, card.getQuestion(), card.getAnswer(), card.isCorrect());
     }
 
+    @RequestMapping(path = "/mark-correct/{cardID}", method = RequestMethod.PUT)
+    public void updateCard(@Valid @PathVariable("cardID") int cardID) {
+    	myCardDAO.markCardCorrect(cardID);
+    }
    
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(path = "/card/{cardID}", method = RequestMethod.DELETE)

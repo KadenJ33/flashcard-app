@@ -40,6 +40,13 @@ public class cardSqlDAO implements cardDAO {
 	}
 	
 	@Override
+	public void markCardCorrect(int cardID) {
+			String updateRank = "UPDATE cards SET rank = rank + 1 WHERE card_id = ?";
+			jdbc.update(updateRank, cardID);
+	}
+	
+	
+	@Override
 	public void updateCard(int cardID, String question, String answer, boolean correct) {
 		String sql = "UPDATE cards SET question = ?, answer = ?, correct = ? WHERE card_id = ?";
 		jdbc.update(sql, question, answer, correct, cardID);
@@ -168,6 +175,9 @@ public class cardSqlDAO implements cardDAO {
         card.setRank(rs.getInt("rank"));
         return card;
     }
+
+
+
 
 //end brace
 }
