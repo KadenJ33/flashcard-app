@@ -13,9 +13,10 @@
         <tr class="cards"
         v-for="card in this.$store.state.cards" 
         v-bind:key="card.cardID">
+        <td> {{ card.cardID }} </td>
        <td> {{ card.question }} </td>
        <td> {{ card.answer }} </td>
-       <td> Rank: {{ card.rank }} </td>
+       <td> Rank: {{cardRank(card.rank)}}</td>
         <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
         <button type="button" @click="removeCards(card.cardID)">DELETE</button>
         <!-- </tr> -->
@@ -37,22 +38,13 @@ export default {
             deckID: this.$store.state.currentDeckID,
             question: '',
             answer: '',
-            rank: 0
-        },
-                updatedCard: {
-            
-            deckID: this.$store.state.currentDeckID,
-            question: '',
-            answer: '',
-            rank: 0
-            
+            rank: ''
         },
     }  
   }, 
    created(){
         this.retrieveCards();
         this.getDeckID();
-        this.findIndex;
    },
   //  components: {
   //    Search
@@ -78,9 +70,25 @@ export default {
       return ID;
     },
    },
-  name: "card-list",
+   name: "card-list",
   methods: {
-    
+   cardRank(rank) {
+      let skillLevel = '';
+       if(rank === 1) {
+          skillLevel = 'Novice'
+        } else if(rank === 2) {
+          skillLevel = 'Intermediate'
+        } else if(rank === 3) {
+          skillLevel = 'Advanced'
+        } else if(rank === 4) {
+          skillLevel = 'Expert'
+        } else if(rank === 5) {
+          skillLevel = 'Master'
+        } else {
+          skillLevel = 'Beginner'
+        }
+      return skillLevel;
+    },
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
@@ -106,22 +114,7 @@ export default {
       return bg;
     }
   },
-  computed: {
-    findIndex() {
-      let ID = ''
-      this.$store.state.decks.forEach(deck => {
-       if(deck.deckID == this.$store.state.currentDeckID) {
-            ID = this.$store.state.decks.indexOf(deck)
-        }
-      });
-      return ID;
-    },
-  }
-  
 }
-
-
-
 </script>
 
 <style>

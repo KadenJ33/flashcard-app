@@ -1,10 +1,19 @@
 <template>
   <div>
-    <div class="session">
+    <!-- <div class="session" @click=flipCard> -->
   <h1>SESSION COMPONENT</h1>
 
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+<!-- <div class="checked">Score: {{ score }} </div> -->
+<!-- <div v-if="this.$store.state.cards[0].answer">
+  <button @click="correct">Correct</button> -->
+<!-- </div> -->
 
 
+
+
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
 
   <!-- <div class="container">
 
@@ -18,6 +27,7 @@
       </p>
 
   </div> -->
+
 
   <div class="container">
 
@@ -36,8 +46,10 @@
 <button v-on:click="markCorrect()">Mark Correct</button>
 <button v-on:click="endSession()">End Session</button>
 
+<br>
+<button type="button" class="viewResults" @click="$router.push('/view-results')">View Results</button>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -102,7 +114,6 @@ export default ({
 <style>
 body {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
   }
   
   p {
@@ -190,7 +201,6 @@ body {
   .flip-enter, .flip-leave {
     transform: rotateY(180deg);
     opacity: 0;
-  
   }
   
 </style>

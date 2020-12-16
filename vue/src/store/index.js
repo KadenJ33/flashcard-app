@@ -21,7 +21,11 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     decks: [],
-    cards: [],
+    cards: [
+      {
+        rank: ''
+      }
+    ],
     currentDeckID: {},
     currentCardID: {},
     numberOfCorrect: {}
@@ -56,11 +60,11 @@ export default new Vuex.Store({
     SET_DECKS(state, data) {
       state.decks = data;
     },
-    DELETE_DECKS(state, deckIdToDelete) {
-      state.decks = state.decks.filter((deck) => {
-        return deck.deckID !== deckIdToDelete;
-      });
-    },
+    // DELETE_DECKS(state, deckIdToDelete) {
+    //   state.decks = state.decks.filter((deck) => {
+    //     return deck.deckID !== deckIdToDelete;
+    //   });
+    // },
     SET_CARDS(state, data) {
     data.forEach(card => {
         card.flipped = false

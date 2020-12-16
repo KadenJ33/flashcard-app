@@ -30,11 +30,9 @@ ALTER TABLE cards RENAME COLUMN answwer TO answer;
 
 
 
+SELECT user_id FROM users WHERE username = 'test';
+INSERT INTO decks (deck_id, user_id, name, correct, rank, description) VALUES (DEFAULT, 3, 'history', false, DEFAULT, 'no one knows');
 
-
-
- 
-
-INSERT INTO cards (card_id, deck_id, user_id, question, answer, correct, rank) VALUES (DEFAULT, 3, 4, 'whats up?', 'chillin', default, default);
+INSERT INTO cards (card_id, deck_id, user_id, question, answer, correct, rank) VALUES (DEFAULT, 3, 3, 'whats up?', 'chillin', default, default);
 SELECT deck_id, card_id, question, answer, correct FROM cards WHERE user_id = 4 AND deck_id = 3 AND correct = false;
-DELETE FROM cards WHERE user_id = 1 AND deck_id = 3 AND card_id = 1;
+DELETE FROM decks WHERE deck_id = 108;
