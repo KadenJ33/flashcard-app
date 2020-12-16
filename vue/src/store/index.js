@@ -21,7 +21,11 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     decks: [],
-    cards: [],
+    cards: [
+      {
+        rank: ''
+      }
+    ],
     currentDeckID: {},
     currentCardID: {}
     
