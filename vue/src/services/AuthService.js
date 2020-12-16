@@ -38,6 +38,10 @@ export default {
     return axios.put(`/update-card/${cardID}`, card);
   },
 
+  markCardCorrect(cardID) {
+    return axios.put(`/mark-correct/${cardID}`);
+  },
+
   deleteCard(cardID) {
     return axios.delete(`/card/${cardID}`);
   },

@@ -5,16 +5,19 @@
         Create Deck
       </div>
     </div>
-    <form v-on:submit.prevent>
-      <input type="text" id="answer" placeholder="Name" v-model="deck.name" />
+    <form @submit.prevent="newDeck()">
+      <input type="text" id="answer" placeholder="Name" v-model="deck.name" required />
 
       <input
         type="text"
         id="name"
         placeholder="Description"
         v-model="deck.description"
+        required
       />
-      <button type="submit" @click="newDeck()">Create Deck</button>
+      <button type="submit">Create Deck</button>
+
+      <button type="button" class="createCard" @click="$router.push('/')">Cancel</button>
     </form>
   </div>
 </template>

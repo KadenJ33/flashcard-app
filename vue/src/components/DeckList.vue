@@ -66,6 +66,51 @@
           </button>
         </div>
       </div>
+      <tbody>
+        <tr
+          class="decks"
+          v-for="deck in this.$store.state.decks"
+          v-bind:key="deck.userID"
+        >
+          <td>{{ deck.name }}</td>
+          <td>{{ deck.description }}</td>
+          <td>{{ deck.deckID }}</td>
+          <td>Rank: {{ deckRank(deck.rank) }}</td>
+          <td>
+            <button
+              type="button"
+              class="updateDeck"
+              @click="
+                $router.push({
+                  name: 'update-deck',
+                  params: { deckID: deck.deckID },
+                })
+              "
+            >
+              EDIT
+            </button>
+            <button
+              type="button"
+              class="delete-icon"
+              @click="removeDecks(deck.deckID)"
+            >
+              DELETE
+            </button>
+            <button
+              id="view-deck"
+              type="button"
+              @click="
+                $router.push({
+                  name: 'deck-with-cards',
+                  params: { deckID: deck.deckID },
+                })
+              "
+            >
+              View Cards
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </div>
   </div>
 </template>
@@ -80,6 +125,7 @@ export default {
         name: "",
         description: "",
         deckID: this.$route.params.deckID,
+        rank: "",
       },
     };
   },
@@ -88,6 +134,23 @@ export default {
   },
   name: "deck-list",
   methods: {
+    deckRank(rank) {
+      let skillLevel = "";
+      if (rank >= 20 && rank <= 39) {
+        skillLevel = "Novice";
+      } else if (rank >= 40 && rank <= 59) {
+        skillLevel = "Intermediate";
+      } else if (rank >= 60 && rank <= 80) {
+        skillLevel = "Advanced";
+      } else if (rank >= 80 && rank < 100) {
+        skillLevel = "Expert";
+      } else if (rank === 100) {
+        skillLevel = "Master";
+      } else {
+        skillLevel = "Beginner";
+      }
+      return skillLevel;
+    },
     retrieveDecks() {
       authService.getDeck(this.$store.state.user.id).then((response) => {
         this.$store.commit("SET_DECKS", response.data);
@@ -96,9 +159,8 @@ export default {
     removeDecks(removedDeckID) {
       authService.deleteDeck(removedDeckID).then((response) => {
         if (response.status === 204) {
-          // alert("Deck deleted!");
-          // this.$store.commit(removedDeckID);
-          this.$router.push("/");
+          alert("Deck deleted!");
+          this.retrieveDecks();
           location.reload();
         }
       });

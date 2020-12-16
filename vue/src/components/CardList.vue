@@ -61,6 +61,31 @@
     </button>
     <button type="button" @click="removeCards(card.cardID)">DELETE</button>
     <!-- </tr> -->
+  <div>
+    
+     <!-- <h2> {{ $store.state.decks[findIndex].name }} </h2>
+      <h3> {{ $store.state.decks[findIndex].description }} </h3> -->
+     
+      <h1>Your card list</h1>
+      
+      <button type="button" class="createCard" @click="checkIf10Cards()">Add Card</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Lightning Round Session</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Random Session</button>
+      <button type="button" class="createCard" @click="$router.push('/')">Choose Another Deck</button>
+      <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
+       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
+        <tr class="cards"
+        v-for="card in this.$store.state.cards" 
+        v-bind:key="card.cardID">
+        <td> {{ card.cardID }} </td>
+       <td> {{ card.question }} </td>
+       <td> {{ card.answer }} </td>
+       <td> Rank: {{cardRank(card.rank)}}</td>
+        <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
+        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+        <!-- </tr> -->
+        </tr>
   </div>
 </template>
 
@@ -77,10 +102,9 @@ export default {
       // },
       card: {
         deckID: this.$store.state.currentDeckID,
-
         question: "",
         answer: "",
-        rank: 0,
+        rank: "",
       },
     };
   },
@@ -114,8 +138,29 @@ export default {
   },
   name: "card-list",
   methods: {
-    toggleCard: function (card) {
-      card.flipped = !card.flipped;
+    cardRank(rank) {
+      let skillLevel = "";
+      if (rank === 1) {
+        skillLevel = "Novice";
+      } else if (rank === 2) {
+        skillLevel = "Intermediate";
+      } else if (rank === 3) {
+        skillLevel = "Advanced";
+      } else if (rank === 4) {
+        skillLevel = "Expert";
+      } else if (rank === 5) {
+        skillLevel = "Master";
+      } else {
+        skillLevel = "Beginner";
+      }
+      return skillLevel;
+    },
+    checkIf10Cards() {
+      if (this.$store.state.cards.length == 10) {
+        alert("Decks can not have more than 10 cards!");
+      } else {
+        this.$router.push("/create-card");
+      }
     },
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
@@ -128,7 +173,7 @@ export default {
     removeCards(cardID) {
       authService.deleteCard(cardID).then((response) => {
         if (response.status === 204) {
-          // this.$store.commit("DELETE_CARDS", cardID);
+          //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
           location.reload();
         }
       });
@@ -146,49 +191,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  position: absolute;
-  z-index: -3;
-
-  background-image: linear-gradient(
-    0deg,
-    rgb(252, 220, 226) 9%,
-    rgba(255, 255, 255, 1) 64%
-  );
-  min-height: 100%;
-  min-width: 100%;
-
-  width: 100%;
-  height: auto;
-
-  top: 0;
-  left: 0;
-}
-.wrapper {
-  text-align: center;
-}
-
-.clip-text {
-  font-size: 6em;
-  font-weight: bold;
-  line-height: 1;
-  position: relative;
-  display: inline-block;
-  margin: 0.25em;
-  padding: 0.1em 0.3em;
-  text-align: center;
-  color: #fff;
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-}
-
-.clip-text:before,
-.clip-text:after {
-  position: absolute;
-  content: "";
-}
-
 .clip-text:before {
   z-index: -2;
   top: 0;

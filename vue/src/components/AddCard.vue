@@ -24,6 +24,16 @@
         <div class="button">
           <button type="submit" @click="newCard()">Create Card</button>
         </div>
+  <div>
+      <h3>Create a card!</h3>  
+      <form @submit.prevent="newCard()"> 
+       <label for="question">Add a front!(question, prompt, word, etc...)</label>
+       <input v-model="card.question" type="text" id="question" required/>
+       <label for="answer">Add a back!(answer, response, definition, etc...)</label>
+       <input v-model="card.answer" type="text" id="answer" required/>
+       <button type="submit">Create Card</button>
+      <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }})">Cancel</button>
       </form>
     </div>
   </div>
@@ -52,15 +62,19 @@ export default {
           if (response.status == 201) {
             this.$router.push({
               name: "deck-with-cards",
-              params: { currentDeckId: this.currentDeckID },
+              params: { deckID: this.card.deckID },
             });
-            location.reload();
+            //location.reload();
           }
         })
         .catch((error) => {
           console.error(error);
         });
+      location.reload();
     },
+    // .catch((error) => {
+    //   console.error(error);
+    // })
   },
 };
 </script>

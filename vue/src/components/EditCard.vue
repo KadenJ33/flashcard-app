@@ -20,6 +20,43 @@
         Submit Change
       </button>
     </form>
+    <h1>UPDATE</h1>
+
+    <form @submit.prevent="update(card.cardID, card)">
+      <label for="question"
+        >Enter your new question, prompt, word, etc...</label
+      >
+      <input
+        type="text"
+        id="question"
+        name="question"
+        v-model="card.question"
+        required
+      />
+      <label for="answer"
+        >Enter your new answer, response, definiton, etc..</label
+      >
+      <input
+        type="text"
+        id="answer"
+        name="answer"
+        v-model="card.answer"
+        required
+      />
+      <button type="submit">Submit Change</button>
+      <button
+        id="view-deck"
+        type="button"
+        @click="
+          $router.push({
+            name: 'deck-with-cards',
+            params: { deckID: $store.state.currentDeckID },
+          })
+        "
+      >
+        Cancel
+      </button>
+    </form>
   </div>
 </template>
 
@@ -50,8 +87,10 @@ export default {
         .updateCard(id, passedCard)
         .then((response) => {
           if (response.status == 200) {
-            this.$router.push("/");
-            location.reload();
+            this.$router.push({
+              name: "deck-with-cards",
+              params: { deckID: this.$store.state.currentDeckID },
+            });
           }
         })
         .catch((error) => {
