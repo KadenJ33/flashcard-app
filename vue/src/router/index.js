@@ -11,6 +11,7 @@ import CreateCard from '../views/CreateCard.vue'
 import Session from '../views/ViewSession.vue'
 import UpdateCard from '../views/UpdateCard.vue'
 import UpdateDeck from '../views/UpdateDeck.vue'
+import Results from '../views/ViewResults.vue'
 
 Vue.use(Router)
 
@@ -103,6 +104,14 @@ const router = new Router({
       path: "/update-deck/:deckID",
       name: "update-deck",
       component: UpdateDeck,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/view-results/",
+      name: "view-results",
+      component: Results,
       meta: {
         requiresAuth: true
       }

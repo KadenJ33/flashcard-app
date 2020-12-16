@@ -49,7 +49,8 @@
 <button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
 <br/>
 <button v-on:click="markCorrect()">Mark Correct</button>
-
+<br>
+<button type="button" class="viewResults" @click="$router.push('/view-results')">View Results</button>
     </div>
   <!-- </div> -->
 </template>
