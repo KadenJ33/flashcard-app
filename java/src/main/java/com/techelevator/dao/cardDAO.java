@@ -13,6 +13,8 @@ public interface cardDAO {
 	
 	void updateCard(int cardID, String question, String answer, boolean correct);
 	
+	void markCardCorrect(int cardID);
+	
 	void deleteCard(int cardID);
 	
 	void updateQuestion(String question, int cardID);

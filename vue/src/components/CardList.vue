@@ -89,27 +89,11 @@ export default {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
-<<<<<<< HEAD
-    removeCards(givenCardID) {
-      authService.deleteCard(givenCardID).then(response => {
-        if (response.status === 200) {
-          alert("Card deleted!");
-          this.$store.commit("DELETE_CARDS", givenCardID);
-        }
-      });
-    },
-        updateQuestion(givenCard) {
-      authService.deleteCard(givenCard).then(response => {
-        if (response.status === 200) {
-          alert("Card changed!");
-          this.$store.commit("DELETE_CARDS", givenCard);
-=======
     removeCards(cardID) {
       authService.deleteCard(cardID).then(response => {
         if (response.status === 204) {
         //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
           location.reload();
->>>>>>> 85dd65b96ff64d5c629ac172f5fb28cdc17d2487
         }
       });
     },
