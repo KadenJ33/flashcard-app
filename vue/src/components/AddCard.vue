@@ -39,7 +39,7 @@
       </form>
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import authService from "../services/AuthService";
