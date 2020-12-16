@@ -6,8 +6,11 @@
      
       <h1>Your card list</h1>
       
-      <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
+      <button type="button" class="createCard" @click="checkIf10Cards()">Add Card</button>
       <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Lightning Round Session</button>
+      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Random Session</button>
+      <button type="button" class="createCard" @click="$router.push('/')">Choose Another Deck</button>
       <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
        <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
         <tr class="cards"
@@ -89,6 +92,13 @@ export default {
         }
       return skillLevel;
     },
+    checkIf10Cards() {
+        if (this.$store.state.cards.length == 10) {
+          alert("Decks can not have more than 10 cards!");
+        } else {
+          this.$router.push('/create-card')
+        }
+    },
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
@@ -114,11 +124,7 @@ export default {
       return bg;
     }
   },
-  
 }
-
-
-
 </script>
 
 <style>

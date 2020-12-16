@@ -8,6 +8,8 @@
       <label for="answer">Enter your new answer, response, definiton, etc..</label>
       <input type="text" id="answer" name="answer" v-model="card.answer" required/> 
       <button type="submit">Submit Change</button>
+            <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }})">Cancel</button>
   </form>
   </div>
 </template>
