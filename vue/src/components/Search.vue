@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="search-box">
     <img
       class="search-icon"
@@ -13,16 +12,14 @@
       placeholder="Search"
     />
   </div>
-=======
-   <div class="search-box">
+   <!-- <div class="search-box">
        <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
        <tr v-for="card in filteredList" v-bind:key="card.cardID" >
         
         
        
       </tr>
-    </div>
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
+    </div> -->
 </template>
 
 <script>
@@ -30,15 +27,11 @@ export default {
   name: "Search",
   data() {
     return {
-<<<<<<< HEAD
-      search: this.search || "",
-=======
       filter: {
         question: '',
         answer: ''
       },
       search: this.search || ""
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
     };
   },
    computed: {
@@ -55,16 +48,10 @@ export default {
   methods: {
     searchCards() {
       this.$emit("searchTrigger", this.search);
-<<<<<<< HEAD
-    },
-  },
-};
-=======
     }
   }
   },
 }
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
 </script>
 <style  scoped>
 .search-box {

@@ -6,7 +6,7 @@
         <!-- <h3>{{ $store.state.decks[findIndex].description }}</h3> -->
       </div>
     </div>
-
+  
     <button
       type="button"
       class="createCard"
@@ -86,6 +86,7 @@
         <button type="button" @click="removeCards(card.cardID)">DELETE</button>
         <!-- </tr> -->
         </tr>
+  </div>
   </div>
 </template>
 

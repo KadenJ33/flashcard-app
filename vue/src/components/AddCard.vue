@@ -24,6 +24,8 @@
         <div class="button">
           <button type="submit" @click="newCard()">Create Card</button>
         </div>
+        </form>
+        </div>
   <div>
       <h3>Create a card!</h3>  
       <form @submit.prevent="newCard()"> 
