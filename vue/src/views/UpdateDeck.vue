@@ -8,6 +8,7 @@
       <label for="description">Enter your new Deck Description</label>
       <input type="text" id="description" name="description" v-model="deck.description" required/> 
       <button type="submit">Submit Change</button>
+      <button type="button" class="createCard" @click="$router.push('/')">Cancel</button>
   </form>
 </div>
 </template>

@@ -7,6 +7,8 @@
        <label for="answer">Add a back!(answer, response, definition, etc...)</label>
        <input v-model="card.answer" type="text" id="answer" required/>
        <button type="submit">Create Card</button>
+      <button id="view-deck" type="button" @click="$router.push({
+   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }})">Cancel</button>
       </form>
   </div>
 </template>
@@ -16,7 +18,7 @@ import authService from '../services/AuthService';
 export default {
     name: 'add-card',
     data(){
-        return{
+    return{
             card: {
                 userID: this.$store.state.user.id,
                 deckID: this.$store.state.currentDeckID,

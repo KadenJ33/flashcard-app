@@ -1,14 +1,23 @@
 <template>
   <div>
-    <div class="session">
+    <!-- <div class="session" @click=flipCard> -->
   <h1>SESSION COMPONENT</h1>
 
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+<!-- <div class="checked">Score: {{ score }} </div> -->
+<!-- <div v-if="this.$store.state.cards[0].answer">
+  <button @click="correct">Correct</button> -->
+<!-- </div> -->
 
 
 
-  <div class="container">
 
-      <p v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+  <!-- <div class="container">
+
+      <p v-on:click="toggleCard(card)" v-for="(card) in this.$store.state.cards">
         <transition name="flip">
           <p v-bind:key="card.flipped" class="card">
               {{ card.flipped ? card.back : card.front }}
@@ -17,43 +26,82 @@
         </transition>
       </p>
 
+  </div> -->
+
+
+  <div class="container">
+
+      <p v-on:click="toggleCard($store.state.cards[currentCardIndex])">
+        <transition name="flip">
+          <p  class="card">
+              {{ this.$store.state.cards[currentCardIndex].flipped ? this.$store.state.cards[currentCardIndex].answer : this.$store.state.cards[currentCardIndex].question }}
+          </p>
+        </transition>
+      </p>
   </div>
 
 
-
-
-
-
-
+<button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
+<br/>
+<button v-on:click="markCorrect()">Mark Correct</button>
+<br/>
+<button v-on:click="endSession()">End Session</button>
+<br/>
+<button type="button" class="viewResults" @click="$router.push('/view-results')">View Results</button>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
-
-
-
-const cards = [
-    {
-      front: 'FRONT',
-      back: 'BACK',
-      flipped: false,
-    },
-]; 
-
+import authService from '../services/AuthService';
 export default ({
-  data: function() {
-return {
-    cards: cards,
-    newFront: '',
-    newBack: '',
-    error: false
+
+  data(){
+  return {  
+      currentCardIndex: 0,
+      isCorrect: false,
+      correctNumber: 0
   };
-},
+  },
+
   methods: {
-    toggleCard: function(card) {
+        changeCardIndex() {
+          if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
+            this.currentCardIndex += 1
+          } else {
+            this.endSession()
+          }
+    },
+      toggleCard(card) {
       card.flipped = !card.flipped;
     },
+    markCorrect() {
+      this.isCorrect = true
+    },
+    getNextCard() {
+      if (this.isCorrect == true) {
+          this.update(this.$store.state.cards[this.currentCardIndex].cardID)
+          this.correctNumber += 1
+      }
+      this.$store.commit("SET_NUMBER_OF_CORRECT", this.correctNumber);
+      this.changeCardIndex()
+      this.isCorrect = false
+    },
+    endSession() {
+      this.$router.push('/view-results')
+    },
+    update(id) {
+            authService
+            .markCardCorrect(id)
+            .then(response => {
+            })
+             .catch(error => {
+                console.error(error);
+            });
+        },
+  },
+  computed: {
+
   }
 });
 
@@ -65,7 +113,6 @@ return {
 <style>
 body {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
   }
   
   p {
@@ -129,7 +176,7 @@ body {
     background-color: #e46055;
     }
   
-  .delete-card {
+  .correct {
     position: absolute;
     right: 0;
     top: 0;
@@ -138,9 +185,8 @@ body {
     transition: all 0.5s ease;
   }
   
-  .delete-card:hover{
+  .correct:hover{
     opacity: 1;
-    transform: rotate(360deg);
   }
   
   .flip-enter-active {
@@ -154,7 +200,6 @@ body {
   .flip-enter, .flip-leave {
     transform: rotateY(180deg);
     opacity: 0;
-  
   }
   
 </style>
