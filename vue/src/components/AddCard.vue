@@ -66,17 +66,12 @@ export default {
               name: "deck-with-cards",
               params: { deckID: this.card.deckID },
             });
-            //location.reload();
           }
         })
         .catch((error) => {
           console.error(error);
         });
-      // location.reload();
     },
-    // .catch((error) => {
-    //   console.error(error);
-    // })
   },
 };
 </script>

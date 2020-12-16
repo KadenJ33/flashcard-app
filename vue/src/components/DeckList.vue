@@ -12,15 +12,6 @@
     </div>
 
     <div class="container">
-      <!-- <table class="table">
-        <thead>
-          <tr>
-            <th>Deck Name</th>
-            <th>Description</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody> -->
       <div
         class="decks"
         v-for="deck in this.$store.state.decks"
@@ -34,8 +25,6 @@
           <br />
           <div class="rank">Rank: {{ deckRank(deck.rank) }}</div>
         </div>
-
-        <!-- <td>{{ deck.deckID }}</td> -->
         <div class="buttonWrapper">
           <button
             type="button"
@@ -263,6 +252,7 @@ export default {
   position: relative;
   padding-top: 50px;
 }
+
 .createDeck {
   display: flex;
   justify-content: center;

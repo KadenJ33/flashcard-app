@@ -43,6 +43,34 @@ public class cardSqlDAO implements cardDAO {
 	public void markCardCorrect(int cardID) {
 			String updateRank = "UPDATE cards SET rank = rank + 1 WHERE card_id = ?";
 			jdbc.update(updateRank, cardID);
+			String deckSQL = "SELECT deck_id FROM cards WHERE card_id = ?";
+			int deckID = jdbc.queryForObject(deckSQL, int.class, cardID);
+			String rankPercent = "SELECT rank FROM cards WHERE deck_id = ?";
+			SqlRowSet results = jdbc.queryForRowSet(rankPercent, deckID);
+			int rankCount = 0;
+			int numOfCard = 0;
+				while(results.next()) {
+					Card card = new Card();
+					card.setRank(results.getInt("rank"));
+					rankCount += card.getRank();
+					numOfCard++;
+				}
+			int totalCardsRankPossible = numOfCard * 5;
+			double calculatedPercentage = (double)rankCount / (double)totalCardsRankPossible;
+			double tempPercent = calculatedPercentage * 100;
+			int finalPercent = (int)tempPercent;
+			String update = "UPDATE decks SET rank = ? WHERE deck_id = ?";
+			jdbc.update(update, finalPercent, deckID);
+			//changes correct status based on rank average
+			String percentage = "SELECT rank FROM decks WHERE  deck_id = ?";
+			int result = jdbc.queryForObject(percentage, int.class, deckID);
+				if(result < 100) {
+					String updateToFalse = "UPDATE decks SET correct = false WHERE deck_id = ?";
+					jdbc.update(updateToFalse, deckID);
+				} else {
+					String updateToTrue = "UPDATE decks SET correct = true WHERE deck_id = ?";
+					jdbc.update(updateToTrue, deckID);
+				}
 	}
 	
 	
@@ -67,101 +95,6 @@ public class cardSqlDAO implements cardDAO {
 		String sql = "DELETE FROM cards WHERE card_id = ?";
 		jdbc.update(sql, cardID);
 	}
-//===================ANYTHING BELOW THIS LINE WILL PROBABLY BE DELETED=============================
-	
-	
-//controller done
-	@Override
-	public void updateCorrectTrue(int cardID) {
-		String sql = "UPDATE cards SET correct = true, rank = rank + 1 WHERE card_id = ?";
-		jdbc.update(sql, cardID);
-		
-	}
-	
-//controller done
-	@Override
-	public void updateCorrectFalse(int cardID) {
-		String rankCheck = "SELECT rank FROM cards WHERE card_id = ?";
-		int result = jdbc.queryForObject(rankCheck, int.class, cardID);
-		if(result > 0) {
-			String sql = "UPDATE cards SET correct = false, rank = rank - 1 WHERE card_id = ?";
-			jdbc.update(sql, cardID);
-		} else {
-			String noNegs = "UPDATE cards SET correct = false, rank = 0 WHERE card_id = ?";
-			jdbc.update(noNegs, cardID);
-		}
-	}
-
-	@Override
-	public List<Card> showTrueAndFalse(int userID, int deckID) {
-		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT deck_id, card_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck _id = ?";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
-		while(results.next()) {
-			Card card = mapRowToCardWithUser(results);
-			cards.add(card);
-		}
-		return cards;
-	}
-
-	@Override
-	public List<Card> showTrue(int userID, int deckID) {
-		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT deck_id, card_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ? AND correct = true";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
-		while(results.next()) {
-			Card card = mapRowToCardWithUser(results);
-			cards.add(card);
-		}
-		return cards;
-	}
-
-
-	@Override
-	public List<Card> showFalse(int userID, int deckID) {
-		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT deck_id, card_id, question, answer, correct, rank FROM cards WHERE user_id = ? AND deck_id = ? AND correct = false";
-		SqlRowSet results = jdbc.queryForRowSet(sql, userID, deckID);
-		while(results.next()) {
-			Card card = mapRowToCardWithUser(results);
-			cards.add(card);
-		}
-		return cards;
-	}
-	
-	public int showRank(int cardID) {
-		String sql = "SELECT rank FROM cards WHERE card_id = ?";
-		int results = jdbc.queryForObject(sql, int.class, cardID);
-		return results;
-	}
-	
-	public List<Card> showAllRanks(int deckID) {
-		List<Card> cards = new ArrayList<>();
-		String sql = "SELECT deck_id, card_id, rank FROM cards WHERE deck_id = ?";
-		SqlRowSet results = jdbc.queryForRowSet(sql, deckID);
-		while(results.next()) {
-			Card card = mapRowToCardWithUser(results);
-			cards.add(card);
-		}
-		return cards;
-	}
-
-	@Override
-	public void updateQuestion(String question, int cardID) {
-		String sql = "UPDATE cards SET question = ? WHERE card_id = ?";
-		jdbc.update(sql, question, cardID);
-		
-	}
-
-	@Override
-	public void updateAnswer(String answer, int cardID) {
-		String sql = "UPDATE cards SET answer = ? WHERE card_id = ?";
-		jdbc.update(sql, answer, cardID);
-		
-	}
-
-
-
 
 //this stays -- helper method to get data into object --
 	private Card mapRowToCardWithUser(SqlRowSet rs) {
@@ -175,9 +108,6 @@ public class cardSqlDAO implements cardDAO {
         card.setRank(rs.getInt("rank"));
         return card;
     }
-
-
-
 
 //end brace
 }

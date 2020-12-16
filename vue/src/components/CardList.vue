@@ -2,8 +2,8 @@
   <div class="container">
     <div class="wrapper">
       <div class="clip-text clip-text_thirteen clip-text--cover">
-        {{ $store.state.decks[findIndex].name }}
-        <!-- <h3>{{ $store.state.decks[findIndex].description }}</h3> -->
+        Your Deck
+        <!-- {{ $store.state.decks[findIndex].name }} -->
       </div>
     </div>
 
@@ -17,25 +17,9 @@
     >
       Start Session
     </button>
-    <button
-      type="button"
-      class="viewSession"
-      @click="$router.push('/view-session')"
-    >
-      Start Lightning Round Session
-    </button>
-    <button
-      type="button"
-      class="viewSession"
-      @click="$router.push('/view-session')"
-    >
-      Start Random Session
-    </button>
     <button type="button" class="createCard" @click="$router.push('/')">
       Choose Another Deck
     </button>
-    <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
-       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
 
     <div
       class="cards"
@@ -48,11 +32,13 @@
       >
         <div class="flip-box-front">
           {{ card.question }}
+          {{ card.cardID }}
         </div>
         <div class="flip-box-back">
           {{ card.answer }}
         </div>
       </div>
+      <br />
       <button
         type="button"
         class="updateCard"
@@ -65,44 +51,19 @@
       >
         EDIT
       </button>
+      <br />
       <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+      <td>Rank: {{ cardRank(card.rank) }}</td>
     </div>
-    <!-- <div
-      class="cards"
-      v-for="card in this.$store.state.cards"
-      v-bind:key="card.cardID"
-    >
-      {{ card.cardID }}
-      {{ card.question }}
-      {{ card.answer }}
-      {{ card.rank }} -->
-    <!-- <button
-      type="button"
-      class="updateCard"
-      @click="
-        $router.push({ name: 'update-card', params: { cardID: card.cardID } })
-      "
-    >
-      EDIT
-    </button> -->
-    <!-- <button type="button" @click="removeCards(card.cardID)">DELETE</button> -->
-    <td>Rank: {{ cardRank(card.rank) }}</td>
-    <!-- </tr> -->
-  </div>
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
-// import Search from '../components/Search.vue'
 export default {
   components: {},
   data() {
     return {
-      // filter: {
-      //   question: '',
-      //   answer: ''
-      // },
       card: {
         deckID: this.$store.state.currentDeckID,
         question: "",
@@ -115,20 +76,7 @@ export default {
     this.retrieveCards();
     this.getDeckID();
   },
-  //  components: {
-  //    Search
-  //  },
   computed: {
-    //  filteredList() {
-    //   let filteredCards = this.$store.state.cards;
-    //   if( this.filter.question != "" ) {
-    //     filteredCards = filteredCards.filter(card => card.question.toLowerCase().includes(this.filter.question.toLowerCase()))
-    //   }
-    //   if( this.filter.answer != "" ) {
-    //     filteredCards = filteredCards.filter(card => card.answer.toLowerCase().includes(this.filter.answer.toLowerCase()))
-    //   }
-    //   return filteredCards;
-    // },
     findIndex() {
       let ID = "";
       this.$store.state.decks.forEach((deck) => {
@@ -176,7 +124,6 @@ export default {
     removeCards(cardID) {
       authService.deleteCard(cardID).then((response) => {
         if (response.status === 204) {
-          //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
           location.reload();
         }
       });
