@@ -40,20 +40,11 @@ export default {
             answer: '',
             rank: ''
         },
-                updatedCard: {
-            
-            deckID: this.$store.state.currentDeckID,
-            question: '',
-            answer: '',
-            rank: 0
-            
-        },
     }  
   }, 
    created(){
         this.retrieveCards();
         this.getDeckID();
-        this.findIndex;
    },
   //  components: {
   //    Search
@@ -106,28 +97,11 @@ export default {
         this.$store.commit("SET_CARDS", response.data);
       });
     },
-
-    removeCards(givenCardID) {
-      authService.deleteCard(givenCardID).then(response => {
-        if (response.status === 204) {
-          alert("Card deleted!");
-          this.$store.commit("DELETE_CARDS", givenCardID);
-          location.reload();
-        }
-      });
-    },
-        updateQuestion(givenCard) {
-      authService.deleteCard(givenCard).then(response => {
-        if (response.status === 200) {
-          alert("Card changed!");
-          this.$store.commit("DELETE_CARDS", givenCard);
-
     removeCards(cardID) {
       authService.deleteCard(cardID).then(response => {
         if (response.status === 204) {
         //this.$router.push({name: 'deck-with-cards', params: {deckID: this.card.deckID}});
           location.reload();
-
         }
       });
     },
@@ -140,22 +114,7 @@ export default {
       return bg;
     }
   },
-  computed: {
-    findIndex() {
-      let ID = ''
-      this.$store.state.decks.forEach(deck => {
-       if(deck.deckID == this.$store.state.currentDeckID) {
-            ID = this.$store.state.decks.indexOf(deck)
-        }
-      });
-      return ID;
-    },
-  }
-  
 }
-
-
-
 </script>
 
 <style>
