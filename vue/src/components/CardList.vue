@@ -8,31 +8,6 @@
       
       <button type="button" class="createCard" @click="$router.push('/create-card')">Add Card</button>
       <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
-<<<<<<< HEAD
-      <table class="table">
-               <thead>
-          <tr>
-            <th>Card ID</th>
-            <th>Question</th>
-            <th>Answer</th>
-            <th>Rank</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="cards" v-for="card in this.$store.state.cards" 
-            v-bind:key="card.cardID">
-            <td> {{ card.cardID }} </td>
-            <td> {{ card.question }}</td>
-            <td> {{ card.answer }}</td>
-            <td> {{ card.rank }}</td>
-            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">DELETE</button></td>
-            <td> <button type="button" class="delete-icon" @click="updateQuestion(card.cardID)">EDIT QUESTION</button></td>
-            <td> <button type="button" class="delete-icon" @click="removeCards(card.cardID)">EDIT ANSWER</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <input type="text">
-=======
       <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
        <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
         <div class="cards"
@@ -46,7 +21,6 @@
         <button type="button" @click="removeCards(card.cardID)">DELETE</button>
         <!-- </tr> -->
         </div>
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
   </div>
 </template>
 
