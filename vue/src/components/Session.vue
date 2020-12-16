@@ -5,7 +5,7 @@
 
 <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
 
-<div class="checked">Score: {{ score }} </div>
+<!-- <div class="checked">Score: {{ score }} </div> -->
 <!-- <div v-if="this.$store.state.cards[0].answer">
   <button @click="correct">Correct</button> -->
 <!-- </div> -->
@@ -198,7 +198,6 @@ body {
   .flip-enter, .flip-leave {
     transform: rotateY(180deg);
     opacity: 0;
-  
   }
   
 </style>
