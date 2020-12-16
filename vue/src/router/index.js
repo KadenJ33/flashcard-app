@@ -64,7 +64,7 @@ const router = new Router({
       name: "create-deck",
       component: CreateDeck,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -72,7 +72,7 @@ const router = new Router({
       name: "deck-with-cards",
       component: DeckWithCards,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -80,7 +80,7 @@ const router = new Router({
       name: "create-card",
       component: CreateCard,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -88,7 +88,7 @@ const router = new Router({
       name: "view-session",
       component: Session,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -96,7 +96,7 @@ const router = new Router({
       name: "update-card",
       component: UpdateCard,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -104,7 +104,7 @@ const router = new Router({
       name: "update-deck",
       component: UpdateDeck,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
   
