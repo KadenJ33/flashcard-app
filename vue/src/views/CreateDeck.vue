@@ -16,6 +16,8 @@
         required
       />
       <button type="submit">Create Deck</button>
+
+      <button type="button" class="createCard" @click="$router.push('/')">Cancel</button>
     </form>
   </div>
 </template>

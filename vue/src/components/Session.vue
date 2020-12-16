@@ -44,9 +44,9 @@
 <button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
 <br/>
 <button v-on:click="markCorrect()">Mark Correct</button>
+<br/>
 <button v-on:click="endSession()">End Session</button>
-
-<br>
+<br/>
 <button type="button" class="viewResults" @click="$router.push('/view-results')">View Results</button>
     </div>
   <!-- </div> -->
@@ -69,7 +69,6 @@ export default ({
           if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
             this.currentCardIndex += 1
           } else {
-            this.$store.commit("SET_NUMBER_OF_CORRECT", this.correctNumber);
             this.endSession()
           }
     },
@@ -84,17 +83,17 @@ export default ({
           this.update(this.$store.state.cards[this.currentCardIndex].cardID)
           this.correctNumber += 1
       }
+      this.$store.commit("SET_NUMBER_OF_CORRECT", this.correctNumber);
       this.changeCardIndex()
       this.isCorrect = false
     },
     endSession() {
-
+      this.$router.push('/view-results')
     },
     update(id) {
             authService
             .markCardCorrect(id)
             .then(response => {
-
             })
              .catch(error => {
                 console.error(error);
