@@ -7,11 +7,7 @@
       </div>
     </div>
 
-    <button
-      type="button"
-      class="createCard"
-      @click="$router.push('/create-card')"
-    >
+    <button type="button" class="createCard" @click="checkIf10Cards()">
       Add Card
     </button>
     <button
@@ -20,6 +16,23 @@
       @click="$router.push('/view-session')"
     >
       Start Session
+    </button>
+    <button
+      type="button"
+      class="viewSession"
+      @click="$router.push('/view-session')"
+    >
+      Start Lightning Round Session
+    </button>
+    <button
+      type="button"
+      class="viewSession"
+      @click="$router.push('/view-session')"
+    >
+      Start Random Session
+    </button>
+    <button type="button" class="createCard" @click="$router.push('/')">
+      Choose Another Deck
     </button>
     <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
        <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
@@ -40,6 +53,19 @@
           {{ card.answer }}
         </div>
       </div>
+      <button
+        type="button"
+        class="updateCard"
+        @click="
+          $router.push({
+            name: 'update-card',
+            params: { cardID: card.cardID },
+          })
+        "
+      >
+        EDIT
+      </button>
+      <button type="button" @click="removeCards(card.cardID)">DELETE</button>
     </div>
     <!-- <div
       class="cards"
@@ -50,7 +76,7 @@
       {{ card.question }}
       {{ card.answer }}
       {{ card.rank }} -->
-    <button
+    <!-- <button
       type="button"
       class="updateCard"
       @click="
@@ -58,34 +84,10 @@
       "
     >
       EDIT
-    </button>
-    <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+    </button> -->
+    <!-- <button type="button" @click="removeCards(card.cardID)">DELETE</button> -->
+    <td>Rank: {{ cardRank(card.rank) }}</td>
     <!-- </tr> -->
-  <div>
-    
-     <!-- <h2> {{ $store.state.decks[findIndex].name }} </h2>
-      <h3> {{ $store.state.decks[findIndex].description }} </h3> -->
-     
-      <h1>Your card list</h1>
-      
-      <button type="button" class="createCard" @click="checkIf10Cards()">Add Card</button>
-      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Session</button>
-      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Lightning Round Session</button>
-      <button type="button" class="viewSession" @click="$router.push('/view-session')">Start Random Session</button>
-      <button type="button" class="createCard" @click="$router.push('/')">Choose Another Deck</button>
-      <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
-       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
-        <tr class="cards"
-        v-for="card in this.$store.state.cards" 
-        v-bind:key="card.cardID">
-        <td> {{ card.cardID }} </td>
-       <td> {{ card.question }} </td>
-       <td> {{ card.answer }} </td>
-       <td> Rank: {{cardRank(card.rank)}}</td>
-        <button type="button" class="updateCard" @click="$router.push({name: 'update-card', params:{cardID: card.cardID}})">EDIT</button>
-        <button type="button" @click="removeCards(card.cardID)">DELETE</button>
-        <!-- </tr> -->
-        </tr>
   </div>
 </template>
 

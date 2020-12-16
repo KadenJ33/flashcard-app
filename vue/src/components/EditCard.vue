@@ -2,26 +2,6 @@
   <div>
     <h1>UPDATE</h1>
 
-    <form>
-      <label for="question"
-        >Enter your new question, prompt, word, etc...</label
-      >
-      <input
-        type="text"
-        id="question"
-        name="question"
-        v-model="card.question"
-      />
-      <label for="answer"
-        >Enter your new answer, response, definiton, etc..</label
-      >
-      <input type="text" id="answer" name="answer" v-model="card.answer" />
-      <button type="button" @click="update(card.cardID, card)">
-        Submit Change
-      </button>
-    </form>
-    <h1>UPDATE</h1>
-
     <form @submit.prevent="update(card.cardID, card)">
       <label for="question"
         >Enter your new question, prompt, word, etc...</label

@@ -30,7 +30,11 @@
           {{ deck.name }} <br />
           <br />
           {{ deck.description }}
+          <br />
+          <br />
+          <div class="rank">Rank: {{ deckRank(deck.rank) }}</div>
         </div>
+
         <!-- <td>{{ deck.deckID }}</td> -->
         <div class="buttonWrapper">
           <button
@@ -66,51 +70,6 @@
           </button>
         </div>
       </div>
-      <tbody>
-        <tr
-          class="decks"
-          v-for="deck in this.$store.state.decks"
-          v-bind:key="deck.userID"
-        >
-          <td>{{ deck.name }}</td>
-          <td>{{ deck.description }}</td>
-          <td>{{ deck.deckID }}</td>
-          <td>Rank: {{ deckRank(deck.rank) }}</td>
-          <td>
-            <button
-              type="button"
-              class="updateDeck"
-              @click="
-                $router.push({
-                  name: 'update-deck',
-                  params: { deckID: deck.deckID },
-                })
-              "
-            >
-              EDIT
-            </button>
-            <button
-              type="button"
-              class="delete-icon"
-              @click="removeDecks(deck.deckID)"
-            >
-              DELETE
-            </button>
-            <button
-              id="view-deck"
-              type="button"
-              @click="
-                $router.push({
-                  name: 'deck-with-cards',
-                  params: { deckID: deck.deckID },
-                })
-              "
-            >
-              View Cards
-            </button>
-          </td>
-        </tr>
-      </tbody>
     </div>
   </div>
 </template>
@@ -178,6 +137,10 @@ export default {
 </script>
 
 <style scoped>
+.rank {
+  margin-top: -30px;
+  font-size: 15px;
+}
 .updateDeck {
   font-family: "Roboto", sans-serif;
   width: 150px;

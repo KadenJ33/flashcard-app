@@ -23,21 +23,23 @@
         />
         <div class="button">
           <button type="submit" @click="newCard()">Create Card</button>
+          <button
+            id="view-deck"
+            type="button"
+            @click="
+              $router.push({
+                name: 'deck-with-cards',
+                params: { deckID: $store.state.currentDeckID },
+              })
+            "
+          >
+            Cancel
+          </button>
         </div>
-  <div>
-      <h3>Create a card!</h3>  
-      <form @submit.prevent="newCard()"> 
-       <label for="question">Add a front!(question, prompt, word, etc...)</label>
-       <input v-model="card.question" type="text" id="question" required/>
-       <label for="answer">Add a back!(answer, response, definition, etc...)</label>
-       <input v-model="card.answer" type="text" id="answer" required/>
-       <button type="submit">Create Card</button>
-      <button id="view-deck" type="button" @click="$router.push({
-   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }})">Cancel</button>
       </form>
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import authService from "../services/AuthService";
@@ -86,7 +88,7 @@ input[type="text"] {
 }
 
 .container {
-  position: fixed;
+  position: absolute;
   z-index: -3;
 
   background-image: linear-gradient(

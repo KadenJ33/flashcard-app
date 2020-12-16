@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="container">
+  <div class="container">
     <div class="wrapper">
       <div class="clip-text clip-text_thirteen clip-text--cover">
         Update Deck
@@ -26,30 +26,13 @@
         <button type="button" @click="updateDeck(deck.deckID, deck)">
           Submit Change
         </button>
+        <button type="button" class="createCard" @click="$router.push('/')">
+          Cancel
+        </button>
       </form>
     </div>
-  </div> -->
-  <div>
-    <div>UPDATE DECK</div>
-
-    <form @submit.prevent="updateDeck(deck.deckID, deck)">
-      <label for="name">Enter your new Deck Name</label>
-      <input type="text" id="name" name="name" v-model="deck.name" required />
-      <label for="description">Enter your new Deck Description</label>
-      <input
-        type="text"
-        id="description"
-        name="description"
-        v-model="deck.description"
-        required
-      />
-      <button type="submit">Submit Change</button>
-      <button type="button" class="createCard" @click="$router.push('/')">
-        Cancel
-      </button>
-    </form>
   </div>
-</template>
+</template> 
 
 <script>
 import authService from "../services/AuthService.js";
