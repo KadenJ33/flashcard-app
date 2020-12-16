@@ -25,20 +25,16 @@
         <transition name="flip">
           <p  class="card">
               {{ this.$store.state.cards[currentCardIndex].flipped ? this.$store.state.cards[currentCardIndex].answer : this.$store.state.cards[currentCardIndex].question }}
-              
-              
-              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
           </p>
         </transition>
-
       </p>
-
   </div>
 
 
 <button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
 <br/>
 <button v-on:click="markCorrect()">Mark Correct</button>
+<button v-on:click="endSession()">End Session</button>
 
     </div>
   </div>
@@ -51,7 +47,8 @@ export default ({
   data(){
   return {  
       currentCardIndex: 0,
-      isCorrect: false
+      isCorrect: false,
+      correctNumber: 0
   };
   },
 
@@ -60,7 +57,8 @@ export default ({
           if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
             this.currentCardIndex += 1
           } else {
-            this.currentCardIndex = 0;
+            this.$store.commit("SET_NUMBER_OF_CORRECT", this.correctNumber);
+            this.endSession()
           }
     },
       toggleCard(card) {
@@ -70,11 +68,15 @@ export default ({
       this.isCorrect = true
     },
     getNextCard() {
-      this.changeCardIndex()
       if (this.isCorrect == true) {
           this.update(this.$store.state.cards[this.currentCardIndex].cardID)
+          this.correctNumber += 1
       }
+      this.changeCardIndex()
       this.isCorrect = false
+    },
+    endSession() {
+
     },
     update(id) {
             authService
