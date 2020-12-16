@@ -34,14 +34,6 @@ export default {
     return axios.post('/create-card', card);
   },
 
-<<<<<<< HEAD
-  updateCard(card) {
-    return axios.put('/update-card', card);
-  },
-
-  deleteCard(cardID) {
-    return axios.delete(`/delete-card/${cardID}`);
-=======
   updateCard(cardID, card) {
     return axios.put(`/update-card/${cardID}`, card);
   },
@@ -51,7 +43,6 @@ export default {
   },
   updateDeck(deckID, deck) {
     return axios.put(`/update-deck/${deckID}`, deck);
->>>>>>> a28dda07cd7de3a29a16d6f06bd2250e9d797a8e
   }
 
 }
