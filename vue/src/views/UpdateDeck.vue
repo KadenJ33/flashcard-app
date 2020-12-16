@@ -2,12 +2,12 @@
 <div>
   <div>UPDATE DECK</div>
   
-  <form>
+  <form @submit.prevent="updateDeck(deck.deckID, deck)">
       <label for="name">Enter your new Deck Name</label>
-      <input type="text" id="name" name="name" v-model="deck.name"/>
+      <input type="text" id="name" name="name" v-model="deck.name" required/>
       <label for="description">Enter your new Deck Description</label>
-      <input type="text" id="description" name="description" v-model="deck.description"/> 
-      <button type="button" @click="updateDeck(deck.deckID, deck)">Submit Change</button>
+      <input type="text" id="description" name="description" v-model="deck.description" required/> 
+      <button type="submit">Submit Change</button>
   </form>
 </div>
 </template>
