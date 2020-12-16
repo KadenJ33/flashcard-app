@@ -51,8 +51,14 @@ public class cardController {
     }
 
     
+<<<<<<< HEAD
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/delete-card/{cardID}", method = RequestMethod.DELETE)
+=======
+   
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/card/{cardID}", method = RequestMethod.DELETE)
+>>>>>>> b8b1a3000607b7d394374af8440d565296ccdfa4
     public void deleteCard(@Valid @PathVariable("cardID") int cardID) {
     	myCardDAO.deleteCard(cardID);
     }

@@ -31,59 +31,80 @@
 
   <div class="container">
 
-      <p v-on:click="toggleCard($store.state.cards[0])">
+      <p v-on:click="toggleCard($store.state.cards[currentCardIndex])">
         <transition name="flip">
-          <p class="card" >
-              {{ this.$store.state.cards[0].flipped ? this.$store.state.cards[0].question : this.$store.state.cards[0].answer }}
+          <p  class="card">
+              {{ this.$store.state.cards[currentCardIndex].flipped ? this.$store.state.cards[currentCardIndex].question : this.$store.state.cards[currentCardIndex].answer }}
               
-               <button class="correct" @click="isCorrect()">V</button>
-          
+              
+              <!-- <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span> -->
           </p>
         </transition>
+
       </p>
 
   </div>
 
 
-
-
+<button type="button" class="delete-icon" v-on:click="getNextCard()">NEXT CARD</button>
+<br/>
+<button v-on:click="isCorrect()">Mark Correct</button>
 
     </div>
   <!-- </div> -->
 </template>
 
 <script>
-
 import authService from '../services/AuthService';
 export default ({
-  data () {
-    return {
-      score: 0,
-    }
+
+  data(){
+  return {  
+      currentCardIndex : 0
+  };
   },
 
-   created(){
-        this.retrieveCards();
-        
-   },
   methods: {
-    toggleCard: function(card) {
+        findCurrentCardIndex() {
+          if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
+            this.currentCardIndex += 1
+          } else {
+            this.currentCardIndex = 0;
+          }
+
+    },
+      toggleCard(card) {
       card.flipped = !card.flipped;
     },
-          retrieveCards() {
-      authService.getCards(1).then((response) => {
-        this.$store.commit("SET_CARDS", response.data);
-        // this.$store.commit("ADD_FLIP_PROPERTY", false);
-      });
-    },
-        getDeckID() {
-      this.$store.commit("SET_ID", 1);
-    },
-    isCorrect(){
-      this.score++;
-    },
-  },
+    isCorrect() {
 
+    },
+    getNextCard() {
+                if (this.currentCardIndex + 1 <= this.$store.state.cards.length - 1) {
+            this.currentCardIndex += 1
+          } else {
+            this.currentCardIndex = 0;
+          }
+          
+    },
+    newCard() {
+            authService
+            .addCard(this.card)
+            .then(response => {
+                if (response.status == 201) {
+                    this.$router.push({name: "deck-with-cards", params: {currentDeckId: this.currentDeckID}})
+                }
+            })
+             .catch(error => {
+                console.error(error);
+            });
+        },
+
+
+  },
+  computed: {
+
+  }
 });
 
 
@@ -168,7 +189,6 @@ body {
   
   .correct:hover{
     opacity: 1;
-    /* transform: rotate(360deg); */
   }
   
   .flip-enter-active {

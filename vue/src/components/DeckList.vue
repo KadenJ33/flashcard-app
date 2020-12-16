@@ -19,6 +19,7 @@
           </tr>
         </thead>
         <tbody>
+          
           <tr class="decks" 
             v-for="deck in this.$store.state.decks"
             v-bind:key="deck.userID">
