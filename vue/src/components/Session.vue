@@ -1,37 +1,52 @@
 <template>
-  <div class="page">
-    <div class="wrapper">
-      <div class="clip-text clip-text_thirteen clip-text--cover">
-        Study Session
-      </div>
+  <div>
+    <!-- <div class="session" @click=flipCard> -->
+    <h1>SESSION COMPONENT</h1>
+
+    <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+    <!-- <div class="checked">Score: {{ score }} </div> -->
+    <!-- <div v-if="this.$store.state.cards[0].answer">
+  <button @click="correct">Correct</button> -->
+    <!-- </div> -->
+
+    <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  -->
+
+    <!-- <div class="container">
+
+      <p v-on:click="toggleCard(card)" v-for="(card) in this.$store.state.cards">
+        <transition name="flip">
+          <p v-bind:key="card.flipped" class="card">
+              {{ card.flipped ? card.back : card.front }}
+              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
+          </p>
+        </transition>
+      </p>
+
+  </div> -->
+
+    <div class="container">
+      <p v-on:click="toggleCard($store.state.cards[currentCardIndex])">
+        <transition name="flip">
+          <p class="card">
+            {{
+              this.$store.state.cards[currentCardIndex].flipped
+                ? this.$store.state.cards[currentCardIndex].answer
+                : this.$store.state.cards[currentCardIndex].question
+            }}
+          </p>
+        </transition>
+      </p>
     </div>
-    <div class="containers">
-      <div class="child">
-        <div class="childer">
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>{{ this.$store.state.cards[currentCardIndex].question }}</div>
-          </div>
-          <div class="flip-card-back">
-            <div>
-              {{ this.$store.state.cards[currentCardIndex].answer }}
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-        </div>
-    </div>
-  <div class="buttons">
-    <button type="button" v-on:click="getNextCard()">
-      Next Card
+
+    <button type="button" class="delete-icon" v-on:click="getNextCard()">
+      NEXT CARD
     </button>
-
-    <button type="button" v-on:click="markCorrect()">Mark Correct</button>
-
-    <button type="button" v-on:click="endSession()">End Session</button>
-
+    <br />
+    <button v-on:click="markCorrect()">Mark Correct</button>
+    <br />
+    <button v-on:click="endSession()">End Session</button>
+    <br />
     <button
       type="button"
       class="viewResults"
@@ -39,8 +54,8 @@
     >
       View Results
     </button>
-    </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -52,9 +67,6 @@ export default {
       isCorrect: false,
       correctNumber: 0,
     };
-  },
-  created() {
-    this.$store.commit("SET_NUMBER_OF_CORRECT", this.correctNumber);
   },
   methods: {
     changeCardIndex() {
@@ -85,161 +97,106 @@ export default {
     update(id) {
       authService
         .markCardCorrect(id)
+        .then((response) => {})
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   computed: {},
 };
 </script>
 
-<style scoped>
-
-.page {
-  position: absolute;
-  z-index: -3;
-
- background-image: linear-gradient(
-    0deg,
-    rgb(239 128 102 / 79%) 40%,
-    rgba(3 83 99 / 2%) 64%
-  );
-  min-height: 100%;
-  min-width: 1024px;
-
-  width: 100%;
-  height: auto;
-
-  top: 0;
-  left: 0;
+<style>
+body {
+  font-family: "Montserrat", sans-serif;
 }
 
-.wrapper {
-  text-align: center;
-  position: relative;
-  padding-top: 50px;
+p {
+  align-content: center;
+  list-style-type: none;
+  padding: 10px 10px;
+  transition: all 0.3s ease;
 }
 
-.clip-text {
-  font-size: 5em;
-  font-weight: bold;
-  line-height: 1;
-  position: relative;
-  display: inline-block;
-  margin: 0.45em;
-  padding: 0.5em 0.75em;
-  text-align: center;
-  color: #fff;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.clip-text:before,
-.clip-text:after {
-  position: absolute;
-  content: "";
+.container {
+  max-width: 100%;
+  padding: 5em;
 }
 
-.clip-text:before {
-  z-index: -2;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: inherit;
-}
-
-.clip-text:after {
-  position: absolute;
-  z-index: -1;
-  top: 0.125em;
-  right: 0.125em;
-  bottom: 0.125em;
-  left: 0.125em;
-  background-color: #000;
-  opacity: 0.8;
-}
-
-.clip-text--cover,
-.clip-text--cover:before {
-  background-size: cover;
-  background-position: 50% 50%;
-}
-.clip-text_thirteen {
-  background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
-}
-
-.flip-card {
-  background-color: transparent;
-  width: 700px;
+.card {
+  display: block;
+  width: 650px;
   height: 350px;
-  perspective: 1000px;
-}
-
-.flip-card-inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  padding: 80px 50px;
+  background-color: #51aae5;
+  border-radius: 7px;
+  margin: 5px;
   text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-  text-align: center;
-  vertical-align: middle;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  font-family: Comic sans ms;
-}
-
-.flip-card-front {
-  border-radius: 25px;
-  background-color: rgb(106, 90, 205);
-  color: rgba(248, 198, 126, 1);
-  font-size: 100px;
-}
-
-.flip-card-back {
-  border-radius: 25px;
-  background-color: rgba(248, 198, 126, 1);
-  color: rgb(106, 90, 205);
-  transform: rotateY(180deg);
-  font-size: 50px;
-}
-
-button {
-  font-family: "Roboto", sans-serif;
-  width: 150px;
-  margin-right: 10px;
-  background-color: rgb(127, 181, 127);
-  border-radius: 50px;
-}
-
-button:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  text-align: center;
-}
-
-.buttons {
-  text-align: center;
-  padding-top: 50px;
-}
-
-.containers {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
+  line-height: 27px;
+  cursor: pointer;
   position: relative;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  -webkit-box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
+  -moz-box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
+  box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
+  will-change: transform;
 }
 
-.childer {
+p:hover {
+  transform: scale(1.1);
+}
 
+p:nth-child(-n + 3) .card {
+  background-color: #e65f51;
+}
+
+p:nth-child(2n + 1) .card {
+  background-color: #a17de9;
+}
+
+p:nth-child(4n) .card {
+  background-color: #feca34;
+}
+
+p:nth-child(5n-2) .card {
+  background-color: #51aae5;
+}
+
+p:nth-child(4n + 4) .card {
+  background-color: #feca34;
+}
+
+p:nth-child(-7n + 7) .card {
+  background-color: #e46055;
+}
+
+.correct {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  opacity: 0.4;
+  transition: all 0.5s ease;
+}
+
+.correct:hover {
+  opacity: 1;
+}
+
+.flip-enter-active {
+  transition: all 0.4s ease;
+}
+
+.flip-leave-active {
+  display: none;
+}
+
+.flip-enter,
+.flip-leave {
+  transform: rotateY(180deg);
+  opacity: 0;
 }
 </style>
