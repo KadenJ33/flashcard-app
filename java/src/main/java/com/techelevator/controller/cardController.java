@@ -58,38 +58,5 @@ public class cardController {
     public void deleteCard(@Valid @PathVariable("cardID") int cardID) {
     	myCardDAO.deleteCard(cardID);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //probably not needed
-    @RequestMapping(path = "/card/mark-right", method = RequestMethod.PUT)
-    public void markRight(@Valid @RequestBody cardDTO card) {
-    	myCardDAO.updateCorrectTrue(card.getCardID());
-    }
-    
-    @RequestMapping(path = "/card/mark-wrong", method = RequestMethod.PUT)
-    public void markWrong(@Valid @RequestBody cardDTO card) {
-    	myCardDAO.updateCorrectFalse(card.getCardID());
-    }
-    
-   //update question
-    
-    @RequestMapping(path = "/update-question", method = RequestMethod.PUT)
-    public void updateQuestion(@Valid @RequestBody cardDTO card) {
-    	myCardDAO.updateQuestion(card.getQuestion(), card.getCardID());
-    }
-   //update answer
-    
-    @RequestMapping(path = "/update-answer", method = RequestMethod.PUT)
-    public void updateAnswer(@Valid @RequestBody cardDTO card) {
-    	myCardDAO.updateAnswer(card.getAnswer(), card.getCardID());
-    }
-   //delete card 
-   
+
 }

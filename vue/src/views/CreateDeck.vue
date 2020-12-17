@@ -1,9 +1,14 @@
 <template>
+
+  
+
   <div class="page">
     <div class="wrapper">
+    
       <div class="clip-text clip-text_thirteen clip-text--cover">
         Create Deck
       </div>
+    
     </div>
     <form @submit.prevent="newDeck()">
       <input type="text" id="answer" placeholder="Name" v-model="deck.name" required />
@@ -18,8 +23,10 @@
       <button type="submit">Create Deck</button>
 
       <button type="button" class="createCard" @click="$router.push('/')">Cancel</button>
+
     </form>
   </div>
+  
 </template>
 <script>
 import authService from "../services/AuthService";
@@ -111,25 +118,23 @@ button:hover {
 }
 .wrapper {
   text-align: center;
-  padding-top: 150px;
+  position: relative;
+  padding-top: 50px;
 }
 
-/* Clip text element */
 .clip-text {
-  font-size: 6em;
+  font-size: 5em;
   font-weight: bold;
   line-height: 1;
   position: relative;
   display: inline-block;
-  margin: 0.25em;
+  margin: 0.45em;
   padding: 0.5em 0.75em;
   text-align: center;
   color: #fff;
   -webkit-background-clip: text;
-
   -webkit-text-fill-color: transparent;
 }
-
 .clip-text:before,
 .clip-text:after {
   position: absolute;
@@ -161,7 +166,6 @@ button:hover {
   background-size: cover;
   background-position: 50% 50%;
 }
-
 .clip-text_thirteen {
   background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
 }
