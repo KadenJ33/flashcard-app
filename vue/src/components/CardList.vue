@@ -62,14 +62,14 @@
           })
         "
       >
-        EDIT
+        Edit
       </button>
       <button
         type="button"
         class="deleteCard"
         @click="removeCards(card.cardID)"
       >
-        DELETE
+        Delete
       </button>
     </div>
   </div>
@@ -309,7 +309,6 @@ export default {
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  font-family: Comic sans ms;
 }
 
 .cards:active .flip-box-inner {
@@ -321,7 +320,8 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-
+  font-family: Comic sans ms;
+  font-size: 30px;
   backface-visibility: hidden;
 }
 

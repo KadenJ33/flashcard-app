@@ -27,7 +27,6 @@
           <div class="rank">Rank: {{ deckRank(deck.rank) }}</div>
         </div>
 
-        <!-- <td>{{ deck.deckID }}</td> -->
         <div class="buttonWrapper">
           <button
             type="button"
@@ -39,14 +38,14 @@
               })
             "
           >
-            EDIT
+            Edit
           </button>
           <button
             type="button"
             class="delete-icon"
             @click="removeDecks(deck.deckID)"
           >
-            DELETE
+            Delete
           </button>
           <button
             id="view-deck"
@@ -58,7 +57,7 @@
               })
             "
           >
-            VIEW CARDS
+            View Cards
           </button>
         </div>
       </div>
@@ -136,11 +135,11 @@ export default {
   font-family: Comic sans ms;
 }
 .deckDesc {
-  font-size: 20px;
+  font-size: 26px;
 }
 .rank {
   font-size: 17px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .updateDeck {
   font-family: "Roboto", sans-serif;
@@ -185,7 +184,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  /* font-family: Comic Sans MS; */
+
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -10px white,
     0 10px 1px -4px rgba(0, 0, 0, 0.15), 12px 20px 0 -10px white,
     13px 29px 1px -12px rgba(0, 0, 0, 0.15), 15px 25px 0 -10px white,
@@ -211,7 +210,6 @@ export default {
   left: 0;
 }
 
-/* Clip text element */
 .clip-text {
   font-size: 5em;
   font-weight: bold;
