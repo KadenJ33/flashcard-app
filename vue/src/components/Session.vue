@@ -7,6 +7,7 @@
     </div>
     <div class="containers">
       <div class="child">
+        <div class="childer">
       <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-card-front">
@@ -18,6 +19,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
         </div>
     </div>
@@ -83,14 +85,6 @@ export default {
     update(id) {
       authService
         .markCardCorrect(id)
-        .then((response) => {
-          if (response.status === 200) {
-          alert("Deck updated!");
-        }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
   },
   computed: {},
@@ -172,15 +166,13 @@ export default {
   background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
 }
 
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   background-color: transparent;
   width: 700px;
   height: 350px;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  perspective: 1000px;
 }
 
-/* This container is needed to position the front and back side */
 .flip-card-inner {
   position: absolute;
   width: 100%;
@@ -190,35 +182,35 @@ export default {
   transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-/* Position the front and back side */
 .flip-card-front,
 .flip-card-back {
   text-align: center;
+  vertical-align: middle;
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  font-family: Comic sans ms;
 }
 
-/* Style the front side (fallback if image is missing) */
 .flip-card-front {
   border-radius: 25px;
   background-color: rgb(106, 90, 205);
   color: rgba(248, 198, 126, 1);
+  font-size: 100px;
 }
 
-/* Style the back side */
 .flip-card-back {
   border-radius: 25px;
   background-color: rgba(248, 198, 126, 1);
   color: rgb(106, 90, 205);
   transform: rotateY(180deg);
+  font-size: 50px;
 }
 
 button {
@@ -237,19 +229,17 @@ button:hover {
 .buttons {
   text-align: center;
   padding-top: 50px;
-  padding-left: 40px;
 }
 
 .containers {
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 50%;
+  position: relative;
 }
 
 .childer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
 }
 </style>
