@@ -63,9 +63,9 @@ label {
 }
 input {
   font-family: "Roboto", sans-serif;
-  width: 200px;
-  margin: 20px auto;
-  background: linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
+  width: 250px;
+  margin: 10px auto;
+  background: linear-gradient(to right, #f8c77e 0%, #f8c77e 50%, #deb871 99%);
   border-radius: 10px;
 }
 input:hover {
@@ -82,10 +82,10 @@ input:hover {
 
 button {
   font-family: "Roboto", sans-serif;
-  width: 150px;
+  width: 250px;
   margin-right: 10px;
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+  background-color: rgba(125 189 127);
+  border-radius: 50px;
 }
 button:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
