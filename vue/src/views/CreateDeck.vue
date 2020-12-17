@@ -1,9 +1,14 @@
 <template>
+
+  
+
   <div class="page">
     <div class="wrapper">
+    
       <div class="clip-text clip-text_thirteen clip-text--cover">
         Create Deck
       </div>
+    
     </div>
     <form @submit.prevent="newDeck()">
       <input type="text" id="answer" placeholder="Name" v-model="deck.name" required />
@@ -18,8 +23,10 @@
       <button type="submit">Create Deck</button>
 
       <button type="button" class="createCard" @click="$router.push('/')">Cancel</button>
+
     </form>
   </div>
+  
 </template>
 <script>
 import authService from "../services/AuthService";
