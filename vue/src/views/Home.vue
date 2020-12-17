@@ -1,12 +1,17 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+    <view-decks />
   </div>
 </template>
 
 <script>
+import ViewDecks from "@/views/ViewDecks.vue";
+
 export default {
-  name: "home"
+  name: "home",
+  components: {
+    ViewDecks,
+  },
 };
 </script>
+
