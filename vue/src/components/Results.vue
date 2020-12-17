@@ -8,16 +8,45 @@
       <h1>
          You got {{$store.state.numberOfCorrect}} out of {{$store.state.cards.length}} flashcards right.
       </h1>
+      <button @click="celebrate()">CELEBRATE!</button>
       <button id="view-deck" type="button" @click="$router.push({
-   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }})">Return To Deck</button>
+   name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }}, stopConfetti())">Return To Deck</button>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueConfetti from 'vue-confetti'
+ 
+  Vue.use(VueConfetti)
 export default {
-
 name: 'results',
 
+
+methods: {
+   stopConfetti() {
+      this.$confetti.stop();
+   }, 
+   celebrate() {
+      
+      this.$confetti.update({
+          particles: [
+            {
+              type: 'heart',
+            },
+            {
+              type: 'circle',
+            },
+          ],
+          defaultColors: [
+            'red',
+            'pink',
+            '#ba0000'
+          ],
+        });
+        this.$confetti.start();
+   }
+}
 }
 </script>
 
