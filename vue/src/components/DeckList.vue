@@ -12,26 +12,18 @@
     </div>
 
     <div class="container">
-      <!-- <table class="table">
-        <thead>
-          <tr>
-            <th>Deck Name</th>
-            <th>Description</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody> -->
       <div
         class="decks"
         v-for="deck in this.$store.state.decks"
         v-bind:key="deck.userID"
       >
         <div class="deckCard">
-          {{ deck.name }} <br />
-          <br />
-          {{ deck.description }}
-          <br />
-          <br />
+          <div class="deckName">
+            {{ deck.name }}
+          </div>
+          <div class="deckDesc">
+            {{ deck.description }}
+          </div>
           <div class="rank">Rank: {{ deckRank(deck.rank) }}</div>
         </div>
 
@@ -66,7 +58,7 @@
               })
             "
           >
-            View Cards
+            VIEW CARDS
           </button>
         </div>
       </div>
@@ -137,15 +129,24 @@ export default {
 </script>
 
 <style scoped>
+.deckName {
+  font-size: 40px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-family: Comic sans ms;
+}
+.deckDesc {
+  font-size: 20px;
+}
 .rank {
-  margin-top: -30px;
-  font-size: 15px;
+  font-size: 17px;
+  margin-top: 10px;
 }
 .updateDeck {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
 }
 
@@ -153,7 +154,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
 }
 
@@ -161,7 +162,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
 }
 
@@ -184,6 +185,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  /* font-family: Comic Sans MS; */
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -10px white,
     0 10px 1px -4px rgba(0, 0, 0, 0.15), 12px 20px 0 -10px white,
     13px 29px 1px -12px rgba(0, 0, 0, 0.15), 15px 25px 0 -10px white,
@@ -196,8 +198,8 @@ export default {
 
   background-image: linear-gradient(
     0deg,
-    rgb(252, 220, 226) 9%,
-    rgba(255, 255, 255, 1) 64%
+    rgb(239 128 102 / 79%) 40%,
+    rgba(3 83 99 / 2%) 64%
   );
   min-height: 100%;
   min-width: 1024px;
@@ -276,7 +278,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
 }
 .add {
@@ -293,7 +295,7 @@ export default {
   margin-top: 0px;
 }
 
-.add:hover {
+button:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>

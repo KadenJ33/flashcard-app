@@ -3,39 +3,38 @@
     <div class="wrapper">
       <div class="clip-text clip-text_thirteen clip-text--cover">
         {{ $store.state.decks[findIndex].name }}
-        <!-- <h3>{{ $store.state.decks[findIndex].description }}</h3> -->
       </div>
     </div>
 
-    <button type="button" class="createCard" @click="checkIf10Cards()">
+    <button type="button" class="addCard" @click="checkIf10Cards()">
       Add Card
     </button>
     <button
       type="button"
-      class="viewSession"
+      class="startSession"
       @click="$router.push('/view-session')"
     >
       Start Session
     </button>
-    <button
-      type="button"
-      class="viewSession"
-      @click="$router.push('/view-session')"
-    >
-      Start Lightning Round Session
-    </button>
-    <button
-      type="button"
-      class="viewSession"
-      @click="$router.push('/view-session')"
-    >
-      Start Random Session
-    </button>
-    <button type="button" class="createCard" @click="$router.push('/')">
-      Choose Another Deck
-    </button>
-    <!-- <td><input type="text" id="questionFilter" v-model="filter.question"/></td>
-       <tr v-for="card in filteredList" v-bind:key="card.cardID" > -->
+    <div class="buttonWrapper">
+      <button
+        type="button"
+        class="lightningSession"
+        @click="$router.push('/view-session')"
+      >
+        Start Lightning Round Session
+      </button>
+      <button
+        type="button"
+        class="randomSession"
+        @click="$router.push('/view-session')"
+      >
+        Start Random Session
+      </button>
+      <button type="button" class="createDeck" @click="$router.push('/')">
+        Choose Another Deck
+      </button>
+    </div>
 
     <div
       class="cards"
@@ -44,7 +43,7 @@
     >
       <div
         class="flip-box-inner"
-        ontouchstart="this.classList.toggle('hover');"
+        v-on:click="toggleCard($store.state.cards[currentCardIndex])"
       >
         <div class="flip-box-front">
           {{ card.question }}
@@ -65,43 +64,25 @@
       >
         EDIT
       </button>
-      <button type="button" @click="removeCards(card.cardID)">DELETE</button>
+      <button
+        type="button"
+        class="deleteCard"
+        @click="removeCards(card.cardID)"
+      >
+        DELETE
+      </button>
     </div>
-    <!-- <div
-      class="cards"
-      v-for="card in this.$store.state.cards"
-      v-bind:key="card.cardID"
-    >
-      {{ card.cardID }}
-      {{ card.question }}
-      {{ card.answer }}
-      {{ card.rank }} -->
-    <!-- <button
-      type="button"
-      class="updateCard"
-      @click="
-        $router.push({ name: 'update-card', params: { cardID: card.cardID } })
-      "
-    >
-      EDIT
-    </button> -->
-    <!-- <button type="button" @click="removeCards(card.cardID)">DELETE</button> -->
-    <td>Rank: {{ cardRank(card.rank) }}</td>
-    <!-- </tr> -->
   </div>
 </template>
 
+
 <script>
 import authService from "../services/AuthService";
-// import Search from '../components/Search.vue'
+
 export default {
   components: {},
   data() {
     return {
-      // filter: {
-      //   question: '',
-      //   answer: ''
-      // },
       card: {
         deckID: this.$store.state.currentDeckID,
         question: "",
@@ -114,20 +95,7 @@ export default {
     this.retrieveCards();
     this.getDeckID();
   },
-  //  components: {
-  //    Search
-  //  },
   computed: {
-    //  filteredList() {
-    //   let filteredCards = this.$store.state.cards;
-    //   if( this.filter.question != "" ) {
-    //     filteredCards = filteredCards.filter(card => card.question.toLowerCase().includes(this.filter.question.toLowerCase()))
-    //   }
-    //   if( this.filter.answer != "" ) {
-    //     filteredCards = filteredCards.filter(card => card.answer.toLowerCase().includes(this.filter.answer.toLowerCase()))
-    //   }
-    //   return filteredCards;
-    // },
     findIndex() {
       let ID = "";
       this.$store.state.decks.forEach((deck) => {
@@ -167,6 +135,9 @@ export default {
     getDeckID() {
       this.$store.commit("SET_ID", this.$route.params.deckID);
     },
+    toggleCard(card) {
+      card.flipped = !card.flipped;
+    },
     retrieveCards() {
       authService.getCards(this.$route.params.deckID).then((response) => {
         this.$store.commit("SET_CARDS", response.data);
@@ -193,6 +164,49 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  position: absolute;
+  z-index: -3;
+
+  background-image: linear-gradient(
+    0deg,
+    rgb(239 128 102 / 79%) 40%,
+    rgba(3 83 99 / 2%) 64%
+  );
+  min-height: 100%;
+  min-width: 100%;
+
+  width: 100%;
+  height: auto;
+
+  top: 0;
+  left: 0;
+}
+.wrapper {
+  text-align: center;
+}
+
+.clip-text {
+  font-size: 6em;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0.25em;
+  padding: 0.1em 0.3em;
+  text-align: center;
+  color: #fff;
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.clip-text:before,
+.clip-text:after {
+  position: absolute;
+  content: "";
+}
+
 .clip-text:before {
   z-index: -2;
   top: 0;
@@ -222,50 +236,72 @@ export default {
 .clip-text_thirteen {
   background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
 }
-
-.createCard {
+.addCard {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
 }
 
-.createCard:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-.createCard {
-  margin-top: 10px;
-}
-
-.viewSession {
+.startSession {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(127 181 127);
   border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
+}
+.randomSession {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.lightningSession {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
+  margin-right: 10px;
 }
 
-.viewSession:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+.createDeck {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
+}
+.buttonWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 6px;
+  margin-bottom: 80px;
 }
 
 .cards {
   background-color: transparent;
   width: 300px;
   height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+
+  perspective: 1000px;
+  margin: 50px;
+  position: relative;
+  display: inline-block;
 }
 
-/* This container is needed to position the front and back side */
 .flip-box-inner {
   position: relative;
   width: 100%;
@@ -273,14 +309,13 @@ export default {
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  font-family: Comic sans ms;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.cards:hover .flip-box-inner {
+.cards:active .flip-box-inner {
   transform: rotateY(180deg);
 }
 
-/* Position the front and back side */
 .flip-box-front,
 .flip-box-back {
   position: absolute;
@@ -290,15 +325,34 @@ export default {
   backface-visibility: hidden;
 }
 
-/* Style the front side */
 .flip-box-front {
   background-color: #bbb;
+  padding: 50px 10px 10px 20px;
 }
 
-/* Style the back side */
 .flip-box-back {
   background-color: dodgerblue;
 
   transform: rotateY(180deg);
+}
+button:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.updateCard {
+  font-family: "Roboto", sans-serif;
+  width: 100px;
+
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
+  margin-left: 45px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.deleteCard {
+  font-family: "Roboto", sans-serif;
+  width: 100px;
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
 }
 </style>
