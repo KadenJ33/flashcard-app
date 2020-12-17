@@ -2,15 +2,17 @@
   <div class="page">
      <div class="wrapper">
         <div class="clip-text clip-text_thirteen clip-text--cover">
-           Results!
+           Your Session Results!
         </div>
      </div>
       <h1>
          You got {{$store.state.numberOfCorrect}} out of {{$store.state.cards.length}} flashcards right.
       </h1>
+      <div class="button">
       <button @click="celebrate()">CELEBRATE!</button>
       <button id="view-deck" type="button" @click="$router.push({
    name: 'deck-with-cards', params: {deckID: $store.state.currentDeckID }}, stopConfetti())">Return To Deck</button>
+  </div>
   </div>
 </template>
 
@@ -57,8 +59,8 @@ methods: {
 
   background-image: linear-gradient(
     0deg,
-    rgb(252, 220, 226) 9%,
-    rgba(255, 255, 255, 1) 64%
+    rgb(239 128 102 / 79%) 40%,
+    rgba(3 83 99 / 2%) 64%
   );
   min-height: 100%;
   min-width: 1024px;
@@ -122,5 +124,19 @@ methods: {
 }
 .clip-text_thirteen {
   background-image: url(https://i.ytimg.com/vi/MU3qrgR2Kkc/maxresdefault.jpg);
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+  width: 150px;
+  background-color: rgb(127 181 127);
+  border-radius: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+button:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>
