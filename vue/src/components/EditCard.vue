@@ -31,6 +31,7 @@
           <button
             id="view-deck"
             type="button"
+            class="cancelButton"
             @click="
               $router.push({
                 name: 'deck-with-cards',
@@ -89,6 +90,10 @@ export default {
 </script>
 
 <style scoped>
+.cancelButton {
+  background-color: rgba(248, 198, 126, 1);
+  margin-bottom: 50px;
+}
 input[type="text"] {
   text-align: center;
   font-size: 24px;
@@ -114,6 +119,7 @@ input[type="text"] {
 }
 .wrapper {
   text-align: center;
+  margin-top: 50px;
 }
 
 .clip-text {
@@ -206,6 +212,8 @@ button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
+
+  background-color: rgb(127, 181, 127);
 }
 button:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);

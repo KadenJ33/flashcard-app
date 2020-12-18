@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <div class="clip-text clip-text_thirteen clip-text--cover">
-        {{ $store.state.decks[findIndex].name }}
-      </div>
+      <div class="clip-text clip-text_thirteen clip-text--cover">Your Deck</div>
     </div>
 
     <button type="button" class="addCard" @click="checkIf10Cards()">
@@ -17,20 +15,6 @@
       Start Session
     </button>
     <div class="buttonWrapper">
-      <button
-        type="button"
-        class="lightningSession"
-        @click="$router.push('/view-session')"
-      >
-        Start Lightning Round Session
-      </button>
-      <button
-        type="button"
-        class="randomSession"
-        @click="$router.push('/view-session')"
-      >
-        Start Random Session
-      </button>
       <button type="button" class="createDeck" @click="$router.push('/')">
         Choose Another Deck
       </button>
@@ -47,32 +31,35 @@
       >
         <div class="flip-box-front">
           {{ card.question }}
-          {{ card.cardID }}
+
+          <div class="rank">Rank: {{ cardRank(card.rank) }}</div>
         </div>
         <div class="flip-box-back">
           {{ card.answer }}
         </div>
       </div>
       <br />
-      <button
-        type="button"
-        class="updateCard"
-        @click="
-          $router.push({
-            name: 'update-card',
-            params: { cardID: card.cardID },
-          })
-        "
-      >
-        Edit
-      </button>
-      <button
-        type="button"
-        class="deleteCard"
-        @click="removeCards(card.cardID)"
-      >
-        Delete
-      </button>
+      <div class="editDelete">
+        <button
+          type="button"
+          class="updateCard"
+          @click="
+            $router.push({
+              name: 'update-card',
+              params: { cardID: card.cardID },
+            })
+          "
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="deleteCard"
+          @click="removeCards(card.cardID)"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -164,6 +151,11 @@ export default {
 </script>
 
 <style scoped>
+.rank {
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+  padding-top: 25px;
+}
 .container {
   position: absolute;
   z-index: -3;
@@ -184,6 +176,7 @@ export default {
 }
 .wrapper {
   text-align: center;
+  padding-top: 50px;
 }
 
 .clip-text {
@@ -252,7 +245,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgb(127 181 127);
+  background-color: rgba(248, 198, 126, 1);
   border-radius: 10px;
   display: block;
   margin-left: auto;
@@ -280,7 +273,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgb(127 181 127);
+  background-color: skyblue;
   border-radius: 10px;
 }
 .buttonWrapper {
@@ -297,9 +290,12 @@ export default {
   height: 200px;
 
   perspective: 1000px;
-  margin: 50px;
+  margin-right: 50px;
+  margin-left: 80px;
+  margin-top: -40px;
   position: relative;
   display: inline-block;
+  margin-bottom: 150px;
 }
 
 .flip-box-inner {
@@ -323,15 +319,17 @@ export default {
   font-family: Comic sans ms;
   font-size: 30px;
   backface-visibility: hidden;
+  border-radius: 25px;
 }
 
 .flip-box-front {
-  background-color: #bbb;
+  background-color: rgb(106, 90, 205);
+
   padding: 50px 10px 10px 20px;
 }
 
 .flip-box-back {
-  background-color: dodgerblue;
+  background-color: rgba(248, 198, 126, 1);
 
   transform: rotateY(180deg);
 }

@@ -152,7 +152,7 @@ export default {
   font-family: "Roboto", sans-serif;
   width: 150px;
 
-  background-color: rgb(127 181 127);
+  background-color: rgba(248, 198, 126, 1);
   border-radius: 10px;
 }
 
@@ -267,7 +267,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -277,8 +277,10 @@ export default {
   width: 400px;
   height: 50px;
 
-  background-color: rgb(127 181 127);
+  background-color: skyblue;
   border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 90px;
 }
 .add {
   white-space: nowrap;
@@ -291,7 +293,7 @@ export default {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .container {
-  margin-top: 0px;
+  margin-top: 70px;
 }
 
 button:hover {
