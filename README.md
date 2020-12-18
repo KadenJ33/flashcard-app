@@ -1,3 +1,3 @@
-# Final Capstone
+#Flashcard Study Application
 
-This directory contains all of the starter projects for the final capstone. The Vue starter project works with both the Java and .NET backend projects with a single configuration update that you can read about in the README. Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.
+This project was made for a final capstone at Tech Elevator. After just three months of learning to program with no prior knowledge my team and I were able to make this. I focused on functionality throughout the front and back-end during this week and a half of work. 
