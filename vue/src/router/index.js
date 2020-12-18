@@ -5,6 +5,13 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import CreateDeck from '../views/CreateDeck.vue'
+import  DeckWithCards from '../views/DeckWithCards.vue'
+import CreateCard from '../views/CreateCard.vue'
+import Session from '../views/ViewSession.vue'
+import UpdateCard from '../views/UpdateCard.vue'
+import UpdateDeck from '../views/UpdateDeck.vue'
+import Results from '../views/ViewResults.vue'
 
 Vue.use(Router)
 
@@ -53,6 +60,63 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/create-deck",
+      name: "create-deck",
+      component: CreateDeck,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/deck-with-cards/:deckID",
+      name: "deck-with-cards",
+      component: DeckWithCards,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/create-card",
+      name: "create-card",
+      component: CreateCard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/view-session/",
+      name: "view-session",
+      component: Session,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/update-card/:cardID",
+      name: "update-card",
+      component: UpdateCard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/update-deck/:deckID",
+      name: "update-deck",
+      component: UpdateDeck,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/view-results/",
+      name: "view-results",
+      component: Results,
+      meta: {
+        requiresAuth: true
+      }
+    },
+  
   ]
 })
 
